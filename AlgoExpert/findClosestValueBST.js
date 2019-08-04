@@ -1,5 +1,5 @@
-const arr = [10,5,15,2,5,1];
-// const arr = [10,5,15,2,5,1,13,22,14];
+//const arr = [10,5,15,2,5,1];
+const arr = [10,5,15,2,5,1,13,22,14];
 
 
 function BST(value=null, left=null, right=null) {
