@@ -1,7 +1,3 @@
-//const arr = [10,5,15,2,5,1];
-const arr = [10,5,15,2,5,1,13,22,14];
-
-
 function BST(value=null, left=null, right=null) {
       this.value = value;
       this.left = left;
@@ -33,7 +29,37 @@ arr.map(elem => {
 })
 
 function findClosestValueInBst(tree, target) {
+  let matches = [];
+  if (tree.value === target) return tree.value;
 
-}
+  else if (target < tree.value ) {
+    matches.push(tree.value);
+    if (tree.left) {
+        matches = matches.concat(findClosestValueInBst(tree.left, target));
+      }
+      else {
+        console.log(matches);
+        return matches;
+      };
+    }
+
+  else { //if target>=tree.value
+    matches.push(tree.value);
+    if (tree.right) {
+        matches = matches.concat(findClosestValueInBst(tree.right, target));
+      }
+    else {
+      console.log(matches);
+      return matches;
+    }
+    }
+    return matches.reduce((acc, elem) => {
+      if (Math.abs(elem-target)<Math.abs(acc-target)) {
+        acc = elem;
+        return acc;
+      }
+      else return acc;
+    }, Infinity);
+  }
 
 
