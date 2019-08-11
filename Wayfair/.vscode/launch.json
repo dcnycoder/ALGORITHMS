@@ -10,7 +10,8 @@
       "name": "Launch Program",
       //"program": "${workspaceFolder}/howManyWordsInString.js",
       //"program": "/PROGRAMMING/Fullstack_Academy/ALGORITHMS/Wayfair/findLongestPalindrome.js"
-      "program": "/PROGRAMMING/Fullstack_Academy/ALGORITHMS/Wayfair/permutations.js"
+      //"program": "/PROGRAMMING/Fullstack_Academy/ALGORITHMS/Wayfair/permutations.js"
+      "program": "/PROGRAMMING/Fullstack_Academy/ALGORITHMS/Wayfair/permutationsSolution.js"
       //"program": "/PROGRAMMING/Fullstack_Academy/ALGORITHMS/Wayfair/balancedBrackets.js
     }
   ]
