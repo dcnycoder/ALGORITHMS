@@ -3,7 +3,6 @@ const int2 = 318;
 
 function sameFrequency(int1, int2) {
   //Edge cases:
-  console.log('int1 length: ', int1.toString().length);
   if (int1.toString().length != int2.toString().length) return false;
 
   let counter = {};
@@ -26,7 +25,7 @@ function sameFrequency(int1, int2) {
   for (key in counter) {
     if (counter[key] != 0) return false;
   }
-  console.log(`counter: `, counter)
+
   return true;
 
 }

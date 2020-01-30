@@ -13,7 +13,6 @@ function findSubstring (string, subString) {
       begin = i;
     }
     if (string[i] === subString[j]) {
-      //if (j===0 && !begin) {
       j+=1;
       if (j === subString.length) return i-subString.length+1;
     }

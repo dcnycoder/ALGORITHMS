@@ -10,8 +10,6 @@ function findLongestPalindrome (string) {
       i = center[0];
       j = center[center.length-1];
       palindrome = string.slice(i, j+1);
-      // i--;
-      // j++;
       while (i>-1 && j<string.length) {
         if (string[i-1] === string[j+1]) {
           palindrome = string[i-1]+palindrome+string[j+1];

@@ -11,4 +11,4 @@ function p(a, b, res) {
   return res;
 }
 
-console.log(p(["a", "b", "c"]));
+console.log(p(["a", "b", "c", "d"]));

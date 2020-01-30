@@ -1,5 +1,5 @@
-const array = [1,2,3];
-
+//const array = [1,2,3,4];
+const array = ['a','b','c','d'];
 function permutations(array, restArray = [], resultArray = []) {
   //let result = [];
   //if (array.length === 0) return [];
