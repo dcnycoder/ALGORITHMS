@@ -1,7 +1,7 @@
-const num = 3;
+const num = 7;
 
 function recursiveFactorial(num) {
-  if (num === 1) return 1;
+  if (num === 0) return 1;
 
   return num*recursiveFactorial(num-1);
 }
