@@ -1,5 +1,5 @@
-class Point(x, y) {
-  constructor() {
+class Point {
+  constructor(x, y) {
     this.x = x;
     this.y = y;
   }
@@ -15,7 +15,8 @@ class Point(x, y) {
   }
 }
 
-const A = new Point(3, 5);
-const B = new Point(10, 12);
+const A = new Point(1, 1);
+const B = new Point(1, 0);
 
-console.log(`The distance between A and B is ${Point.distance(A, B)}`)
+console.log(`The distance between A and B is ${Point.distance(A, B)}`);
+//console.log(`This is A: ${A.x}`);
