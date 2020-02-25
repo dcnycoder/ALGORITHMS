@@ -23,31 +23,38 @@ class LinkedList {
     return this;
   }
   popNode() {
-    if (this.length === 1) {
+    let result = undefined;
+    if (!this.head) return result;
+    else if (this.head === this.tail) {
       this.head = this.tail = null;
+      this.length = 0;
+      return this.head
     }
-    //the last node is at length-1 position:
     else {
-      let elem = this.head;
-      for (let i = 1; i<this.length-1; i++) {
-        console.log(`${i} elem: ${elem.value}`)
-        elem = elem.next;
+      let current = this.head;
+      while (current.next != this.tail) {
+        current = current.next;
       }
-      elem.next = null;
-      this.tail = elem;
-      this.length -= 1;
+      result = current.next;
+      this.tail = current;
+      current.next = null;
+      return result;
     }
-    return this;
   }
 }
 
 let list = new LinkedList(25);
 list.addNode(15);
 list.addNode(10);
-list.addNode(5);
-list.addNode(1);
+// list.addNode(5);
+// list.addNode(1);
+// list.addNode(0)
 
-console.dir('list: ', list);
+console.log('list: ', list);
 list.popNode();
+list.popNode();
+list.popNode();
+list.popNode();
+//console.log('pop result: ', list.popNode());
 console.log('list after pop(): ', list);
 
