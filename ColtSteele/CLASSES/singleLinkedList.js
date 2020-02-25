@@ -43,7 +43,7 @@ class LinkedList {
   }
   shift() {
     let result = undefined;
-    if (this.head === null) result = undefined;
+    if (this.head === null) return;
     else if (this.head === this.tail) {
       result = this.head;
       this.head = this.tail = null;
@@ -56,6 +56,18 @@ class LinkedList {
     }
     return result;
   }
+  unshift(value) {
+    let node = new Node(value);
+    if (this.head === null) {
+      this.head = this.tail = node;
+    }
+    else {
+      node.next = this.head;
+      this.length += 1;
+      this.head = node;
+    }
+    return this;
+  }
 
 }
 
@@ -67,8 +79,11 @@ list.addNode(10);
 // list.addNode(0)
 
 console.log('list: ', list);
-console.log('list.shift(): ', list.shift());
-console.log('list after shift(): ', list);
+console.log("list after unshift(100)", list.unshift(100));
+console.log("list after unshift(200)", list.unshift(200));
+// console.log('list.shift(): ', list.shift());
+// console.log('list.shift(): ', list.shift());
+// console.log('list after shift(): ', list);
 // list.popNode();
 // list.popNode();
 //console.log('pop result: ', list.popNode());
