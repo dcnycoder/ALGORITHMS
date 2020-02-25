@@ -41,6 +41,22 @@ class LinkedList {
       return result;
     }
   }
+  shift() {
+    let result = undefined;
+    if (this.head === null) result = undefined;
+    else if (this.head === this.tail) {
+      result = this.head;
+      this.head = this.tail = null;
+      this.length = 0;
+    }
+    else {
+      result = this.head;
+      this.head = this.head.next;
+      this.length -= 1;
+    }
+    return result;
+  }
+
 }
 
 let list = new LinkedList(25);
@@ -51,10 +67,10 @@ list.addNode(10);
 // list.addNode(0)
 
 console.log('list: ', list);
-list.popNode();
-list.popNode();
-list.popNode();
-list.popNode();
+console.log('list.shift(): ', list.shift());
+console.log('list after shift(): ', list);
+// list.popNode();
+// list.popNode();
 //console.log('pop result: ', list.popNode());
-console.log('list after pop(): ', list);
+//console.log('list after pop(): ', list);
 
