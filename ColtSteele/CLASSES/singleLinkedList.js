@@ -43,7 +43,7 @@ class LinkedList {
   }
   shift() {
     let result = undefined;
-    if (this.head === null) return;
+    if (!this.head) return;
     else if (this.head === this.tail) {
       result = this.head;
       this.head = this.tail = null;
@@ -58,7 +58,7 @@ class LinkedList {
   }
   unshift(value) {
     let node = new Node(value);
-    if (this.head === null) {
+    if (!this.head) {
       this.head = this.tail = node;
     }
     else {
@@ -68,7 +68,19 @@ class LinkedList {
     }
     return this;
   }
-
+  get(index) {
+    if (index>this.length) console.log("The index wasn't found!")
+    else {
+      let elem = this.head;
+      for (let i=1; i<=index; i++) {
+        elem = elem.next;
+      }
+      return elem;
+    }
+  }
+  set(index, value) {
+    return this.get(index).value = value;
+  }
 }
 
 let list = new LinkedList(25);
@@ -81,6 +93,9 @@ list.addNode(10);
 console.log('list: ', list);
 console.log("list after unshift(100)", list.unshift(100));
 console.log("list after unshift(200)", list.unshift(200));
+console.log('list.get(0): ', list.get(1));
+console.log('list.set(0, 500): ', list.set(0, 500));
+console.log('list')
 // console.log('list.shift(): ', list.shift());
 // console.log('list.shift(): ', list.shift());
 // console.log('list after shift(): ', list);
