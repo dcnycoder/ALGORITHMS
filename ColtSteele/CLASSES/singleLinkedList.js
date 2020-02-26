@@ -94,8 +94,8 @@ console.log('list: ', list);
 console.log("list after unshift(100)", list.unshift(100));
 console.log("list after unshift(200)", list.unshift(200));
 console.log('list.get(0): ', list.get(1));
-console.log('list.set(0, 500): ', list.set(0, 500));
-console.log('list')
+console.log('list.set(0, 500): ', list.set(1, 500));
+console.log('list after 0 set to 500: ', list)
 // console.log('list.shift(): ', list.shift());
 // console.log('list.shift(): ', list.shift());
 // console.log('list after shift(): ', list);
