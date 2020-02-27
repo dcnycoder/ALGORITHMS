@@ -12,6 +12,7 @@ class doublyLinkedList {
     this.tail = null;
     this.length = 0;
   }
+
   push(value) {
     let node = new Node(value);
     if (!this.head) {
@@ -24,6 +25,24 @@ class doublyLinkedList {
     }
     this.length += 1;
     return this;
+  }
+
+  pop() {
+    let result;
+    if (this.length <= 0) result = undefined;
+    else if (this.head === this.tail) {
+      result = this.head;
+      this.head = this.tail = null;
+      this.length -= 1;
+    }
+    else {
+      result = this.tail;
+      this.tail.prev.next = null;
+      this.tail = this.tail.prev;
+      this.length -= 1;
+    }
+
+    return result;
   }
 }
 
