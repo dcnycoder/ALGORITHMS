@@ -44,6 +44,23 @@ class doublyLinkedList {
 
     return result;
   }
+
+  printValues() {
+    let values = [];
+    let elem = this.head;
+    while (elem) {
+      values.push(elem.value);
+      elem = elem.next;
+    }
+    return values;
+  }
 }
+
+let list = new doublyLinkedList().push(1).push(2).push(3).push(4);
+
+console.log("List: ", list);
+console.log('pop result: ', list.pop());
+console.log('list after pop: ', list)
+//console.log("This.head.next: ", list.head.next.prev);
 
 
