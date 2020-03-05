@@ -1,7 +1,7 @@
 //Find the number of times a substring appears in a string
 
-let string = 'harold said haha in hamburg';
-let substring = 'a';
+let string = 'hrrold said haha in hamburg';
+let substring = 'ha';
 
 function naiveStringSearch(string, substring) {
   let counter = 0;
@@ -13,8 +13,9 @@ function naiveStringSearch(string, substring) {
         counter++;
         j = 0;
       }
+
     }
-    //else j = 0;
+    else j = 0;
   }
   return counter;
 }
