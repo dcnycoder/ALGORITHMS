@@ -14,7 +14,6 @@ class BST {
     let newNode = new Node(value)
     if (!this.root) {
       this.root = newNode;
-      //currentNode = this.root;
     }
     else if (currentNode === undefined) {
       currentNode = this.root;
@@ -42,4 +41,3 @@ class BST {
 let bst = new BST()
 console.log(bst.addRecursive(10).addRecursive(5).addRecursive(2).addRecursive(20).addRecursive(1));
 console.log(bst.root.left.left.left);
-
