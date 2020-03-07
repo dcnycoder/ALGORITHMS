@@ -33,6 +33,24 @@ class BST {
     }
       return this;
   }
+  find(value) {
+    if (!this.root) return false
+    else {
+      let current = this.root;
+      while (true) {
+        if (value<current.value) {
+          if (!current.left) break
+          else current = current.left
+        }
+        else if (value>current.value) {
+          if (!current.right) break
+          else current = current.right
+        }
+        else return true;
+      }
+      return false;
+    }
+  }
 }
 
 class Node {
@@ -45,4 +63,5 @@ class Node {
 
 let bst = new BST();
 console.log(bst.add(5).add(15).add(2));
+console.log("BST.find: ", bst.find(2));
 
