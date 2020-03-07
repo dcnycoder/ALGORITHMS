@@ -36,8 +36,21 @@ class BST {
     }
     return this
   } //end of addRecursive
+
+  findRecursive(value, currentNode = this.root) {
+    if (!currentNode) return false
+    else {
+      if (value<currentNode.value) {
+        return this.findRecursive(value, currentNode.left)
+      }
+      else if (value>currentNode.value) {
+        return this.findRecursive(value, currentNode.right)
+      }
+      else return true
+    }
+  }
 }
 
 let bst = new BST()
 console.log(bst.addRecursive(10).addRecursive(5).addRecursive(2).addRecursive(20).addRecursive(1));
-console.log(bst.root.left.left.left);
+console.log("BST find recursive: ", bst.findRecursive(5))
