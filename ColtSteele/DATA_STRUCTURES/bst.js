@@ -51,6 +51,22 @@ class BST {
       return false;
     }
   }
+
+  breadthFirstSearch() {
+    if (!this.root) return []
+    else {
+      function bfs(current) {
+        let result = []
+        result.push(current.value)
+        if (current.left) result = result.concat(bfs(current.left))
+        if (current.right) result = result.concat(bfs(current.right))
+        return result
+      }
+
+    return bfs(this.root);
+    }
+
+  }
 }
 
 class Node {
@@ -63,5 +79,6 @@ class Node {
 
 let bst = new BST();
 console.log(bst.add(5).add(15).add(2));
-console.log("BST.find: ", bst.find(2));
+//console.log("BST.find: ", bst.find(2));
+console.log("BFS: ", bst.breadthFirstSearch())
 
