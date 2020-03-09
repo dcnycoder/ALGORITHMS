@@ -65,8 +65,22 @@ class BST {
 
     return bfs(this.root);
     }
+  } // end of breadthFirstSearch
 
+  bfsIterative() {
+    let result = []
+    let current
+    if (this.root) {
+      let queue = [this.root]
+      while(queue.length>0) {
+        current = queue.pop()
+        result.push(current.value)
+        if (current.left) queue.unshift(current.left)
+        if (current.right) queue.unshift(current.right)
+    }
+    return result
   }
+  } //end of bfsIterative
 }
 
 class Node {
@@ -78,7 +92,7 @@ class Node {
 }
 
 let bst = new BST();
-console.log(bst.add(5).add(15).add(2));
+console.log(bst.add(5).add(15).add(2).add(100).add(-1));
 //console.log("BST.find: ", bst.find(2));
-console.log("BFS: ", bst.breadthFirstSearch())
+console.log("BFS: ", bst.bfsIterative())
 
