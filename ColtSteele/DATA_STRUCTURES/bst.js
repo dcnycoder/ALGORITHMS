@@ -52,19 +52,24 @@ class BST {
     }
   }
 
-  breadthFirstSearch() {
-    if (!this.root) return []
-    else {
-      function bfs(current) {
-        let result = []
-        result.push(current.value)
-        if (current.left) result = result.concat(bfs(current.left))
-        if (current.right) result = result.concat(bfs(current.right))
-        return result
-      }
-
-    return bfs(this.root);
+  breadthFirstSearch(queue = undefined) {
+    let result = []
+    if (queue === undefined && this.root) {
+      let queue = [this.root]
+      return this.breadthFirstSearch(queue)
     }
+    else if (queue && queue.length>0) {
+      const current = queue.shift()
+      result.push(current.value)
+      if (current.left) {
+        queue.push(current.left);
+      }
+      if (current.right) {
+        queue.push(current.right)
+      }
+      return result = result.concat(this.breadthFirstSearch(queue))
+    }
+    else return result //the queue length is 0
   } // end of breadthFirstSearch
 
   bfsIterative() {
@@ -81,6 +86,22 @@ class BST {
     return result
   }
   } //end of bfsIterative
+
+  dfs(current) {
+    let result = []
+    if (current === undefined && this.root) {
+      current = this.root
+      result = result.concat(this.dfs(current))
+    }
+    else if (current) {// the node is given
+      result.push(current.value)
+      if (current.left) result = result.concat(this.dfs(current.left))
+      if (current.right) result = result.concat(this.dfs(current.right))
+    }
+    //else return result //no node provided and no this.root, then return empty array
+
+    return result
+  }
 }
 
 class Node {
@@ -92,7 +113,7 @@ class Node {
 }
 
 let bst = new BST();
-console.log(bst.add(5).add(15).add(2).add(100).add(-1));
+console.log(bst.add(50).add(30).add(100).add(15).add(35).add(105));
 //console.log("BST.find: ", bst.find(2));
-console.log("BFS: ", bst.bfsIterative())
+console.log("BFS: ", bst.breadthFirstSearch())
 
