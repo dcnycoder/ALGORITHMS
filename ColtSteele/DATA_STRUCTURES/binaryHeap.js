@@ -50,8 +50,10 @@ class BinaryHeap {
         temp = this.values[swappedIndex]
         this.values[swappedIndex] = this.values[currentIndex]
         this.values[currentIndex] = temp
+
+        return this.trickleDown(swappedIndex)
       }
-      return this.trickleDown(swappedIndex)
+      else return this.values //short circuit if there were no swaps
     }
 
     //if no more children:
