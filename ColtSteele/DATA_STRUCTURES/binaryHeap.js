@@ -29,25 +29,30 @@ class BinaryHeap {
     let current = this.values.pop()
     let currentIndex = 0
     this.values[0] = current
-    this.trickleDown(currentIndex, 1)
-    this.trickleDown(currentIndex, 2)
+    return this.trickleDown(currentIndex, 1)
+    // this.trickleDown(currentIndex, 2)
     console.log('this.values after pop: ', this.values)
-    return this.values
+    //return this.values
   } //end of removeMax()
 
-  trickleDown(currentIndex = 0, childPosition) {
+  trickleDown(currentIndex = 0) {
     //do it recursively
+    let firstChildIndex = currentIndex*2+1
+    let secondChildIndex = currentIndex*2+2
 
-    //get child of currentIndex depending on childPosition (1 or 2):
-    let ChildIndex = currentIndex * 2 + childPosition
-    let temp
+    //if current element's both children exist:
+    if (this.values[firstChildIndex] && this.values[secondChildIndex]) {
+      let swappedIndex, temp
+      //swap the elements:
+       swappedIndex = (this.values[firstChildIndex]>this.values[secondChildIndex])? firstChildIndex : secondChildIndex
 
-    if (this.values[ChildIndex] && this.values[ChildIndex]>this.values[currentIndex]) {
-      temp = this.values[currentIndex]
-      this.values[currentIndex] = this.values[ChildIndex]
-      this.values[ChildIndex] = temp
-      return this.trickleDown(ChildIndex, childPosition)
+      temp = this.values[swappedIndex]
+      this.values[swappedIndex] = this.values[currentIndex]
+      this.values[currentIndex] = temp
+
+      return this.trickleDown(swappedIndex)
     }
+
     //if no more children:
     else return this.values
 
@@ -56,6 +61,7 @@ class BinaryHeap {
 
 let bh = new BinaryHeap()
 
-console.log("bh value added: ", bh.add(50).add(48).add(47).add(11).add(200).add(19).add(400))
+console.log("bh value added: ", bh.add(50).add(48).add(47).add(11).add(200).add(19).add(400).add(500).add(1).add(3))
+
 
 console.log("bh.removeMax: ", bh.removeMax())
