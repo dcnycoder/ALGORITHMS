@@ -29,28 +29,33 @@ class BinaryHeap {
     let current = this.values.pop()
     let currentIndex = 0
     this.values[0] = current
-    this.trickleDown(this.values, currentIndex)
-
-
-    return this
+    this.trickleDown(currentIndex, 1)
+    this.trickleDown(currentIndex, 2)
+    console.log('this.values after pop: ', this.values)
+    return this.values
   } //end of removeMax()
 
-  trickleDown(values, currentIndex) {
-    //do it recursively with a recursive helper function:
-    //or just reuse bubbleUp function by reverting it
+  trickleDown(currentIndex = 0, childPosition) {
+    //do it recursively
 
-    //get children of currentIndex:
-    let child1 = values[currentIndex*2+1]
-    let child2 = values[currentIndex*2+2]
+    //get child of currentIndex depending on childPosition (1 or 2):
+    let ChildIndex = currentIndex * 2 + childPosition
+    let temp
 
-    //perform bubbleUp on child1 and possibly child2 (if child1 is not larget than the currentIndex)
-
+    if (this.values[ChildIndex] && this.values[ChildIndex]>this.values[currentIndex]) {
+      temp = this.values[currentIndex]
+      this.values[currentIndex] = this.values[ChildIndex]
+      this.values[ChildIndex] = temp
+      return this.trickleDown(ChildIndex, childPosition)
+    }
+    //if no more children:
+    else return this.values
 
   } //end of trickleDown()
 }
 
 let bh = new BinaryHeap()
 
-console.log("bh value added: ", bh.add(50).add(30).add(45).add(100).add(200).add(19).add(400))
+console.log("bh value added: ", bh.add(50).add(48).add(47).add(11).add(200).add(19).add(400))
 
-//console.log("bh.removeMax: ", bh.removeMax())
+console.log("bh.removeMax: ", bh.removeMax())
