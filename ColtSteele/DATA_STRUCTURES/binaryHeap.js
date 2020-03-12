@@ -26,13 +26,13 @@ class BinaryHeap {
 
   removeMax() {
     if (!this.values) return null
+    let maximum = this.values.shift()
     let current = this.values.pop()
     let currentIndex = 0
     this.values[0] = current
-    return this.trickleDown(currentIndex, 1)
-    // this.trickleDown(currentIndex, 2)
+    this.trickleDown(currentIndex, 1)
     console.log('this.values after pop: ', this.values)
-    //return this.values
+    return maximum
   } //end of removeMax()
 
   trickleDown(currentIndex = 0) {
@@ -46,10 +46,11 @@ class BinaryHeap {
       //swap the elements:
        swappedIndex = (this.values[firstChildIndex]>this.values[secondChildIndex])? firstChildIndex : secondChildIndex
 
-      temp = this.values[swappedIndex]
-      this.values[swappedIndex] = this.values[currentIndex]
-      this.values[currentIndex] = temp
-
+      if (this.values[currentIndex]<this.values[swappedIndex]) {
+        temp = this.values[swappedIndex]
+        this.values[swappedIndex] = this.values[currentIndex]
+        this.values[currentIndex] = temp
+      }
       return this.trickleDown(swappedIndex)
     }
 
