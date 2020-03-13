@@ -26,7 +26,7 @@ class BinaryHeap {
 
   removeMax() {
     if (!this.values) return null
-    let maximum = this.values.shift()
+    let maximum = this.entries.slice(0,1)
     let current = this.values.pop()
     let currentIndex = 0
     this.values[0] = current

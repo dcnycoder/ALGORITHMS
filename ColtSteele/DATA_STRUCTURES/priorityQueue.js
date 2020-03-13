@@ -34,7 +34,7 @@ class PriorityQueue {
 
   removeMax() {
     if (!this.entries) return null
-    let maximum = this.entries.shift()
+    let maximum = this.entries.slice(0,1)
     let current = this.entries.pop()
     let currentIndex = 0
     this.entries[0] = current
@@ -72,4 +72,6 @@ class PriorityQueue {
 
 let pq = new PriorityQueue()
 console.log(pq.add(1, 100).add(4, 200).add(2, 300).add(40, 10))
+console.log('priority queue remove max: ', pq.removeMax())
+console.log("pq after removeMax: ", pq)
 
