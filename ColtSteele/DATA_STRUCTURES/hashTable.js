@@ -30,11 +30,18 @@ class HashTable {
   }
 
   get(value) {
-
+    //find the corresponding index in this.keyMap and return it's value
+    const index = this.hash(value)
+    let result = undefined
+    for (let i=0; i<this.keyMap[index].length; i++) {
+      if (this.keyMap[index][i][0] === value) result = this.keyMap[index][i][1]
+    }
+    return result
   }
 }
 
 let ht = new HashTable
 console.log('ht hash hello: ', ht.set(['blue', '#394043']))
 console.log('ht hash hello: ', ht.set(['blue', '#394043']))
+console.log('ht get blue: ', ht.get('blue'))
 
