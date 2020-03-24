@@ -48,7 +48,7 @@ class BST {
       }
       else return true
     }
-  }
+  } // end of findRecursive
 }
 
 let bst = new BST()

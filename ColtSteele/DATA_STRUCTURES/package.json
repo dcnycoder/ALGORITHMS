@@ -1,0 +1,13 @@
+{
+  "name": "DATA_STRUCTURES",
+  "version": "1.0.0",
+  "description": "",
+  "main": "binaryHeap.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
