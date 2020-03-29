@@ -1,23 +1,35 @@
+// interface color {
+// ]
+//['red', '#356883']
 var HashTable = /** @class */ (function () {
+    //keyMap: string[][] = [[], [], []]
+    //keyMap = [['red', '#356883'], ['red1', '#356883']]
     function HashTable(size) {
         if (size === void 0) { size = 153; }
+        this.size = size;
         this.keyMap = new Array(size);
+        //this.keyMap = [['red', '#356883'], ['red1', '#356883']]
     }
     HashTable.prototype.hash = function (key) {
         var primeNumber = 31;
         var total = 0;
         for (var i = 0; i < Math.min(key.length || 100); i++) {
-            var value = key[i].charCodeAt();
+            var value = key.charCodeAt(i);
             total = (total * primeNumber + value) % this.keyMap.length;
         }
         return total;
     };
+    //Structure of keyMaps: [['green', '#399043']]
     HashTable.prototype.set = function (value) {
         console.log('value before hashing: ', value);
         var index = this.hash(value[0]);
+        console.log('value: ', value);
         console.log('index: ', value[0], index);
-        if (!this.keyMap[index])
-            this.keyMap[index] = [value];
+        if (!this.keyMap[index]) {
+            //this.keyMap[index]: Array<Array> = []
+            console.log('typeof: ', typeof this.keyMap[index]);
+            this.keyMap[index].push(value);
+        }
         else {
             var valuePresent = this.keyMap[index].reduce(function (acc, elem) {
                 return acc || (value[0] === elem[0]) ? true : false;
@@ -28,12 +40,13 @@ var HashTable = /** @class */ (function () {
         }
         //console.log(this.keyMap[index], index)
     };
+    //Structure of keyMaps: [['green', '#399043']]
     HashTable.prototype.get = function (value) {
         //find the corresponding index in this.keyMap and return it's value
         var index = this.hash(value);
         var result = undefined;
         for (var i = 0; i < this.keyMap[index].length; i++) {
-            if (this.keyMap[index][i][0] === value)
+            if (this.keyMap[index][i][0] === value[0])
                 result = this.keyMap[index][i][1];
         }
         return result;
@@ -64,7 +77,7 @@ var HashTable = /** @class */ (function () {
                 return acc;
             }
             else {
-                acc = acc.push(elem[0]);
+                acc.push(elem[0]);
                 return acc;
             }
         }, []);

@@ -1,25 +1,44 @@
+// interface color {
+
+
+// ]
+
+//['red', '#356883']
+
+
 class HashTable {
-  //keyMap: Array<Array>
-  keyMap: [][] = [[], [], []]
-  constructor(size: number = 153) {
+  //keyMap: [][];
+  //keyMap: [][][]
+  //works:
+  keyMap: Array<Array<Array<string>>>
+  //keyMap: string[][] = [[], [], []]
+  //keyMap = [['red', '#356883'], ['red1', '#356883']]
+  constructor(public size: number = 153) {
     this.keyMap = new Array(size)
+    //this.keyMap = [['red', '#356883'], ['red1', '#356883']]
   }
 
-  hash(key) {
+  hash(key: string): number {
     const primeNumber = 31
     let total = 0
     for (let i = 0; i<Math.min(key.length || 100); i++) {
-      let value = key[i].charCodeAt()
+      let value = key.charCodeAt(i)
       total = (total*primeNumber+value)%this.keyMap.length
     }
     return total
   }
+  //Structure of keyMaps: [['green', '#399043']]
+  set(value: Array<string>) {
 
-  set(value: []) {
     console.log('value before hashing: ', value)
     const index = this.hash(value[0])
+    console.log('value: ', value)
     console.log('index: ', value[0], index)
-    if (!this.keyMap[index]) this.keyMap[index] = [value]
+    if (!this.keyMap[index]) {
+      //this.keyMap[index]: Array<Array> = []
+      console.log('typeof: ', typeof this.keyMap[index])
+      this.keyMap[index].push(value)
+    }
     else {
       let valuePresent = this.keyMap[index].reduce((acc, elem) =>
         {
@@ -32,12 +51,13 @@ class HashTable {
     //console.log(this.keyMap[index], index)
   }
 
-  get(value) {
+  //Structure of keyMaps: [['green', '#399043']]
+  get(value: string[]) {
     //find the corresponding index in this.keyMap and return it's value
     const index = this.hash(value)
     let result = undefined
     for (let i=0; i<this.keyMap[index].length; i++) {
-      if (this.keyMap[index][i][0] === value) result = this.keyMap[index][i][1]
+      if (this.keyMap[index][i][0] === value[0]) result = this.keyMap[index][i][1]
     }
     return result
   }
@@ -57,9 +77,9 @@ class HashTable {
     //   else return
     // })
 
-    let result: [[]] = this.keyMap
+    let result = this.keyMap
       .filter((elem) => elem.length>0)
-      .reduce((acc, elem) => {
+      .reduce((acc: [][], elem: [][]) => {
         console.log('acc: ', acc)
         console.log('elem in reduce ', elem)
         if (elem.length>1) {
@@ -71,7 +91,7 @@ class HashTable {
           return acc
         }
         else {
-          acc = acc.push(elem[0])
+          acc.push(elem[0])
           return acc
         }
 
