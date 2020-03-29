@@ -24,7 +24,8 @@ class HashTable {
     console.log('index: ', value[0], index)
     if (!this.keyMap[index]) {
       console.log('typeof: ', typeof this.keyMap[index])
-      this.keyMap[index].push(value)
+      this.keyMap[index] = [value]
+      //this.keyMap[index].push(value)
     }
     else {
       let valuePresent = this.keyMap[index].reduce((acc, elem) =>
@@ -63,9 +64,9 @@ class HashTable {
     //   else return
     // })
 
-    let result = this.keyMap
+    let result: string[][] = this.keyMap
       .filter((elem) => elem.length>0)
-      .reduce((acc: [][], elem: [][]) => {
+      .reduce((acc, elem) => {
         console.log('acc: ', acc)
         console.log('elem in reduce ', elem)
         if (elem.length>1) {
@@ -80,7 +81,6 @@ class HashTable {
           acc.push(elem[0])
           return acc
         }
-
       }, [])
 
 

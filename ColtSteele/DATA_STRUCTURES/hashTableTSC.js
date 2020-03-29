@@ -21,7 +21,8 @@ var HashTable = /** @class */ (function () {
         console.log('index: ', value[0], index);
         if (!this.keyMap[index]) {
             console.log('typeof: ', typeof this.keyMap[index]);
-            this.keyMap[index].push(value);
+            this.keyMap[index] = [value];
+            //this.keyMap[index].push(value)
         }
         else {
             var valuePresent = this.keyMap[index].reduce(function (acc, elem) {
