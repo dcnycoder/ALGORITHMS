@@ -1,14 +1,8 @@
-// interface color {
-// ]
-//['red', '#356883']
 var HashTable = /** @class */ (function () {
-    //keyMap: string[][] = [[], [], []]
-    //keyMap = [['red', '#356883'], ['red1', '#356883']]
     function HashTable(size) {
         if (size === void 0) { size = 153; }
         this.size = size;
         this.keyMap = new Array(size);
-        //this.keyMap = [['red', '#356883'], ['red1', '#356883']]
     }
     HashTable.prototype.hash = function (key) {
         var primeNumber = 31;
@@ -26,7 +20,6 @@ var HashTable = /** @class */ (function () {
         console.log('value: ', value);
         console.log('index: ', value[0], index);
         if (!this.keyMap[index]) {
-            //this.keyMap[index]: Array<Array> = []
             console.log('typeof: ', typeof this.keyMap[index]);
             this.keyMap[index].push(value);
         }
@@ -38,12 +31,11 @@ var HashTable = /** @class */ (function () {
             if (!valuePresent)
                 this.keyMap[index].push(value);
         }
-        //console.log(this.keyMap[index], index)
     };
     //Structure of keyMaps: [['green', '#399043']]
     HashTable.prototype.get = function (value) {
         //find the corresponding index in this.keyMap and return it's value
-        var index = this.hash(value);
+        var index = this.hash(value[0]);
         var result = undefined;
         for (var i = 0; i < this.keyMap[index].length; i++) {
             if (this.keyMap[index][i][0] === value[0])
@@ -102,5 +94,5 @@ console.log('ht hash hello: ', ht.set(['blue', '#394043']));
 console.log('ht hash hello: ', ht.set(['green', '#399043']));
 console.log('ht hash hello: ', ht.set(['red', '#356883']));
 //console.log('ht get blue: ', ht.get('blue'))
-//console.log('ht get green: ', ht.get('gree'))
+//console.log('ht get green: ', ht.get('green'))
 console.log("Ht.keys(): ", ht.keys());

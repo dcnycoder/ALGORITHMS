@@ -1,21 +1,9 @@
-// interface color {
-
-
-// ]
-
-//['red', '#356883']
-
-
 class HashTable {
-  //keyMap: [][];
   //keyMap: [][][]
   //works:
   keyMap: Array<Array<Array<string>>>
-  //keyMap: string[][] = [[], [], []]
-  //keyMap = [['red', '#356883'], ['red1', '#356883']]
   constructor(public size: number = 153) {
     this.keyMap = new Array(size)
-    //this.keyMap = [['red', '#356883'], ['red1', '#356883']]
   }
 
   hash(key: string): number {
@@ -35,7 +23,6 @@ class HashTable {
     console.log('value: ', value)
     console.log('index: ', value[0], index)
     if (!this.keyMap[index]) {
-      //this.keyMap[index]: Array<Array> = []
       console.log('typeof: ', typeof this.keyMap[index])
       this.keyMap[index].push(value)
     }
@@ -48,13 +35,12 @@ class HashTable {
       console.log('valuePresent: ', valuePresent)
       if (!valuePresent) this.keyMap[index].push(value)
     }
-    //console.log(this.keyMap[index], index)
   }
 
   //Structure of keyMaps: [['green', '#399043']]
   get(value: string[]) {
     //find the corresponding index in this.keyMap and return it's value
-    const index = this.hash(value)
+    const index: number = this.hash(value[0])
     let result = undefined
     for (let i=0; i<this.keyMap[index].length; i++) {
       if (this.keyMap[index][i][0] === value[0]) result = this.keyMap[index][i][1]
@@ -122,7 +108,7 @@ console.log('ht hash hello: ', ht.set(['green', '#399043']))
 console.log('ht hash hello: ', ht.set(['red', '#356883']))
 
 //console.log('ht get blue: ', ht.get('blue'))
-//console.log('ht get green: ', ht.get('gree'))
+//console.log('ht get green: ', ht.get('green'))
 
 console.log("Ht.keys(): ", ht.keys())
 
