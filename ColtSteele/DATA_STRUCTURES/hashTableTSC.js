@@ -70,20 +70,12 @@ var HashTable = /** @class */ (function () {
                 return acc;
             }
             else {
+                //supposed to be:
+                //acc.push(elem[0][0])
                 acc.push(elem[0]);
                 return acc;
             }
         }, []);
-        // .map(elem => {
-        //   //if (elem.length>0) {
-        //     console.log("elem: ", elem)
-        //     return elem.map(value => {
-        //       console.log('value: ', value)
-        //       console.log('value[0]: ', value[0])
-        //       return value[0]
-        //     })
-        //   //}
-        // })
         return result;
     };
     HashTable.prototype.values = function () {
