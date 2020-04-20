@@ -1,3 +1,4 @@
+"use strict";
 var HashTable = /** @class */ (function () {
     function HashTable(size) {
         if (size === void 0) { size = 153; }
@@ -57,12 +58,12 @@ var HashTable = /** @class */ (function () {
         //   })
         // }
         //   else return
-        // })
-        var result = this.keyMap
-            .filter(function (elem) { return elem.length > 0; })
+        // });
+        // var keyMap = this.keyMap;
+        // //let result: string[] = []
+        // var result;
+        let result = this.keyMap.filter(function (elem) { return elem.length > 0; })
             .reduce(function (acc, elem) {
-            console.log('acc: ', acc);
-            console.log('elem in reduce ', elem);
             if (elem.length > 1) {
                 acc = acc.concat(elem.map(function (value) {
                     return value[0];
@@ -70,15 +71,15 @@ var HashTable = /** @class */ (function () {
                 return acc;
             }
             else {
-                //supposed to be:
-                //acc.push(elem[0][0])
-                acc.push(elem[0]);
+                acc.push(elem[0][0]);
                 return acc;
             }
         }, []);
         return result;
     };
+
     HashTable.prototype.values = function () {
+
     };
     return HashTable;
 }());
@@ -89,3 +90,4 @@ console.log('ht hash hello: ', ht.set(['red', '#356883']));
 //console.log('ht get blue: ', ht.get('blue'))
 //console.log('ht get green: ', ht.get('green'))
 console.log("Ht.keys(): ", ht.keys());
+//# sourceMappingURL=hashTableTSC.js.map
