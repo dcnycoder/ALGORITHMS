@@ -73,6 +73,8 @@ var HashTable = /** @class */ (function () {
     };
     return HashTable;
 }());
+
+
 var ht = new HashTable;
 console.log('ht hash hello: ', ht.set(['blue', '#394043']));
 console.log('ht hash hello: ', ht.set(['green', '#399043']));
@@ -80,6 +82,6 @@ console.log('ht hash hello: ', ht.set(['red', '#356883']));
 //console.log('ht get blue: ', ht.get('blue'))
 //console.log('ht get green: ', ht.get('green'))
 console.log("Ht: ", ht)
-//console.log("Ht.keys(): ", ht.keys());
+console.log("Ht.keys(): ", ht.keys());
 console.log("Ht.values(): ", ht.values());
 
