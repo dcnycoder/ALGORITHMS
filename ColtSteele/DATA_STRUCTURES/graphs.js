@@ -16,9 +16,9 @@ class Graph {
   removeEdge(vertex1, vertex2) {
     if (this.adjacencyList[vertex1] && this.adjacencyList[vertex2]) {
       if (this.adjacencyList[vertex1].includes(vertex2))
-        this.adjacencyList[vertex1].splice(this.adjacencyList[vertex1].indexOf(vertex2), 1)
+      this.adjacencyList[vertex1] = this.adjacencyList[vertex1].filter(elem => elem != vertex2)
       if (this.adjacencyList[vertex2].includes(vertex1))
-        this.adjacencyList[vertex2].splice(this.adjacencyList[vertex2].indexOf(vertex1), 1)
+        this.adjacencyList[vertex2] = this.adjacencyList[vertex2].filter(elem => elem != vertex1)
       return this
     }
   }
