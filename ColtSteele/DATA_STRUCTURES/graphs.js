@@ -13,8 +13,17 @@ class Graph {
       return this
     }
   }
+  removeEdge(vertex1, vertex2) {
+    if (this.adjacencyList[vertex1] && this.adjacencyList[vertex2]) {
+      if (this.adjacencyList[vertex1].includes(vertex2))
+        this.adjacencyList[vertex1].splice(this.adjacencyList[vertex1].indexOf(vertex2), 1)
+      if (this.adjacencyList[vertex2].includes(vertex1))
+        this.adjacencyList[vertex2].splice(this.adjacencyList[vertex2].indexOf(vertex1), 1)
+      return this
+    }
+  }
 }
 
 let graph = new Graph
-console.log(graph.addVertex('A').addVertex('B').addEdge("B", "A"))
+console.log(graph.addVertex('A').addVertex('B').addEdge("B", "A").removeEdge("A", "B"))
 
