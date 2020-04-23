@@ -2,6 +2,10 @@ class Graph {
   constructor() {
     this.adjacencyList = {}
   }
+  addVertex(vertex) {
+    if (!(vertex in this.adjacencyList)) this.adjacencyList[vertex] = []
+    return this
+  }
 
 }
 
