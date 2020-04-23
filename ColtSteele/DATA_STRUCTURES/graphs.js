@@ -24,11 +24,13 @@ class Graph {
   }
 
   removeVertex(vertex) {
-    delete this.adjacencyList[vertex]
     for (let key in this.adjacencyList) {
-      if (this.adjacencyList[key].includes(vertex))
-        this.adjacencyList[key] = this.adjacencyList[key].filter(elem => elem!=vertex)
+      console.log('key: ', key, vertex)
+      this.removeEdge(key, vertex)
+      // if (this.adjacencyList[key].includes(vertex))
+      //   this.adjacencyList[key] = this.adjacencyList[key].filter(elem => elem!=vertex)
     }
+    delete this.adjacencyList[vertex]
     return this
   }
 }
@@ -36,4 +38,3 @@ class Graph {
 let graph = new Graph
 console.log(graph.addVertex('A').addVertex('B').addEdge("B", "A").removeEdge("A", "B").removeVertex("A"))
 console.log(graph.addVertex('A').addVertex('B').addEdge("B", "A").removeVertex("A"))
-
