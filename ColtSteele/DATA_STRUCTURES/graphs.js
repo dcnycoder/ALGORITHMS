@@ -22,8 +22,18 @@ class Graph {
       return this
     }
   }
+
+  removeVertex(vertex) {
+    delete this.adjacencyList[vertex]
+    for (let key in this.adjacencyList) {
+      if (this.adjacencyList[key].includes(vertex))
+        this.adjacencyList[key] = this.adjacencyList[key].filter(elem => elem!=vertex)
+    }
+    return this
+  }
 }
 
 let graph = new Graph
-console.log(graph.addVertex('A').addVertex('B').addEdge("B", "A").removeEdge("A", "B"))
+console.log(graph.addVertex('A').addVertex('B').addEdge("B", "A").removeEdge("A", "B").removeVertex("A"))
+console.log(graph.addVertex('A').addVertex('B').addEdge("B", "A").removeVertex("A"))
 
