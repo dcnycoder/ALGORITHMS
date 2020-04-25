@@ -33,8 +33,56 @@ class Graph {
     delete this.adjacencyList[vertex]
     return this
   }
+
+  dfs(vertex, result = []) {
+    //result = []
+    if (!result.includes(vertex)) {
+      result.push(vertex)
+      if (this.adjacencyList[vertex].length>0) {
+        for (let i = 0; i<this.adjacencyList[vertex].length; i++) {
+          result.concat(this.dfs(this.adjacencyList[vertex][i], result))
+        }
+        return result
+      }
+    }
+    else return result
+  }
+
+  dfsIterative(vertex) {
+    let result = [vertex]
+    let stack = [vertex]
+    while (stack.
+      length) {
+      let nextVertex = stack.shift()
+      if (!result.includes(nextVertex)) result.push(nextVertex)
+      let elem = this.adjacencyList[nextVertex].shift()
+
+      while (result.includes(elem) && this.adjacencyList[nextVertex].length > 0) {
+        elem = this.adjacencyList[nextVertex].shift()
+      }
+
+      nextVertex = elem
+      stack.unshift(nextVertex)
+
+    }
+    return result
+  }
 }
 
 let graph = new Graph
-console.log(graph.addVertex('A').addVertex('B').addEdge("B", "A").removeEdge("A", "B").removeVertex("A"))
-console.log(graph.addVertex('A').addVertex('B').addEdge("B", "A").removeVertex("A"))
+console.log(graph
+  .addVertex('A')
+  .addVertex('B')
+  .addVertex('C')
+  .addVertex('D')
+  .addVertex('E')
+  .addVertex('F')
+  .addVertex('G')
+  .addEdge("A", "B")
+  .addEdge("A", "G")
+  .addEdge("B", "C").addEdge("B", "F").addEdge("B", "E")
+  .addEdge("C", "D").addEdge("C", "E").addEdge("C", "F")
+  .addEdge("F", "G")
+)
+
+console.log("Graph DFS: ", graph.dfsIterative("A"))
