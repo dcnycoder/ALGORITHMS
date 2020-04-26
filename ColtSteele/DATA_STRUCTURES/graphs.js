@@ -49,22 +49,24 @@ class Graph {
   }
 
   dfsIterative(vertex) {
-    let result = [vertex]
+    let graph = this.adjacencyList
+    let result = []
     let stack = [vertex]
-    while (stack.
-      length) {
-      let nextVertex = stack.shift()
-      if (!result.includes(nextVertex)) result.push(nextVertex)
-      let elem = this.adjacencyList[nextVertex].shift()
 
-      while (result.includes(elem) && this.adjacencyList[nextVertex].length > 0) {
-        elem = this.adjacencyList[nextVertex].shift()
+    while (stack.length) {
+      if (!(result.includes(stack[0]))) result.push(stack[0])
+      let elemArray = graph[stack[0]]
+      if (elemArray.length > 0) {
+        let elem = elemArray.shift()
+        while (elemArray.length && result.includes(elem)) {
+          elem = elemArray.shift()
+        }
+        if (elemArray.length === 0) stack.unshift()
+        else stack.unshift(elem)
       }
-
-      nextVertex = elem
-      stack.unshift(nextVertex)
-
+      else stack.shift()
     }
+
     return result
   }
 }
