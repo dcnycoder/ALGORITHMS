@@ -61,8 +61,8 @@ class Graph {
         while (elemArray.length && result.includes(elem)) {
           elem = elemArray.shift()
         }
-        if (elemArray.length === 0) stack.unshift()
-        else stack.unshift(elem)
+        if (elemArray.length === 0) stack.shift()
+        if (!(result.includes(elem))) stack.unshift(elem)
       }
       else stack.shift()
     }
