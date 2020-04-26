@@ -49,27 +49,40 @@ class Graph {
   }
 
   dfsIterative(vertex) {
-    let graph = this.adjacencyList
     let result = []
     let stack = [vertex]
 
     while (stack.length) {
       if (!(result.includes(stack[0]))) result.push(stack[0])
-      let elemArray = graph[stack[0]]
-      if (elemArray.length > 0) {
-        let elem = elemArray.shift()
-        while (elemArray.length && result.includes(elem)) {
-          elem = elemArray.shift()
-        }
-        if (elemArray.length === 0) stack.shift()
-        if (!(result.includes(elem))) stack.unshift(elem)
-      }
-      else stack.shift()
+      let elem = stack.shift()
+      let elemArray = this.adjacencyList[elem]
+
+      stack = elemArray.filter(elem => !result.includes(elem)).concat(stack)
     }
 
     return result
   }
+
+  bfs() {
+
+  }
 }
+
+// let graph = new Graph
+// console.log(graph
+//   .addVertex('A')
+//   .addVertex('B')
+//   .addVertex('C')
+//   .addVertex('D')
+//   .addVertex('E')
+//   .addVertex('F')
+//   .addVertex('G')
+//   .addEdge("A", "B")
+//   .addEdge("A", "G")
+//   .addEdge("B", "C").addEdge("B", "F").addEdge("B", "E")
+//   .addEdge("C", "D").addEdge("C", "E").addEdge("C", "F")
+//   .addEdge("F", "G")
+// )
 
 let graph = new Graph
 console.log(graph
@@ -79,12 +92,12 @@ console.log(graph
   .addVertex('D')
   .addVertex('E')
   .addVertex('F')
-  .addVertex('G')
-  .addEdge("A", "B")
-  .addEdge("A", "G")
-  .addEdge("B", "C").addEdge("B", "F").addEdge("B", "E")
-  .addEdge("C", "D").addEdge("C", "E").addEdge("C", "F")
-  .addEdge("F", "G")
-)
+  .addEdge("A", "B").addEdge("A", "C")
+  .addEdge("C", "E")
+  .addEdge("E", "F")
+  .addEdge("F", "D")
+  .addEdge("D", "E")
+  .addEdge("D", "B"))
 
 console.log("Graph DFS: ", graph.dfsIterative("A"))
+console.log("Graph: ", graph)
