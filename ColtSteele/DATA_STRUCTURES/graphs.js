@@ -35,7 +35,6 @@ class Graph {
   }
 
   dfs(vertex, result = []) {
-    //result = []
     if (!result.includes(vertex)) {
       result.push(vertex)
       if (this.adjacencyList[vertex].length>0) {
@@ -63,8 +62,20 @@ class Graph {
     return result
   }
 
-  bfs() {
+  bfsIterative(vertex) {
+    let stack = [vertex]
+    let result = []
 
+    while (stack.length) {
+      let elem = stack.shift()
+      const elemArray = this.adjacencyList[elem]
+
+      if (!result.includes(elem)) result.push(elem)
+
+      stack = stack.concat(elemArray.filter(elem => !(result.includes(elem))))
+
+    }
+    return result
   }
 }
 
@@ -99,5 +110,6 @@ console.log(graph
   .addEdge("D", "E")
   .addEdge("D", "B"))
 
-console.log("Graph DFS: ", graph.dfsIterative("A"))
+// console.log("Graph DFS: ", graph.dfsIterative("A"))
 console.log("Graph: ", graph)
+console.log("BFS Iterative: ", graph.bfsIterative("A"))
