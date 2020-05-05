@@ -77,7 +77,149 @@ class Graph {
     }
     return result
   }
+
+
+
 }
+
+class weightedGraph {
+  constructor() {
+    this.adjacencyList = {}
+  }
+  addVertex(vertex) {
+    if (!this.adjacencyList[vertex]) this.adjacencyList[vertex] = []
+    return this
+  }
+  addEdge(vertex1, vertex2, weight) {
+    let list = this.adjacencyList
+    if (list[vertex1] && list[vertex2]) {
+      list[vertex1].push({node: vertex2, weight: weight})
+      list[vertex2].push({node: vertex1, weight: weight})
+    }
+    else throw Error("Not all vertices are present!")
+    return this
+  }
+  bfs(vertex) {
+    let stack = [vertex]
+    let result = []
+    while (stack.length) {
+      let elem = stack.shift()
+      let elemArray = this.adjacencyList[elem]
+
+      for (let i=0; i<elemArray.length; i++) {
+        if (!result.includes(elemArray[i].node) && !stack.includes(elemArray[i].node)) stack.push(elemArray[i].node)
+      }
+      result.push(elem)
+    }
+    return result
+  }
+
+  djikstra(vertex1, vertex2) {
+    let unvisited = this.bfs(vertex1)
+    let visited = []
+    if (!unvisited.includes(vertex2)) throw Error("Vertex2 is not in this graph!")
+    let pq = new PriorityQueue
+    pq.enqueue(vertex1, 0)
+    let previous = {}
+    previous[vertex1] = null
+    let distances = {}
+    distances[vertex1] = 0
+
+    //Populate distances object with initial distances (Infinity)
+    for (let i=1; i<unvisited.length; i++) {
+      distances[unvisited[i]] = Infinity
+    }
+
+    //Start looping in order of priority:
+    while (pq.queue.length && unvisited.length) {
+      console.log("pq in the beginning: ", pq)
+      let vertex = pq.dequeue()
+      console.log("vertex: ", vertex)
+
+      console.log("unvisited in the beginning: ", unvisited)
+      let prevVertex = vertex
+      //Loop through vertex neighbors and record their distances in the distances object:
+      let vertexArray = this.adjacencyList[vertex.node]
+      for (let i=0; i<vertexArray.length; i++) {
+
+        if (unvisited.includes(vertexArray[i].node)) {
+          //Loop through the distances object using the previous object until the element is vertex1
+          //OR just calculate the shortest distance to the prev vertex and add the distance from prev vertex to A
+
+          let elem = vertexArray[i]
+
+          let distance = elem.weight + prevVertex.weight
+          if (distance < distances[elem.node]) {
+            distances[elem.node] = distance
+            previous[elem.node] = prevVertex
+            pq.enqueue(elem.node, distance)
+          }
+        }
+      } //end of looping through vertex neighbors
+
+      //delete object from unvisited array:
+      unvisited.splice(unvisited.indexOf(vertex.node), 1)
+      if (vertex.node === vertex2) break
+      //delete unvisited[unvisited.indexOf(vertex)]
+      console.log('unvisited after splice: ', unvisited)
+
+    } //end of looping through pq
+    return distances
+
+  } //end of djikstra's algorithm
+} // end of weighted graph class
+
+class PriorityQueue {
+  constructor() {
+    this.queue = []
+  }
+  enqueue(node, weight) {
+    this.queue.push({node, weight})
+    this.queue.sort((a, b) => a.weight-b.weight)
+    return this
+  }
+  dequeue() {
+    return this.queue.shift()
+  }
+
+
+}
+
+//let pq = new PriorityQueue
+// console.log(pq.enqueue("A", 3).enqueue("B", 1).enqueue("C", 0))
+// console.log('pq dequeue: ', pq.dequeue())
+//console.log(pq.enqueueSort("A", 3).enqueueSort("B", 0).enqueueSort("C", 1))
+
+
+
+let wg = new weightedGraph()
+//console.log(
+wg
+  .addVertex("A")
+  .addVertex("B")
+  .addVertex("C")
+  .addVertex("D")
+  .addVertex("E")
+  .addVertex("F")
+    .addEdge("A", "B", 4)
+    .addEdge("A", "C", 2)
+    .addEdge("B", "E", 3)
+    .addEdge("C", "D", 2)
+    .addEdge("C", "F", 4)
+    .addEdge("D", "E", 3)
+    .addEdge("D", "F", 1)
+    .addEdge("E", "F", 1)
+//)
+
+// let arr = [1, 2, 3]
+// delete arr[0]
+// console.log('arr after delete: ', arr)
+
+console.log('wg.adjacencylist["A"]: ', wg.adjacencyList["A"])
+console.log('wg bfs: ', wg.bfs("A"))
+console.log(wg.djikstra("A", "C"))
+
+// console.log("wg('A'): ", wg.adjacencyList['A'])
 
 // let graph = new Graph
 // console.log(graph
@@ -96,20 +238,41 @@ class Graph {
 // )
 
 let graph = new Graph
-console.log(graph
-  .addVertex('A')
-  .addVertex('B')
-  .addVertex('C')
-  .addVertex('D')
-  .addVertex('E')
-  .addVertex('F')
-  .addEdge("A", "B").addEdge("A", "C")
-  .addEdge("C", "E")
-  .addEdge("E", "F")
-  .addEdge("F", "D")
-  .addEdge("D", "E")
-  .addEdge("D", "B"))
+// console.log(graph
+//   .addVertex('A')
+//   .addVertex('B')
+//   .addVertex('C')
+//   .addVertex('D')
+//   .addVertex('E')
+//   .addVertex('F')
+//   .addEdge("A", "B").addEdge("A", "C")
+//   .addEdge("C", "E")
+//   .addEdge("E", "F")
+//   .addEdge("F", "D")
+//   .addEdge("D", "E")
+//   .addEdge("D", "B"))
 
+// console.log(graph
+//   .addVertex('A')
+//   .addVertex('B')
+//   .addVertex('C')
+//   .addVertex('D')
+//   .addVertex('E')
+//   .addEdge("A", "B").addEdge("A", "C")
+//   .addEdge("B", "D")
+//   .addEdge("C", "D").addEdge("C", "E")
+//   .addEdge("D", "E")
+// )
+
+// console.log(graph
+//   .addVertex('A')
+//   .addVertex('B')
+//   .addVertex('C')
+//   .addVertex('D')
+//   .addVertex('F')
+//   .addEdge("A", "B").addEdge("A", "C").addEdge("A", "F")
+//   .addEdge("C", "D")
+// )
 // console.log("Graph DFS: ", graph.dfsIterative("A"))
-console.log("Graph: ", graph)
-console.log("BFS Iterative: ", graph.bfsIterative("A"))
+// console.log("Graph: ", graph)
+// console.log("BFS: ", graph.bfs("A"))
