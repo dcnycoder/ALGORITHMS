@@ -181,9 +181,38 @@ class PriorityQueue {
   dequeue() {
     return this.queue.shift()
   }
+}
 
+class BHPriorityQueue {
+  constructor() {
+    this.queue = []
+  }
+  enqueue(value) {
+    this.queue.push(value)
+    let parentIndex = Math.floor((this.queue.length-1)/2)
+    let newElemIndex = this.queue.length - 1
+
+    while (value>this.queue(parentIndex)) {
+      let temp = this.queue(parentIndex)
+      this.queue[parentIndex] = value
+      this.queue[newElemIndex] = temp
+      newElemIndex = parentIndex
+      parentIndex = Math.floor(newElemIndex/2)
+    }
+    if (value>this.queue(parentIndex)) {
+      this(parentIndex)
+    }
+    return this
+  } // end of enqueue
+
+  dequeue() {
+
+  }
 
 }
+let bh = BHPriorityQueue
+bh.enqueue
+
 
 //let pq = new PriorityQueue
 // console.log(pq.enqueue("A", 3).enqueue("B", 1).enqueue("C", 0))
@@ -210,10 +239,6 @@ wg
     .addEdge("D", "F", 1)
     .addEdge("E", "F", 1)
 //)
-
-// let arr = [1, 2, 3]
-// delete arr[0]
-// console.log('arr after delete: ', arr)
 
 console.log('wg.adjacencylist["A"]: ', wg.adjacencyList["A"])
 console.log('wg bfs: ', wg.bfs("A"))
