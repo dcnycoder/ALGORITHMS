@@ -192,26 +192,39 @@ class BHPriorityQueue {
     let parentIndex = Math.floor((this.queue.length-1)/2)
     let newElemIndex = this.queue.length - 1
 
-    while (value>this.queue(parentIndex)) {
-      let temp = this.queue(parentIndex)
+    while (value>this.queue[parentIndex]) {
+      let temp = this.queue[parentIndex]
       this.queue[parentIndex] = value
       this.queue[newElemIndex] = temp
       newElemIndex = parentIndex
       parentIndex = Math.floor(newElemIndex/2)
     }
-    if (value>this.queue(parentIndex)) {
+    if (value>this.queue[parentIndex]) {
       this(parentIndex)
     }
     return this
   } // end of enqueue
 
-  dequeue() {
+  dequeue(value) {
+    //find the value
+    //determine it's largest child
+    //swap them
+    let elemIndex = this.queue.indexOf(value)
+    const firstChildIndex = elemIndex + 1
+    const secondChildIndex = elemIndex + 2
+    const largest = (this.queue[firstChildIndex]>this.queue[secondChildIndex])? this.queue[firstChildIndex] : [secondChildIndex]
+    this.queue[elemIndex] = largest
+    this.queue.splice(this.queue.indexOf(largest), 1)
+    return this
+  } //end of dequeue
+} // end of Binary Heap Priority Queue
 
-  }
+let bh = new BHPriorityQueue
+console.log(
+  "bh enqueue: ",
+  bh.enqueue(50).enqueue(49).enqueue(48).enqueue(200).dequeue(50)
+)
 
-}
-let bh = BHPriorityQueue
-bh.enqueue
 
 
 //let pq = new PriorityQueue
