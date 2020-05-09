@@ -10,10 +10,25 @@
 // Output: 7 -> 0 -> 8
 // Explanation: 342 + 465 = 807.
 
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+
+
 class linkedList {
   constructor() {
     this.head = null
     this.tail = null
+    this.length = 0
   }
   add(val) {
     const node = new Node(val)
@@ -22,6 +37,7 @@ class linkedList {
       this.tail.next = node
       this.tail = node
     }
+    this.length += 1
     return this
   }
   remove(val) {
@@ -48,7 +64,7 @@ class linkedList {
 
       }
     }
-
+    this.length -= 1
     return this
   } //end of remove
 }
@@ -59,9 +75,37 @@ class Node {
     this.next = null
   }
 }
+// Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+// Output: 7 -> 0 -> 8
+// Explanation: 342 + 465 = 807.
 
-let list = new linkedList
-console.log(list.add(1).add(2).add(3).add(4).remove(4))
+function add2NumbersLL(list1, list2) {
+  let sumList = new linkedList
+  let carryover = 0
+  if (!list1.head || !list2.head) throw Error("List1 and/or list2 is empty!")
+  else {
+    let node1 = list1.head
+    let node2 = list2.head
+    while(node1 || node2 || carryover) {
+      if (!node1) node1 = {value: 0}
+      if (!node2) node2 = {value: 0}
+      let sum = node1.value + node2.value + carryover
+      carryover = 0
+      sumList.add(sum%10)
+      carryover = Math.floor(sum/10)
+      node1 = node1.next
+      node2 = node2.next
+    }
+  }
+  return sumList
+}
+
+let list1 = new linkedList
+console.log(list1.add(0).add(0).add(1))
+let list2 = new linkedList
+console.log(list2.add(9).add(9).add(9))
+console.log("add2Numbers: ", add2NumbersLL(list1, list2))
+
 
 
 
