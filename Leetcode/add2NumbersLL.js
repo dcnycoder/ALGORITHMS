@@ -30,7 +30,7 @@ class linkedList {
       this.head = node.next
     }
     else {
-      let previous = this.head
+      let previous = node
       while (node != null) {
         if (node.value === val) {
           if (node === this.tail) {
@@ -38,6 +38,8 @@ class linkedList {
             previous.next = null
           }
           else previous.next = node.next
+          //break
+          node = node.next
         }
         else {
           previous = node
@@ -59,7 +61,7 @@ class Node {
 }
 
 let list = new linkedList
-console.log(list.add(1).add(2).add(3).add(4).remove(1))
+console.log(list.add(1).add(2).add(3).add(4).remove(4))
 
 
 
