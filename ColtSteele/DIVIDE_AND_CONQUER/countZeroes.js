@@ -8,20 +8,25 @@
 //keep record of the first element of the array so that we know at what index 0s start
 //keep splitting until we get to the element itself
 
-function countZeroes(arr, begin=0) {
-  if (arr[0] === 0) return [begin, `zeroes in array: ${arr.length}`]
+function countZeroes(arr, begin=0, length) {
+  if (!length) length = arr.length
+  //if (arr[0] === 0 || arr.length === 1) return [begin, `zeroes in array: ${length-begin}`]
+  if (arr.length === 1) {
+    if (arr[0] === 0) return [begin, `zeroes in array: ${length-begin}`]
+    else return 0
+  }
   else {
-    middle = Math.floor(arr.length/2)
+    const middle = Math.floor(arr.length/2)
     const left = arr.slice(0, middle)
     const right = arr.slice(middle, arr.length)
     if (left[left.length-1] === 0) {
-      return countZeroes(left, begin)
+      return countZeroes(left, begin, length)
     }
-    else return countZeroes(right, begin+middle)
+    else return countZeroes(right, begin+middle, length)
   }
 }
 
-let arr = [1,1,1,1,1,1,1,1,0,0,0]
+let arr = [1,1,1,1]
 console.log(countZeroes(arr))
 
 
