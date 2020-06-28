@@ -22,7 +22,6 @@ class Graph {
       return this
     }
   }
-
   removeVertex(vertex) {
     for (let key in this.adjacencyList) {
       console.log('key: ', key, vertex)
@@ -77,9 +76,6 @@ class Graph {
     }
     return result
   }
-
-
-
 }
 
 class weightedGraph {
@@ -205,25 +201,55 @@ class BHPriorityQueue {
     return this
   } // end of enqueue
 
-  dequeue(value) {
-    //find the value
-    //determine it's largest child
-    //swap them
-    let elemIndex = this.queue.indexOf(value)
-    const firstChildIndex = elemIndex + 1
-    const secondChildIndex = elemIndex + 2
-    const largest = (this.queue[firstChildIndex]>this.queue[secondChildIndex])? this.queue[firstChildIndex] : [secondChildIndex]
-    this.queue[elemIndex] = largest
-    this.queue.splice(this.queue.indexOf(largest), 1)
-    return this
-  } //end of dequeue
+  percolateDown(index) {
+    let value = this.queue[index]
+    let leftChildIndex = index*2+1
+    let rightChildIndex = index*2+2
+    let leftChild = this.queue[leftChildIndex]
+    let rightChild = this.queue[rightChildIndex]
+    let swapIndex
+    let temp
+
+    (rightChild>leftChild) ? swapIndex = rightChildIndex : swapIndex = leftChildIndex
+    if (this.queue[swapIndex] > value) {
+      temp = this.queue[swapIndex]
+      this.queue[swapIndex] = this.queue[index]
+      this.queue[index] = temp
+      this.percolateDown(swapIndex)
+    }
+
+    else return this.queue
+  }
+
+  removeMax() {
+    let max = this.queue.shift()
+      this.queue.unshift(this.queue.pop())
+      this.percolateDown(0)
+    return max
+  }
+
 } // end of Binary Heap Priority Queue
 
 let bh = new BHPriorityQueue
+
 console.log(
-  "bh enqueue: ",
-  bh.enqueue(50).enqueue(49).enqueue(48).enqueue(200).dequeue(50)
+  "Original: ", bh.enqueue(100).enqueue(85).enqueue(75).enqueue(35).enqueue(78).enqueue(74).enqueue(73)
 )
+console.log(
+  "Max removed: ", bh.removeMax()
+)
+console.log("After max removed: ", bh.queue)
+
+console.log(
+  "Max removed: ", bh.removeMax()
+)
+console.log("After max removed: ", bh.queue)
+
+console.log(
+  "Max removed: ", bh.removeMax()
+)
+console.log("After max removed: ", bh.queue)
+
 
 
 
