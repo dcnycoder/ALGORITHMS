@@ -3,7 +3,7 @@ class DirectedGraph {
     this.adjacencyList = {}
   }
   addVertex(vertex) {
-    if (!(vertex in this.adjacencyList)) this.adjacencyList[vertex] = new BHPriorityQueue
+    if (!(vertex in this.adjacencyList)) this.adjacencyList[vertex] = []
     return this
   }
   addEdgeSorted(vertex1, vertex2) {
@@ -11,7 +11,8 @@ class DirectedGraph {
       throw Error("The origin vertex is not in the graph!")
     }
     else {
-      this.adjacencyList[vertex1].enqueue(vertex2)
+      this.adjacencyList[vertex1].push(vertex2)
+      this.adjacencyList[vertex1].sort()
     }
     return this
   }
