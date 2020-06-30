@@ -1,4 +1,4 @@
-class DirectedGraph {
+class Graph {
   constructor() {
     this.adjacencyList = {}
   }
@@ -6,17 +6,22 @@ class DirectedGraph {
     if (!(vertex in this.adjacencyList)) this.adjacencyList[vertex] = []
     return this
   }
-  addEdgeSorted(vertex1, vertex2) {
-    if (!this.adjacencyList[vertex1]) {
-      throw Error("The origin vertex is not in the graph!")
+  addEdge(vertex1, vertex2) {
+    if (this.adjacencyList[vertex1] && this.adjacencyList[vertex2]) {
+      if (!(vertex2 in this.adjacencyList[vertex1])) this.adjacencyList[vertex1].push(vertex2)
+      if (!(vertex1 in this.adjacencyList[vertex2])) this.adjacencyList[vertex2].push(vertex1)
+      return this
     }
-    else {
-      this.adjacencyList[vertex1].push(vertex2)
-      this.adjacencyList[vertex1].sort()
-    }
-    return this
   }
-
+  addEdgeSorted(vertex1, vertex2) {
+    if (this.adjacencyList[vertex1] && this.adjacencyList[vertex2]) {
+      if (!(vertex2 in this.adjacencyList[vertex1])) this.adjacencyList[vertex1].push(vertex2)
+      this.adjacencyList[vertex1].sort()
+      if (!(vertex1 in this.adjacencyList[vertex2])) this.adjacencyList[vertex2].push(vertex1)
+      this.adjacencyList[vertex2].sort()
+      return this
+    }
+  }
   removeEdge(vertex1, vertex2) {
     if (this.adjacencyList[vertex1] && this.adjacencyList[vertex2]) {
       if (this.adjacencyList[vertex1].includes(vertex2))
@@ -50,7 +55,38 @@ class DirectedGraph {
     else return result
   }
 
+  dfsIterative(vertex) {
+    let result = []
+    let stack = [vertex]
+
+    while (stack.length) {
+      if (!(result.includes(stack[0]))) result.push(stack[0])
+      let elem = stack.shift()
+      let elemArray = this.adjacencyList[elem]
+
+      stack = elemArray.filter(elem => !result.includes(elem)).concat(stack)
+    }
+
+    return result
+  }
+
+  bfsIterative(vertex) {
+    let stack = [vertex]
+    let result = []
+
+    while (stack.length) {
+      let elem = stack.shift()
+      const elemArray = this.adjacencyList[elem]
+
+      if (!result.includes(elem)) result.push(elem)
+
+      stack = stack.concat(elemArray.filter(elem => !(result.includes(elem))))
+
+    }
+    return result
+  }
 }
+
 
 class BHPriorityQueue {
   constructor() {
@@ -114,9 +150,36 @@ class BHPriorityQueue {
 
 } // end of Binary Heap Priority Queue
 
-let graph = new DirectedGraph
-graph.addVertex("A").addVertex("B")
-graph.addEdgeSorted("A", "Z").addEdgeSorted("A", "C").addEdgeSorted("A", "B").addEdgeSorted("A", "Y").addEdgeSorted("A", "F").addEdgeSorted("A", "D").addEdgeSorted("A", "W")
-console.log(graph.adjacencyList["A"])
-console.log("A>Z", "A">"Z")
-console.log("Y<B", "Y"<"B")
+
+
+let graph = new Graph
+graph
+  .addVertex("A")
+  .addVertex("B")
+  .addVertex("C")
+  .addVertex("D")
+  .addVertex("E")
+  .addVertex("F")
+  .addVertex("G")
+  .addVertex("H")
+  .addVertex("I")
+graph
+  .addEdgeSorted("A", "B")
+  .addEdgeSorted("A", "E")
+  .addEdgeSorted("B", "C")
+  .addEdgeSorted("B", "E")
+  .addEdgeSorted("C", "F")
+  .addEdgeSorted("F", "I")
+  .addEdgeSorted("D", "G")
+  .addEdgeSorted("D", "H")
+  .addEdgeSorted("E", "F")
+  .addEdgeSorted("G", "H")
+console.log(graph.adjacencyList)
+
+// for (let key in graph.adjacencyList) {
+//   console.log(key)
+// }
+
+// dfs(vertex) {
+//   for (let key in graph
+// }
