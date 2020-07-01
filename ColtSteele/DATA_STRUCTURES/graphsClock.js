@@ -40,14 +40,15 @@ class Graph {
     return this
   }
 
-  segmentDFS(vertex, segment = []) {
-    segment.push(vertex)
-    //take care of vertex pre-order
+  segmentDFS(vertex, segment = [], clock = 0) {
+    clock+=1
+    segment.push({vertex: [clock]})
+    //take care of vertex pre-order:
     let neighbors = this.adjacencyList[vertex]
     for (let i = 0; i<neighbors.length; i++) {
       let neighbor = neighbors[i]
       if (!segment.includes(neighbor)) {
-        this.segmentDFS(neighbor, segment)
+        this.segmentDFS(neighbor, segment, clock)
       }
     }
     //take care of vertex post-order
