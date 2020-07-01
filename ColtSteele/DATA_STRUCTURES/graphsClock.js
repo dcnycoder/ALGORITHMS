@@ -42,15 +42,30 @@ class Graph {
 
   segmentDFS(vertex, segment = []) {
     segment.push(vertex)
+    //take care of vertex pre-order
     let neighbors = this.adjacencyList[vertex]
     for (let i = 0; i<neighbors.length; i++) {
       let neighbor = neighbors[i]
       if (!segment.includes(neighbor)) {
         this.segmentDFS(neighbor, segment)
       }
-
     }
+    //take care of vertex post-order
     return segment
+  }
+
+  dfs() {
+    let result = []
+    let visited = []
+    for (let vertex in this.adjacencyList) {
+      console.log('vertex: ', vertex)
+      if (!visited.includes(vertex)) {
+        let discoveredSegment = this.segmentDFS(vertex)
+        result.push(discoveredSegment)
+        visited = visited.concat(discoveredSegment)
+      }
+    }
+    return result
   }
 
   dfsIterative(vertex) {
@@ -154,6 +169,7 @@ simpleGraph
   .addVertex("B")
   .addVertex("C")
   .addVertex("D")
+  .addVertex("K")
 simpleGraph
 .addEdgeSorted("A", "B")
 .addEdgeSorted("B", "C")
@@ -171,6 +187,7 @@ graph
   .addVertex("G")
   .addVertex("H")
   .addVertex("I")
+
 graph
   .addEdgeSorted("A", "B")
   .addEdgeSorted("A", "E")
@@ -184,7 +201,8 @@ graph
   .addEdgeSorted("G", "H")
 console.log(simpleGraph.adjacencyList)
 //console.log(simpleGraph.segmentDFS("A"))
-console.log(graph.segmentDFS("A"))
+//console.log(graph.segmentDFS("A"))
+console.log(simpleGraph.dfs())
 
 // for (let key in graph.adjacencyList) {
 //   console.log(key)
