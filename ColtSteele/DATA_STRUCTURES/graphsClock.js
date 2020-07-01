@@ -35,24 +35,22 @@ class Graph {
     for (let key in this.adjacencyList) {
       console.log('key: ', key, vertex)
       this.removeEdge(key, vertex)
-      // if (this.adjacencyList[key].includes(vertex))
-      //   this.adjacencyList[key] = this.adjacencyList[key].filter(elem => elem!=vertex)
     }
     delete this.adjacencyList[vertex]
     return this
   }
 
-  dfs(vertex, result = []) {
-    if (!result.includes(vertex)) {
-      result.push(vertex)
-      if (this.adjacencyList[vertex].length>0) {
-        for (let i = 0; i<this.adjacencyList[vertex].length; i++) {
-          result.concat(this.dfs(this.adjacencyList[vertex][i], result))
-        }
-        return result
+  segmentDFS(vertex, segment = []) {
+    segment.push(vertex)
+    let neighbors = this.adjacencyList[vertex]
+    for (let i = 0; i<neighbors.length; i++) {
+      let neighbor = neighbors[i]
+      if (!segment.includes(neighbor)) {
+        this.segmentDFS(neighbor, segment)
       }
+
     }
-    else return result
+    return segment
   }
 
   dfsIterative(vertex) {
@@ -150,7 +148,17 @@ class BHPriorityQueue {
 
 } // end of Binary Heap Priority Queue
 
-
+let simpleGraph = new Graph
+simpleGraph
+  .addVertex("A")
+  .addVertex("B")
+  .addVertex("C")
+  .addVertex("D")
+simpleGraph
+.addEdgeSorted("A", "B")
+.addEdgeSorted("B", "C")
+.addEdgeSorted("C", "A")
+.addEdgeSorted("A", "D")
 
 let graph = new Graph
 graph
@@ -174,7 +182,9 @@ graph
   .addEdgeSorted("D", "H")
   .addEdgeSorted("E", "F")
   .addEdgeSorted("G", "H")
-console.log(graph.adjacencyList)
+console.log(simpleGraph.adjacencyList)
+//console.log(simpleGraph.segmentDFS("A"))
+console.log(graph.segmentDFS("A"))
 
 // for (let key in graph.adjacencyList) {
 //   console.log(key)
@@ -182,4 +192,18 @@ console.log(graph.adjacencyList)
 
 // dfs(vertex) {
 //   for (let key in graph
+// }
+
+
+// dfs(vertex, result = []) {
+//   if (!result.includes(vertex)) {
+//     result.push(vertex)
+//     if (this.adjacencyList[vertex].length>0) {
+//       for (let i = 0; i<this.adjacencyList[vertex].length; i++) {
+//         result.concat(this.dfs(this.adjacencyList[vertex][i], result))
+//       }
+//       return result
+//     }
+//   }
+//   else return result
 // }
