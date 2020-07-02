@@ -40,27 +40,55 @@ class Graph {
     return this
   }
 
-  segmentDFS(vertex, clock, segment = {}) {
-    clock+=1
-    //segment.push({vertex: [clock]})
-    segment[vertex] = [clock]
-    //take care of vertex pre-order:
-    let neighbors = this.adjacencyList[vertex]
-    for (let i = 0; i<neighbors.length; i++) {
-      //clock+=1
-      let neighbor = neighbors[i]
-      //if (!segment.includes(neighbor)) {
-      if (!(neighbor in segment)) {
-        this.segmentDFS(neighbor, clock, segment)
-      }
-    }
-    //take care of vertex post-order
-    clock += 1
-    segment[vertex].push(clock)
-    return segment
-  }
-
   dfs() {
+    let result = []
+    let visited = {}
+
+    for (let vertex in this.adjacencyList) {
+      let stack = []
+      let segment = {}
+      if (!(vertex in visited)) {
+        stack.push(vertex)
+        while (stack.length) {
+          let vertex = stack.pop()
+          visited[vertex] = true
+          segment[vertex] = []
+          let neighbors = this.adjacencyList[vertex]
+          for (let i = 0; i<neighbors.length; i++) {
+            const neighbor = neighbors[i]
+            if (!neighbor in segment) {
+              stack.push(neighbor)
+            }
+          }
+        }
+      }
+      result.push(segment)
+    }
+    return result
+  } //end of dfs
+
+  dfsRecursive() {
+    let clock = 0
+    function segmentDFS(vertex, segment = {}) {
+      clock+=1
+      //segment.push({vertex: [clock]})
+      segment[vertex] = [clock]
+      //take care of vertex pre-order:
+      let neighbors = this.adjacencyList[vertex]
+      for (let i = 0; i<neighbors.length; i++) {
+        //clock+=1
+        let neighbor = neighbors[i]
+        //if (!segment.includes(neighbor)) {
+        if (!(neighbor in segment)) {
+          segmentDFS(neighbor, segment)
+        }
+      }
+      //take care of vertex post-order
+      clock += 1
+      segment[vertex].push(clock)
+      return segment
+    } //end of segment dfs
+
     let result = []
     let visited = {}
 
@@ -68,7 +96,7 @@ class Graph {
       console.log('vertex: ', vertex)
       let clock = 0
       if (!(vertex in visited)) {
-        let discoveredSegment = this.segmentDFS(vertex, clock)
+        let discoveredSegment = segmentDFS(vertex)
         result.push(discoveredSegment)
         visited = {...visited, ...discoveredSegment}
       }
