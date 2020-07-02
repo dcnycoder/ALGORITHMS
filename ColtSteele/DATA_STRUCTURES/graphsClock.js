@@ -45,24 +45,29 @@ class Graph {
     let visited = {}
 
     for (let vertex in this.adjacencyList) {
-      let stack = []
-      let segment = {}
+      let clock = 0
       if (!(vertex in visited)) {
+        let stack = []
+
+        let segment = {}
+        clock += 1
         stack.push(vertex)
         while (stack.length) {
           let vertex = stack.pop()
-          visited[vertex] = true
-          segment[vertex] = []
+          segment[vertex] = [clock]
           let neighbors = this.adjacencyList[vertex]
-          for (let i = 0; i<neighbors.length; i++) {
+          for (let i = neighbors.length-1; i>=0; i--) {
             const neighbor = neighbors[i]
-            if (!neighbor in segment) {
+            if (!(neighbor in segment)) {
+              clock += 1
               stack.push(neighbor)
             }
           }
+          visited[vertex] = true
         }
+        result.push(segment)
       }
-      result.push(segment)
+
     }
     return result
   } //end of dfs
@@ -205,12 +210,13 @@ simpleGraph
   .addVertex("B")
   .addVertex("C")
   .addVertex("D")
-  //.addVertex("K")
+  .addVertex("F")
+  .addVertex("K")
 simpleGraph
 .addEdgeSorted("A", "B")
 .addEdgeSorted("B", "C")
-//.addEdgeSorted("C", "A")
-.addEdgeSorted("A", "D")
+.addEdgeSorted("C", "F")
+.addEdgeSorted("C", "D")
 
 let graph = new Graph
 graph
