@@ -40,30 +40,37 @@ class Graph {
     return this
   }
 
-  segmentDFS(vertex, segment = [], clock = 0) {
+  segmentDFS(vertex, clock, segment = {}) {
     clock+=1
-    segment.push({vertex: [clock]})
+    //segment.push({vertex: [clock]})
+    segment[vertex] = [clock]
     //take care of vertex pre-order:
     let neighbors = this.adjacencyList[vertex]
     for (let i = 0; i<neighbors.length; i++) {
+      //clock+=1
       let neighbor = neighbors[i]
-      if (!segment.includes(neighbor)) {
-        this.segmentDFS(neighbor, segment, clock)
+      //if (!segment.includes(neighbor)) {
+      if (!(neighbor in segment)) {
+        this.segmentDFS(neighbor, clock, segment)
       }
     }
     //take care of vertex post-order
+    clock += 1
+    segment[vertex].push(clock)
     return segment
   }
 
   dfs() {
     let result = []
-    let visited = []
+    let visited = {}
+
     for (let vertex in this.adjacencyList) {
       console.log('vertex: ', vertex)
-      if (!visited.includes(vertex)) {
-        let discoveredSegment = this.segmentDFS(vertex)
+      let clock = 0
+      if (!(vertex in visited)) {
+        let discoveredSegment = this.segmentDFS(vertex, clock)
         result.push(discoveredSegment)
-        visited = visited.concat(discoveredSegment)
+        visited = {...visited, ...discoveredSegment}
       }
     }
     return result
@@ -170,11 +177,11 @@ simpleGraph
   .addVertex("B")
   .addVertex("C")
   .addVertex("D")
-  .addVertex("K")
+  //.addVertex("K")
 simpleGraph
 .addEdgeSorted("A", "B")
 .addEdgeSorted("B", "C")
-.addEdgeSorted("C", "A")
+//.addEdgeSorted("C", "A")
 .addEdgeSorted("A", "D")
 
 let graph = new Graph
