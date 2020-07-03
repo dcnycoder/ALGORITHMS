@@ -43,9 +43,9 @@ class Graph {
   dfs() {
     let result = []
     let visited = {}
-
+    let clock = 0
     for (let vertex in this.adjacencyList) {
-      let clock = 0 //Begin exploring new segment
+ //Begin exploring new segment
 
       if (!(vertex in visited)) {
         let stack = []
@@ -66,7 +66,7 @@ class Graph {
             let neighbors = this.adjacencyList[vertex]
             for (let i = neighbors.length-1; i>=0; i--) {
               const neighbor = neighbors[i]
-              if (!(neighbor in segment)) {
+              if (!(neighbor in segment) && !(stack.includes(neighbor))) {
                 //clock += 1
                 stack.push(neighbor)
               }
@@ -227,6 +227,7 @@ simpleGraph
 .addEdgeSorted("B", "C")
 .addEdgeSorted("C", "F")
 .addEdgeSorted("C", "D")
+.addEdgeSorted("C", "A")
 
 let graph = new Graph
 graph
