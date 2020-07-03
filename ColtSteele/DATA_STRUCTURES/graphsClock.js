@@ -45,26 +45,36 @@ class Graph {
     let visited = {}
 
     for (let vertex in this.adjacencyList) {
-      let clock = 0
+      let clock = 0 //Begin exploring new segment
+
       if (!(vertex in visited)) {
         let stack = []
-
         let segment = {}
-        clock += 1
+
         stack.push(vertex)
         while (stack.length) {
-          let vertex = stack.pop()
-          segment[vertex] = [clock]
-          let neighbors = this.adjacencyList[vertex]
-          for (let i = neighbors.length-1; i>=0; i--) {
-            const neighbor = neighbors[i]
-            if (!(neighbor in segment)) {
-              clock += 1
-              stack.push(neighbor)
-            }
+          let vertex = stack[stack.length-1]
+          if (vertex in visited) {
+            clock+=1
+            segment[vertex].push(clock)
+
+            stack.pop()
           }
-          visited[vertex] = true
-        }
+          else { //the vertex hasn't been explored yet
+            clock+=1
+            segment[vertex] = [clock]
+            let neighbors = this.adjacencyList[vertex]
+            for (let i = neighbors.length-1; i>=0; i--) {
+              const neighbor = neighbors[i]
+              if (!(neighbor in segment)) {
+                //clock += 1
+                stack.push(neighbor)
+              }
+            }
+            visited[vertex] = true
+          }
+
+        } //Exploring the segment done
         result.push(segment)
       }
 
