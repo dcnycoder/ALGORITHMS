@@ -36,6 +36,9 @@ class directedGraph {
     }
     return path
   }
+  dfsPrePost(vertex) {
+    
+  }
 }
 
 let dg = new directedGraph
