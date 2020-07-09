@@ -21,12 +21,16 @@ const map1 = [
 
 function numberOfIslands(map) {
   let islands = 0
-  // let visited = new Array(map.length).fill(new Array(map[0].length).fill(null))
-  let visited= [
-    [null,null,null],
-    [null,null,null],
-    [null,null,null]
-  ]
+
+  function make2dFilledArray(originArray, filler) {
+    console.log("origin array: ", originArray)
+    let filledArray = originArray.map(innerArray => innerArray.slice().map(elem => null))
+
+    return filledArray
+  }
+
+  let visited = make2dFilledArray(map, null)
+  console.log("Visited: ", visited)
   function exploreRecursive(row, column) {
     if (column+1 < map[row].length && map[row][column+1] === 1) exploreRecursive(row, column+1)
     if (row+1 < map.length && map[row+1][column]  === 1) exploreRecursive(row+1, column)
@@ -34,7 +38,6 @@ function numberOfIslands(map) {
   }
   for (let row = 0; row<map.length; row++) {
     for (let column = 0; column<map[row].length; column++) {
-      //let vertex = map[row][column]
       if (visited[row][column] === null) {
         if (map[row][column] === 1) {
           console.log("Row/column", row, column)
@@ -48,10 +51,8 @@ function numberOfIslands(map) {
   return islands
 }
 
-console.log(numberOfIslands(map1))
+console.log(numberOfIslands(map))
 
-// let testArray = new Array(4)
-// testArray.fill(4)
 
 
 
