@@ -20,7 +20,7 @@ class directedGraph {
     path[vertex] = 0
     function exploreVertex(vertex) {
       let neighbors = list[vertex]
-        .filter(neighbor => (!(neighbor in path) && (!(neighbor in queue))))
+        .filter(neighbor => (!(neighbor in path) ))
       if (neighbors.length) {
         neighbors.forEach(neighbor => {
           if (!path[neighbor]) {
