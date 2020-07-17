@@ -37,7 +37,7 @@ class directedGraph {
     return path
   }
 
-  SegmentDFSPrePost(vertex, counter = {'clock': 0}, path = {}, visited = {}) {
+  segmentDFSPrePost(vertex, counter = {'clock': 0}, path = {}, visited = {}) {
 
     if (!(vertex in visited)) {
       counter['clock']+=1
@@ -46,7 +46,7 @@ class directedGraph {
       let neighbors = this.adjacencyList[vertex].filter(elem => !(elem in visited))
         for (let i = 0; i<neighbors.length; i++) {
           // path = this.dfsPrePost(neighbors[i], clock, path, visited)
-          this.SegmentDFSPrePost(neighbors[i], counter, path, visited)
+          this.segmentDFSPrePost(neighbors[i], counter, path, visited)
         }
       //}
     }
@@ -60,6 +60,24 @@ class directedGraph {
     return path
 
   } //end of dfsPrePost
+  dfsTraversal() {
+    let visited = {}
+    let tree = []
+    let counter = {clock: 0}
+    for (let vertex in this.adjacencyList) {
+      console.log("DFS traversal vertex: ", vertex)
+      if (!(vertex in visited)) {
+        console.log("vertex/visited: ", vertex, visited)
+        let segment = this.segmentDFSPrePost(vertex, counter, {}, visited)
+        tree.push(segment)
+        visited = {...visited, ...segment}
+        console.log("visited: ", visited)
+
+      }
+
+    }
+    return tree
+  }
   //checkCycles()
 }
 
@@ -93,8 +111,9 @@ bg
   .addVertex("v")
   .addVertex("u")
   .addVertex("t")
+  .addVertex("a")
+  .addVertex("b")
 
-console.log('DG: ', bg)
 bg
   .addEdge("s","z")
   .addEdge("s","w")
@@ -108,6 +127,10 @@ bg
   .addEdge("t","v")
   .addEdge("t","u")
   .addEdge("u","v")
+
+  .addEdge("a","b")
+
+  console.log('DG: ', bg)
 
 //   let dg1 = new directedGraph
 // dg1
@@ -127,5 +150,21 @@ bg
 
 
 //console.log('DG BFS: ', dg.bfsDistance("A"))
-console.log("DG1: ", bg)
-console.log('DG DFS: ', bg.SegmentDFSPrePost("s"))
+//console.log("BG : ", bg)
+// console.log('DG DFS: ', bg.segmentDFSPrePost("s"))
+
+console.log('BG DFS: ', bg.dfsTraversal())
+
+// let obj1 = {
+//   a: 1,
+//   b: 2
+// }
+
+// let obj2 = {
+//   a: 5,
+//   b: 2,
+//   c: 3
+// }
+
+// //console.log({...obj1, ...obj2})
+// console.log({...obj2, ...obj1})
