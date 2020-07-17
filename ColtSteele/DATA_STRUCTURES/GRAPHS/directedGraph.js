@@ -38,8 +38,9 @@ class directedGraph {
   }
 
   SegmentDFSPrePost(vertex, counter = {'clock': 0}, path = {}, visited = {}) {
-    counter['clock']+=1
+
     if (!(vertex in visited)) {
+      counter['clock']+=1
       path[vertex] = [counter['clock']]
       visited[vertex] = true
       let neighbors = this.adjacencyList[vertex].filter(elem => !(elem in visited))
@@ -50,16 +51,16 @@ class directedGraph {
       //}
     }
 
-
-    if (path[vertex].length<2) {
-      counter['clock']+=1
-      path[vertex].push(counter['clock'])
-    }
-
-
+//    else {
+      if (path[vertex].length<2) {
+        counter['clock']+=1
+        path[vertex].push(counter['clock'])
+      }
+//   }
     return path
 
   } //end of dfsPrePost
+  //checkCycles()
 }
 
 // let dg = new directedGraph
