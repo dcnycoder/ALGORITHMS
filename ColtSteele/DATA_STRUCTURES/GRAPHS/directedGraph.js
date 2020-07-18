@@ -38,6 +38,7 @@ class directedGraph {
   }
 
   segmentDFSPrePost(vertex, counter = {'clock': 0}, path = {}, visited = {}) {
+  //counter is an object because it is passed by reference, therefore becomes sort of a global varibale, thus allowing a more concise segmentDFSPrePost function(without a necessity for recursive sub-function)
 
     if (!(vertex in visited)) {
       counter['clock']+=1
@@ -45,18 +46,13 @@ class directedGraph {
       visited[vertex] = true
       let neighbors = this.adjacencyList[vertex].filter(elem => !(elem in visited))
         for (let i = 0; i<neighbors.length; i++) {
-          // path = this.dfsPrePost(neighbors[i], clock, path, visited)
           this.segmentDFSPrePost(neighbors[i], counter, path, visited)
         }
-      //}
     }
-
-//    else {
       if (path[vertex].length<2) {
         counter['clock']+=1
         path[vertex].push(counter['clock'])
       }
-//   }
     return path
 
   } //end of dfsPrePost
@@ -64,21 +60,23 @@ class directedGraph {
     let visited = {}
     let tree = []
     let counter = {clock: 0}
-    for (let vertex in this.adjacencyList) {
-      console.log("DFS traversal vertex: ", vertex)
+    let sortedVertices = []
+    for (let vertix in this.adjacencyList) {
+      sortedVertices.push(vertix)
+    }
+    sortedVertices = sortedVertices.sort()
+    for (let i=0; i<sortedVertices.length; i++) {
+      const vertex = sortedVertices[i]
       if (!(vertex in visited)) {
         console.log("vertex/visited: ", vertex, visited)
         let segment = this.segmentDFSPrePost(vertex, counter, {}, visited)
         tree.push(segment)
         visited = {...visited, ...segment}
-        console.log("visited: ", visited)
-
       }
-
     }
     return tree
   }
-  //checkCycles()
+
 }
 
 // let dg = new directedGraph
@@ -153,7 +151,8 @@ bg
 //console.log("BG : ", bg)
 // console.log('DG DFS: ', bg.segmentDFSPrePost("s"))
 
-console.log('BG DFS: ', bg.dfsTraversal())
+//console.log('BG DFS: ', bg.dfsTraversal())
+console.log('BG DFS: ', bg.findCycles())
 
 // let obj1 = {
 //   a: 1,
