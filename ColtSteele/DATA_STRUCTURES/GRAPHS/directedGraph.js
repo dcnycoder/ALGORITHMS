@@ -77,6 +77,29 @@ class directedGraph {
     return tree
   }
 
+  findCycles() { //iterative solution
+    let cyclesPresent = false
+    let visited = {}
+    for (let vertex in this.adjacencyList) {
+      if (!(vertex in visited)) {
+        let stack = [vertex]
+        while (stack.length) {
+          let vertex = stack.pop()
+          if (!(vertex in visited)) {
+            visited[vertex] = true
+            let neighbors = this.adjacencyList[vertex]
+            stack = stack.concat(neighbors)
+          }
+          else {
+            cyclesPresent = true
+            return cyclesPresent
+          }
+        }
+      }
+    }
+    return cyclesPresent
+  }
+
 }
 
 // let dg = new directedGraph
