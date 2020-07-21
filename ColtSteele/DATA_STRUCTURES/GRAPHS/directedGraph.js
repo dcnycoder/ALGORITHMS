@@ -115,7 +115,13 @@ class directedGraph {
       if (!(vertex in inDegree)) {
         inDegree[vertex] = 0
       }
-      else inDegree[vertex]++
+      for (let i=0; i<this.adjacencyList[vertex].length; i++) {
+        let neighbor = this.adjacencyList[vertex][i]
+        if (!(neighbor in inDegree)) {
+          inDegree[neighbor] = 1
+        }
+        else inDegree[neighbor] += 1
+      }
     }
     for (let vertex in inDegree) {
       if (inDegree[vertex] === 0) {
