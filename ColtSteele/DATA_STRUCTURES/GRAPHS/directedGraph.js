@@ -79,9 +79,10 @@ class directedGraph {
 
   findCycles() { //iterative solution
     let cyclesPresent = false
-    let visited = {}
+    let discovered = {}
     for (let vertex in this.adjacencyList) {
-      if (!(vertex in visited)) {
+      if (!(vertex in discovered)) {
+        let visited = {} //to account for vertices visited while discovering this particular branch
         let stack = [vertex]
         while (stack.length) {
           let vertex = stack.pop()
@@ -99,6 +100,32 @@ class directedGraph {
     }
     return cyclesPresent
   }
+
+  topologicalSort() {
+    //check if the graph is a DAG(doesn't have cycles)
+    //if it has cycles, it can't be topologically sorted
+    if (this.findCycles()) {
+      throw Error("The graph has cycles and can't be topologically sorted!")
+    }
+    else {
+    //iterate through graph and populate the in-degree array with vertices
+    let inDegree = {} //object will hold in-degrees of vertices, which will decrease when parent vertices are removed
+    let next = [] //all vertices will in-degrees of 0 will be added to next and next will act as a stack
+    for (let vertex in this.adjacencyList) {
+      if (!(vertex in inDegree)) {
+        inDegree[vertex] = 0
+      }
+      else inDegree[vertex]++
+    }
+    for (let vertex in inDegree) {
+      if (inDegree[vertex] === 0) {
+        next.push(vertex)
+      }
+    }
+    console.log("inDegree/next: ", inDegree, next)
+    }
+
+  } // end of topological sort
 
 }
 
@@ -151,8 +178,6 @@ bg
 
   .addEdge("a","b")
 
-  console.log('DG: ', bg)
-
 //   let dg1 = new directedGraph
 // dg1
 //   .addVertex("A")
@@ -169,24 +194,26 @@ bg
 //   // .addEdge("C","A")
 //   .addEdge("A","C")
 
+let dag = new directedGraph
+dag
+  .addVertex("A")
+  .addVertex("B")
+  .addVertex("C")
+  .addVertex("D")
+  .addVertex("E")
+  .addVertex("F")
+dag
+  .addEdge("A","B")
+  .addEdge("B","C")
+  .addEdge("B","D")
+  .addEdge("E","F")
+  .addEdge("F","B")
 
 //console.log('DG BFS: ', dg.bfsDistance("A"))
 //console.log("BG : ", bg)
 // console.log('DG DFS: ', bg.segmentDFSPrePost("s"))
 
 //console.log('BG DFS: ', bg.dfsTraversal())
-console.log('BG DFS: ', bg.findCycles())
+console.log('dagFindCycles: ', dag.findCycles())
+console.log("Topological sort: ", dag.topologicalSort())
 
-// let obj1 = {
-//   a: 1,
-//   b: 2
-// }
-
-// let obj2 = {
-//   a: 5,
-//   b: 2,
-//   c: 3
-// }
-
-// //console.log({...obj1, ...obj2})
-// console.log({...obj2, ...obj1})
