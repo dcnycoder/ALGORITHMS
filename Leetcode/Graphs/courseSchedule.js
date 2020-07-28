@@ -25,29 +25,35 @@ function courseSchedule(numCourses, prerequisites) {
   //make a directed graph from a prerequisites array:
   let graph = {}
   possible = true
-  prerequisites.forEach(elem => graph[elem[1]] = elem[0])
+  prerequisites.forEach(elem => {
+    console.log("elem in forEach: ", elem)
+    if (!graph[elem[1]]) graph[elem[1]] = [elem[0]]
+    else graph[elem[1]].push(elem[0])
+    if (!graph[elem[0]]) graph[elem[0]] = []
+  })
+
   console.log("Graph: ", graph)
 
-  //find out if a graph is a dag by finding loops
+  //find out if the graph is a dag by finding loops
   function segmentFindLoop(vertex, visited={}, loop = false) {
-    if (!(vertex in visited)) {
+    if (vertex in visited) loop = false //base case
+    else {
       visited[vertex] = true
+      console.log("graph[vertex]: ", graph[vertex])
       graph[vertex].forEach(neighbor =>
         loop = segmentFindLoop(neighbor, visited, loop)
       )
     }
+    globalVisited = {...globalVisited, ...visited}
     return loop
   }
 
-  let visited = {}
+  let globalVisited = {}
 
-  for (let i=0; i<graph.length; i++) {
+  //for (let i=0; i<graph.length; i++) {
   for (vertex in graph) {
-  //while vertex
-    let visited = {}
-    //let vertex = graph[i]
-
-    if (!(vertex in visited)) {
+    if (!(vertex in globalVisited)) {
+      let visited = {}
       visited[vertex] = true
       possible = !segmentFindLoop(vertex)
       if (possible === false) return possible
@@ -57,8 +63,9 @@ function courseSchedule(numCourses, prerequisites) {
   return possible
 }
 
-const numCourses = 2
+const numCourses = 4
 const prerequisites = [[1,0], [0,1]]
+const prerequisites2 = [[1,0],[2,0],[0,2],[3,0]]
 
-console.log(courseSchedule(numCourses, prerequisites))
+console.log(courseSchedule(numCourses, prerequisites2))
 
