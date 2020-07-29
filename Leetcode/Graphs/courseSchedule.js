@@ -21,40 +21,36 @@
 //              To take course 1 you should have finished course 0, and to take course 0 you should
 //              also have finished course 1. So it is impossible.
 
-function courseSchedule(numCourses, prerequisites) {
+function canFinish(numCourses, prerequisites) {
   //make a directed graph from a prerequisites array:
   let graph = {}
-  possible = true
+  let possible = true
+  let visited = {}
+
   prerequisites.forEach(elem => {
-    console.log("elem in forEach: ", elem)
     if (!graph[elem[1]]) graph[elem[1]] = [elem[0]]
     else graph[elem[1]].push(elem[0])
     if (!graph[elem[0]]) graph[elem[0]] = []
   })
 
-  console.log("Graph: ", graph)
-
   //find out if the graph is a dag by finding loops
-  function segmentFindLoop(vertex, visited={}, loop = false) {
-    if (vertex in visited) loop = false //base case
-    else {
-      visited[vertex] = true
-      console.log("graph[vertex]: ", graph[vertex])
-      graph[vertex].forEach(neighbor =>
-        loop = segmentFindLoop(neighbor, visited, loop)
-      )
+  function segmentFindLoop(vertex, loop = false) {
+    if (!(visited[vertex] === 2)) {
+      if (visited[vertex] === 1) loop = true //base case
+      else {
+        visited[vertex] = 1
+        graph[vertex].forEach(neighbor =>
+          loop = segmentFindLoop(neighbor, loop)
+        )
+      }
     }
-    globalVisited = {...globalVisited, ...visited}
+    visited[vertex] = 2
     return loop
   }
 
-  let globalVisited = {}
-
-  //for (let i=0; i<graph.length; i++) {
   for (vertex in graph) {
-    if (!(vertex in globalVisited)) {
-      let visited = {}
-      visited[vertex] = true
+      if (!(visited[vertex] === 2)) {
+
       possible = !segmentFindLoop(vertex)
       if (possible === false) return possible
     }
@@ -64,8 +60,10 @@ function courseSchedule(numCourses, prerequisites) {
 }
 
 const numCourses = 4
-const prerequisites = [[1,0], [0,1]]
-const prerequisites2 = [[1,0],[2,0],[0,2],[3,0]]
+const prerequisites = [[1,0], [2,1], [1,2], [3,0]]
+const prerequisites2 = [[1,0],[2,0],[3,0]]
+const prerequisites3 = [[0,1],[0,2],[1,2]]
 
-console.log(courseSchedule(numCourses, prerequisites2))
+
+console.log(canFinish(numCourses, prerequisites3))
 
