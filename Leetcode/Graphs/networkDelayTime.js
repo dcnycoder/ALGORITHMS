@@ -14,8 +14,6 @@ function networkDelayTime(times, N, node) {
   function buildGraph(times) {
     let graph = {}
     times.forEach(elem => {
-      // let object = {...elem[1]}
-      // object[elem[1]] = elem[2]
       if (!(elem[0] in graph)) {
         graph[elem[0]] = [[elem[1], elem[2]]]
         if (!(elem[1] in graph)) graph[elem[1]] = []
@@ -29,23 +27,41 @@ function networkDelayTime(times, N, node) {
   }
   let graph = buildGraph(times, N, K)
 
-  function calculateDelay(node, delay=0, visited = {'nodes':0}) {
-    for (let i=0; i<graph[node].length; i++) {
-      let neighbor = graph[node][i][0]
-      delay+=1
-      visited['nodes']+=1
-      delay=calculateDelay(neighbor, delay, visited)
+
+
+  function exploreBranch(node, delay) {
+    if ((node in visited)) { //base case
+      return delay
     }
-    return delay
+    else {
+      delay+=1
+      visited_nodes+=1
+      visited[node] = true
+      for (let i=0; i<graph[node].length; i++) {
+        let neighbor = graph[node][0]
+        delay=exploreBranch(neighbor, delay)
+      }
+      return delay
+    }
   }
 
-  // if (calculateDelay(node) < N) {
-  //   return -1
-  // }
-  // else return calculateDelay(node)
-  return calculateDelay(node)
+  let max = 0
+  let delay = 0
+  let visited = {}
+  let visited_nodes = 0
 
-}
+  for (let node in graph) {
+    if (delay>max) max = delay
+    delay = 1
+    if (graph[node].length>0) {
+      let neighbor = graph[node][0][0]
+      delay = exploreBranch(neighbor)
+    }
+  }
+
+  return max
+
+} //end of networkDelayTime func
 
 const times = [[2,1,1],[2,3,1],[3,4,1]]
 const N = 4
