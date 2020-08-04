@@ -14,19 +14,37 @@ function networkDelayTime(times, N, node) {
   function buildGraph(times) {
     let graph = {}
     times.forEach(elem => {
-      let object = {...elem[1]}
-      object[elem[1]] = elem[2]
+      // let object = {...elem[1]}
+      // object[elem[1]] = elem[2]
       if (!(elem[0] in graph)) {
-        graph[elem[0]] = [object]
+        graph[elem[0]] = [[elem[1], elem[2]]]
         if (!(elem[1] in graph)) graph[elem[1]] = []
       }
       else {
-        graph[elem[0]].push(object)
+        graph[elem[0]].push([elem[1], elem[2]])
       }
     })
+    console.log("Graph: ", graph)
     return graph
   }
-  return buildGraph(times, N, K)
+  let graph = buildGraph(times, N, K)
+
+  function calculateDelay(node, delay=0, visited = {'nodes':0}) {
+    for (let i=0; i<graph[node].length; i++) {
+      let neighbor = graph[node][i][0]
+      delay+=1
+      visited['nodes']+=1
+      delay=calculateDelay(neighbor, delay, visited)
+    }
+    return delay
+  }
+
+  // if (calculateDelay(node) < N) {
+  //   return -1
+  // }
+  // else return calculateDelay(node)
+  return calculateDelay(node)
+
 }
 
 const times = [[2,1,1],[2,3,1],[3,4,1]]
