@@ -4,11 +4,11 @@ function networkDelayTime(times, N, node) {
     times.forEach(elem => {
       if (!(elem[0] in graph)) {
         graph[elem[0]] = [[elem[1], elem[2]]]
-        if (!(elem[1] in graph)) graph[elem[1]] = []
       }
       else {
         graph[elem[0]].push([elem[1], elem[2]])
       }
+      if (!(elem[1] in graph)) graph[elem[1]] = []
     })
     console.log("Graph: ", graph)
     return graph
