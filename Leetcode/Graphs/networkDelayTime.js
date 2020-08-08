@@ -1,15 +1,3 @@
-//https://leetcode.com/problems/network-delay-time/description/
-// There are N network nodes, labelled 1 to N.
-
-// Given times, a list of travel times as directed edges times[i] = (u, v, w), where u is the source node, v is the target node, and w is the time it takes for a signal to travel from source to target.
-
-// Now, we send a signal from a certain node K. How long will it take for all nodes to receive the signal? If it is impossible, return -1.
-
-// Example 1:
-
-// Input: times = [[2,1,1],[2,3,1],[3,4,1]], N = 4, K = 2
-// Output: 2
-
 function networkDelayTime(times, N, node) {
   function buildGraph(times) {
     let graph = {}
@@ -25,46 +13,54 @@ function networkDelayTime(times, N, node) {
     console.log("Graph: ", graph)
     return graph
   }
+
   let graph = buildGraph(times, N, K)
 
+  function djikstra(graph, start) {
+    console.log("graph in djikstra: ", graph)
+    let queue = [[start, 0]]
+    let visited = {}
 
-
-  function exploreBranch(node, delay) {
-    if ((node in visited)) { //base case
-      return delay
-    }
-    else {
-      delay+=1
-      visited_nodes+=1
-      visited[node] = true
-      for (let i=0; i<graph[node].length; i++) {
-        let neighbor = graph[node][0]
-        delay=exploreBranch(neighbor, delay)
+    let distances = {} //{`${start}`: 0}
+    distances[start] = [null, 0]
+    for (let vertex in graph) {
+      if (!(vertex in distances)) {
+        distances[vertex] = [null, Infinity]
       }
-      return delay
     }
-  }
+    console.log("original distances: ", distances)
 
-  let max = 0
-  let delay = 0
-  let visited = {}
-  let visited_nodes = 0
+    while (queue.length) {
+      let [vertex, weight] = queue.pop()
+      //console.log('vertex/weight: ', vertex, weight)
+      //console.log("vertex: ", vertex)
 
-  for (let node in graph) {
-    if (delay>max) max = delay
-    delay = 1
-    if (graph[node].length>0) {
-      let neighbor = graph[node][0][0]
-      delay = exploreBranch(neighbor)
+      let neighbors = graph[vertex]
+      neighbors.forEach(nb => {
+        console.log("nb: ", nb)
+        console.log("distances: ", distances)
+        if (!(nb[0] in visited)) queue.push(nb)
+        if (distances[nb[0]][1] > distances[vertex][1] + weight) {
+          distances[nb[0]][0] = vertex
+          distances[nb[0]][1] = distances[vertex][1] + nb[1]
+        }
+
+
+      })
+
+
+      visited[vertex] = true
     }
-  }
 
-  return max
+    return distances
+  } // end of djikstra
+  buildGraph(times)
+  console.log(djikstra(graph, node))
+}
 
-} //end of networkDelayTime func
-
-const times = [[2,1,1],[2,3,1],[3,4,1]]
+//const times = [[2,1,1],[2,3,1],[3,4,8]]
+const times = [[1,2,3],[1,3,1],[3,2,1],[3,4,1]]
 const N = 4
-const K = 2
+const K = 1
 
 console.log(networkDelayTime(times, N, K))
