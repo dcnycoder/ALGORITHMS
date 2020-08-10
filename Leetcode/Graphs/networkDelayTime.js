@@ -44,18 +44,20 @@ function networkDelayTime(times, N, node) {
           distances[nb[0]][0] = vertex
           distances[nb[0]][1] = distances[vertex][1] + nb[1]
         }
-
-
       })
-
-
       visited[vertex] = true
     }
-
-    return distances
+    //return distances
   } // end of djikstra
   buildGraph(times)
-  console.log(djikstra(graph, node))
+  let times = djikstra(graph, node)
+  console.log("Djikstra: ", times)
+
+  //iterate through times, figure out the longest time, and if there is not time equal to infinity, return it. Otherwise return -1
+  for (let vertex in times) {
+    let max
+    if ()
+  }
 }
 
 //const times = [[2,1,1],[2,3,1],[3,4,8]]
