@@ -40,6 +40,7 @@ snail = function(array) {
     rightBoundary-=1
     upperBoundary+=1
   } // end of main loop
+  return snail
 }
 //console.log(snail(arr))
 console.log(snail([[1, 2, 3], [4, 5, 6], [7, 8, 9]]))
