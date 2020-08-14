@@ -8,9 +8,8 @@
 // ]
 
 const arr = [1]
-
-function snail(array) {
-  if (!Array.isArray(array[0])) return array
+snail = function(array) {
+  if (array.length === 1) return array[0]
   let snail = []
   let rightBoundary = array.length-1
   let leftBoundary = 0
@@ -30,21 +29,17 @@ function snail(array) {
     }
     //BOTOM RIGHT TO LEFT WALK
     for (let l=rightBoundary; l>=leftBoundary; l--) {
-      if (l!=i) snail.push(array[lowerBoundary][l])
+      if (lowerBoundary!=upperBoundary) snail.push(array[lowerBoundary][l])
     }
     //LEFT BOTTOM TO TOP WALK
     for (let m=lowerBoundary-1; m>upperBoundary; m--) {
-      //console.log(`m: ${m}`)
       snail.push(array[m][leftBoundary])
     }
     lowerBoundary-=1
     leftBoundary+=1
     rightBoundary-=1
     upperBoundary+=1
-    //console.log("snail: ", snail)
   } // end of main loop
-  return snail
-}
 
 //console.log(snail(arr))
 console.log(snail([[1, 2, 3], [4, 5, 6], [7, 8, 9]]));
