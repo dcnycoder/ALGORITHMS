@@ -20,7 +20,7 @@
 
 class Node {
   constructor (val, left, right) {
-    this.val = (val? val : 0)
+    this.val = (val? val : null)
     this.left = (left? left : null)
     this.right = (right? right : null)
   }
@@ -31,10 +31,18 @@ function BTBuilder(array) {
   let queue = [root]
   for (let i=1; i<array.length; i++) {
     let currentNode = queue.pop()
-    console.log("current node: ", currentNode)
-    currentNode.left = new Node(array[i])
-    currentNode.right = new Node(array[i+1])
-    queue.push(currentNode.left, currentNode.right)
+    //console.log("current node: ", currentNode)
+    if (array[i+1] != null) {
+      currentNode.right = new Node(array[i+1])
+      queue.push(currentNode.right)
+    }
+    else currentNode.right = null
+
+    if (array[i] != null) {
+      currentNode.left = new Node(array[i])
+      queue.push(currentNode.left)
+    }
+    else currentNode.left = null
     i+=1
   }
   return root
@@ -50,7 +58,6 @@ let root = new Node ()
 
 
 const array = [3,9,20,null,null,15,7]
+
 console.log(BTBuilder(array))
 
-
-console.log("Root: ", root)
