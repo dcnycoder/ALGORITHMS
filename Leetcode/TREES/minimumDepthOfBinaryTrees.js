@@ -32,10 +32,10 @@ function BTBuilder(array) {
   for (let i=1; i<array.length; i++) {
     let currentNode = queue.pop()
     console.log("current node: ", currentNode)
-    currentNode.left = new Node(array[i+1])
-    currentNode.right = new Node(array[i+2])
+    currentNode.left = new Node(array[i])
+    currentNode.right = new Node(array[i+1])
     queue.push(currentNode.left, currentNode.right)
-    i+=2
+    i+=1
   }
   return root
 }
