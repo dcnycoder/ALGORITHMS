@@ -49,19 +49,21 @@ function BTBuilder(array) {
 
 var minDepth = function(root) {
   let depth = 0
-  let queue = {1: root}
+  let queue = {1: [root]}
   for (let tier in queue) {
-    if (!queue[tier].length) tier += 1
+    if (!queue[tier].length) tier = parseInt(tier) + 1
     let node = queue[tier].pop()
-    if (node.left === null && node.right === null)
-    break
+    if (node.left === null && node.right === null) {
+      depth = tier
+      break
+    }
     else {
-      if (!queue[tier+1]) queue[tier+1] = []
+      if (!queue[tier+1]) queue[parseInt(tier)+1] = []
       if (node.left!=null) {
-        queue[tier+1].push(node.left)
+        queue[parseInt(tier)+1].push(node.left)
       }
       if (node.right!=null) {
-        queue[tier+1].push(node.right)
+        queue[parseInt(tier)+1].push(node.right)
       }
     }
   } // end of tier walk
@@ -75,5 +77,5 @@ let root = new Node ()
 const array = [3,9,20,null,null,15,7]
 const bt = BTBuilder(array)
 
-console.log(BTBuilder(array))
+console.log(minDepth(bt))
 
