@@ -20,9 +20,9 @@
 
 class Node {
   constructor (val, left, right) {
-    this.val = (val? val : null)
-    this.left = (left? left : null)
-    this.right = (right? right : null)
+    this.val = (val != undefined? val : 0)
+    this.left = (left != undefined? left : null)
+    this.right = (right != undefined? right : null)
   }
 }
 
@@ -48,34 +48,37 @@ function BTBuilder(array) {
 }
 
 var minDepth = function(root) {
-  let depth = 0
-  let queue = {1: [root]}
-  for (let tier in queue) {
-    if (!queue[tier].length) tier = parseInt(tier) + 1
-    let node = queue[tier].pop()
+  if (typeof(root) != 'object') return 0
+  let depth
+  let queue = [[root]]
+  for (let i=0; i<queue.length; i++) {
+
+
+    
+    if (!queue[i].length) i = i+1
+    let node = queue[i].pop()
     if (node.left === null && node.right === null) {
-      depth = tier
+      depth = i+1
       break
     }
     else {
-      if (!queue[tier+1]) queue[parseInt(tier)+1] = []
+      if (!queue[i+1]) queue[i+1] = []
       if (node.left!=null) {
-        queue[parseInt(tier)+1].push(node.left)
+        queue[i+1].push(node.left)
       }
       if (node.right!=null) {
-        queue[parseInt(tier)+1].push(node.right)
+        queue[i+1].push(node.right)
       }
     }
   } // end of tier walk
   return depth
-};
-
-let root = new Node ()
-
+}
 
 
 const array = [3,9,20,null,null,15,7]
+//const array = [0]
 const bt = BTBuilder(array)
+
 
 console.log(minDepth(bt))
 
