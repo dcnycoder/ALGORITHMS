@@ -15,7 +15,27 @@ class BST {
     }
     else this.root = node
   }
-
-}
+  addNode(value) {
+    let node = new Node(value)
+    function insertNode(node, newNode) {
+      if (newNode.value<node.value) {
+        if (!node.left) {
+          node.left = newNode
+          return this
+        }
+        else insertNode(node.left, node)
+      }
+      else if (newNode.value>node.value) {
+        if (!node.right) {
+          node.right = newNode
+          return this
+        }
+      }
+      else return this
+    }
+    if (!this.root) this.root = node
+    else insertNode(root, node)
+  } // end of addNode
+} // end of class BST
 
 
