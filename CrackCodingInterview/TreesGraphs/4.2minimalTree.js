@@ -11,31 +11,54 @@ class Node {
 class BST {
   constructor(node) {
     if (!node) {
-      this.root = null
+      this.root = new Node(null)
     }
     else this.root = node
   }
   addNode(value) {
-    let node = new Node(value)
-    function insertNode(node, newNode) {
+    let newNode = new Node(value)
+    if (!this.root.value) {
+      this.root = node
+      return this
+    }
+    else node = this.root
+    while (true) {
       if (newNode.value<node.value) {
         if (!node.left) {
           node.left = newNode
           return this
         }
-        else insertNode(node.left, node)
-      }
+        else {
+          node = node.left
+        }
+      } // end of 
       else if (newNode.value>node.value) {
         if (!node.right) {
           node.right = newNode
           return this
         }
+        else return insertNode(node.right, node)
       }
       else return this
     }
-    if (!this.root) this.root = node
-    else insertNode(root, node)
+
+
+
+
+
+
+    function insertNode(node, newNode) {
+
+    } //end of insertNode
+
+    else return insertNode(this.root, node)
   } // end of addNode
 } // end of class BST
 
-
+let bst = new BST
+console.log("BST after addNodes: ", bst
+  .addNode(50)
+  .addNode(100)
+  .addNode(25)
+  .addNode(75)
+)
