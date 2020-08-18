@@ -16,9 +16,10 @@ class BST {
     else this.root = node
   }
   addNode(value) {
+    let node
     let newNode = new Node(value)
     if (!this.root.value) {
-      this.root = node
+      this.root = newNode
       return this
     }
     else node = this.root
@@ -31,27 +32,25 @@ class BST {
         else {
           node = node.left
         }
-      } // end of 
+      } // end of if new node value < less node value clause
       else if (newNode.value>node.value) {
         if (!node.right) {
           node.right = newNode
           return this
         }
-        else return insertNode(node.right, node)
-      }
+        else {
+          node = node.right
+        }
+        //return insertNode(node.right, node)
+      } // end of if new node value < less node value clause
       else return this
     }
 
+    // function insertNode(node, newNode) {
 
+    // } //end of insertNode
 
-
-
-
-    function insertNode(node, newNode) {
-
-    } //end of insertNode
-
-    else return insertNode(this.root, node)
+    // else return insertNode(this.root, node)
   } // end of addNode
 } // end of class BST
 
