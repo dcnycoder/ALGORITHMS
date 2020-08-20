@@ -8,16 +8,7 @@
 //   *     this.right = (right===undefined ? null : right)
 //   * }
 
-
-class Node { // class-based
-  constructor(value, left, right) {
-    this.value = (value? value : 0)
-    this.left = (left? left : null)
-    this.right = (right? right : null)
-  }
-}
-
-class BST { // separate class for BST
+class BST { // separate class for BST WAS NOT USED
   constructor(node) {
     this.root = new Node(node)
   }
@@ -47,7 +38,6 @@ class BST { // separate class for BST
         else {
           node = node.right
         }
-        //return insertNode(node.right, node)
       } // end of if new node value < less node value clause
       else return this
     }
