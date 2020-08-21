@@ -42,7 +42,9 @@ var permute = function(nums) {
   //return globalResult
 }
 
-function
+function permutation(array) {
+
+}
 
 
 const array = [1,2,3]
