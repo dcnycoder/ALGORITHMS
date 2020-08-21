@@ -50,20 +50,19 @@ function TreeNode(val, left, right) {
    this.right = (right===undefined ? null : right)
 }
 
-function sortedArrayToBST(array) {
-  //if (end<begin) return null
-  if (!array.length) return null
+function sortedArrayToBST(array, begin=0, end=array.length) {
+  if (end<=begin) return null
+  //if (!array.length) return null
   else {
-    const middle = Math.floor(array.length/2)
-    const leftPart = array.slice(0, middle)
-    const rightPart = array.slice(middle+1, array.length)
+    const middle = begin + Math.floor((end-begin)/2)
     let node = new TreeNode(array[middle])
-    node.left = sortedArrayToBST(leftPart)
-    node.right = sortedArrayToBST(rightPart)
+    node.left = sortedArrayToBST(array, begin, middle)
+    node.right = sortedArrayToBST(array, middle+1, end)
     return node
   }
 } // end of sortedArrayToBST
 
-const array = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]
+const array = [1,2,3,4,5,6,7]//,8,9,10,11,12,13,14,15,16,17,18]
+//const array = [1,2,3]
 
 console.log(sortedArrayToBST(array))
