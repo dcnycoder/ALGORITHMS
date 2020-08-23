@@ -31,7 +31,7 @@
 // Return false.
 
 //Definition for a binary tree node.
- function TreeNode(val, left, right) {
+ function Node(val, left, right) {
     this.val = (val===undefined ? 0 : val)
     this.left = (left===undefined ? null : left)
     this.right = (right===undefined ? null : right)
@@ -62,9 +62,12 @@ function BTBuilder(array) {
   return root
 }
 
-
+//measure lengths of left and right branches and compare.
+//run BST on every tree and record levels. Essentially run a BST function with level counter, where the root of the func is a left and right node correspondingly
 var isBalanced = function(root) {
 
 };
+
+console.log("Tree: ", BTBuilder([1,2,2,3,3,null,null,4,4]))
 
 
