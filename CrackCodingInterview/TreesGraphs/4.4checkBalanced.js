@@ -40,6 +40,31 @@
  * @param {TreeNode} root
  * @return {boolean}
  */
+
+function BTBuilder(array) {
+  let root = new Node(array[0])
+  let queue = [root]
+  for (let i=1; i<array.length; i++) {
+    let currentNode = queue.pop()
+    if (array[i+1] != null) {
+      currentNode.right = new Node(array[i+1])
+      queue.push(currentNode.right)
+    }
+    else currentNode.right = null
+
+    if (array[i] != null) {
+      currentNode.left = new Node(array[i])
+      queue.push(currentNode.left)
+    }
+    else currentNode.left = null
+    i+=1
+  }
+  return root
+}
+
+
 var isBalanced = function(root) {
 
 };
+
+
