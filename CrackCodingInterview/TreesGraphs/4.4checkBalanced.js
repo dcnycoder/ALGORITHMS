@@ -83,7 +83,18 @@ var isBalanced = function(root) {
     }
     return counter
   } //end of branchHeight
-git 
+
+  if (!root) return false
+  else {
+    console.log(branchHeight(root.left))
+    console.log(branchHeight(root.right))
+    let balanced = ((Math.abs(branchHeight(root.left)-branchHeight(root.right)) <= 1)? true : false)
+    return balanced
+  }
+
+
+  console.log(branchHeight(root.left))
+  console.log(branchHeight(root.right))
 };
 
 //console.log("Tree: ", BTBuilder([1,2,2,3,3,null,null,4,4]))
