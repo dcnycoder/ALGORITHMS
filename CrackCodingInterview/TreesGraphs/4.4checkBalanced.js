@@ -91,10 +91,6 @@ var isBalanced = function(root) {
     let balanced = ((Math.abs(branchHeight(root.left)-branchHeight(root.right)) <= 1)? true : false)
     return balanced
   }
-
-
-  console.log(branchHeight(root.left))
-  console.log(branchHeight(root.right))
 };
 
 //console.log("Tree: ", BTBuilder([1,2,2,3,3,null,null,4,4]))
