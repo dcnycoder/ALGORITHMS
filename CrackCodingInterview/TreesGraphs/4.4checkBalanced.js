@@ -65,9 +65,28 @@ function BTBuilder(array) {
 //measure lengths of left and right branches and compare.
 //run BST on every tree and record levels. Essentially run a BST function with level counter, where the root of the func is a left and right node correspondingly
 var isBalanced = function(root) {
+  function branchHeight(root) {
+    let counter = 0
+    if (!root) return counter
+    else {
+      let queue = [root]
+      while (queue.length) {
+        counter +=1
+        let queueLength = queue.length
+        for (let i=0; i<queueLength; i++) {
+          const node = queue.pop()
+          if (node.left) queue.unshift(node.left)
+          if (node.right) queue.unshift(node.right)
+        }
 
+      }
+    }
+    return counter
+  } //end of branchHeight
+git 
 };
 
-console.log("Tree: ", BTBuilder([1,2,2,3,3,null,null,4,4]))
-
+//console.log("Tree: ", BTBuilder([1,2,2,3,3,null,null,4,4]))
+const bt = BTBuilder([1,2,2,3,3,null,null,4,4])
+console.log(isBalanced(bt))
 
