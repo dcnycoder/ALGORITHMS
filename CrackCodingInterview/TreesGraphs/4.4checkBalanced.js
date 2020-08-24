@@ -65,31 +65,54 @@ function BTBuilder(array) {
 //measure lengths of left and right branches and compare.
 //run BST on every tree and record levels. Essentially run a BST function with level counter, where the root of the func is a left and right node correspondingly
 var isBalanced = function(root) {
-  function branchHeight(root) {
+  //for every node: measure the left and right branch height
+  //if the node is not an end node, branchHeight gets called recursively
+  //compare branch heights and return true or false
+
+
+  function heightDifference(node) {
+    const leftBranch = node.left
+    const rightBranch = node.right
+    let leftHeight
+    let rightHeight
+
+    if (leftBranch === null) leftHeight = 0
+    else leftHeight = 1 + heightDifference(leftBranch)
+    if (rightBranch === null) rightHeight = 0
+    else rightHeight = 1 + heightDifference(rightBranch)
+    return Math.abs(rightHeight - leftHeight)
+    //return Math.abs(heightDifference(leftBranch) - heightDifference(rightBranch))
+  }
+
+  function branchHeight(node) {
     let counter = 0
     if (!root) return counter
     else {
-      let queue = [root]
-      while (queue.length) {
-        counter +=1
-        let queueLength = queue.length
-        for (let i=0; i<queueLength; i++) {
-          const node = queue.pop()
-          if (node.left) queue.unshift(node.left)
-          if (node.right) queue.unshift(node.right)
-        }
+      counter = branchHeight
 
-      }
+
+      // let queue = [root]
+      // while (queue.length) {
+      //   counter +=1
+      //   let queueLength = queue.length
+      //   for (let i=0; i<queueLength; i++) {
+      //     const node = queue.pop()
+      //     if (node.left) queue.unshift(node.left)
+      //     if (node.right) queue.unshift(node.right)
+      //   }
+
+      // }
     }
     return counter
   } //end of branchHeight
 
   if (!root) return false
   else {
-    console.log(branchHeight(root.left))
-    console.log(branchHeight(root.right))
-    let balanced = ((Math.abs(branchHeight(root.left)-branchHeight(root.right)) <= 1)? true : false)
-    return balanced
+    return heightDifference(root)
+    // console.log(branchHeight(root.left))
+    // console.log(branchHeight(root.right))
+    // let balanced = ((Math.abs(branchHeight(root.left)-branchHeight(root.right)) <= 1)? true : false)
+    // return balanced
   }
 };
 
