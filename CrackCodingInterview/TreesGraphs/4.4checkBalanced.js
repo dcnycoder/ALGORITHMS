@@ -77,18 +77,19 @@ var isBalanced = function(root) {
     let rightHeight
 
     if (leftBranch === null) leftHeight = 0
-    else leftHeight = 1 + heightDifference(leftBranch)
+    else leftHeight = 1 + maxHeight(leftBranch)
     if (rightBranch === null) rightHeight = 0
-    else rightHeight = 1 + heightDifference(rightBranch)
+    else rightHeight = 1 + maxHeight(rightBranch)
+    console.log('difference: ', Math.abs(rightHeight - leftHeight))
     return Math.abs(rightHeight - leftHeight)
     //return Math.abs(heightDifference(leftBranch) - heightDifference(rightBranch))
   }
 
-  function branchHeight(node) {
+  function maxHeight(node) { //maximum height of binary tree
     let counter = 0
     if (!root) return counter
-    else {
-      counter = branchHeight
+    else { //run a bst with a level counter
+      counter = 1
 
 
       // let queue = [root]
@@ -117,6 +118,8 @@ var isBalanced = function(root) {
 };
 
 //console.log("Tree: ", BTBuilder([1,2,2,3,3,null,null,4,4]))
-const bt = BTBuilder([1,2,2,3,3,null,null,4,4])
+//const bt = BTBuilder([1,2,2,3,3,null,null,4,4])
+const bt = BTBuilder([3,9,20,null,null,15,7])
+console.log('bt: ', bt)
 console.log(isBalanced(bt))
 
