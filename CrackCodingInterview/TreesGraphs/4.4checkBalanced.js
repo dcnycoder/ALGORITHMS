@@ -62,60 +62,38 @@ function BTBuilder(array) {
   return root
 }
 
-//measure lengths of left and right branches and compare.
-//run BST on every tree and record levels. Essentially run a BST function with level counter, where the root of the func is a left and right node correspondingly
 var isBalanced = function(root) {
-  //for every node: measure the left and right branch height
-  //if the node is not an end node, branchHeight gets called recursively
-  //compare branch heights and return true or false
-
-
-  function heightDifference(node) {
-    const leftBranch = node.left
-    const rightBranch = node.right
-    let leftHeight
-    let rightHeight
-
-    if (leftBranch === null) leftHeight = 0
-    else leftHeight = 1 + maxHeight(leftBranch)
-    if (rightBranch === null) rightHeight = 0
-    else rightHeight = 1 + maxHeight(rightBranch)
-    console.log('difference: ', Math.abs(rightHeight - leftHeight))
-    return Math.abs(rightHeight - leftHeight)
-    //return Math.abs(heightDifference(leftBranch) - heightDifference(rightBranch))
-  }
-
-  function maxHeight(node) { //maximum height of binary tree
-    let counter = 0
-    if (!root) return counter
-    else { //run a bst with a level counter
-      counter = 1
-
-
-      // let queue = [root]
-      // while (queue.length) {
-      //   counter +=1
-      //   let queueLength = queue.length
-      //   for (let i=0; i<queueLength; i++) {
-      //     const node = queue.pop()
-      //     if (node.left) queue.unshift(node.left)
-      //     if (node.right) queue.unshift(node.right)
-      //   }
-
-      // }
-    }
-    return counter
-  } //end of branchHeight
-
-  if (!root) return false
+  if (!root) return true
   else {
-    return heightDifference(root)
-    // console.log(branchHeight(root.left))
-    // console.log(branchHeight(root.right))
-    // let balanced = ((Math.abs(branchHeight(root.left)-branchHeight(root.right)) <= 1)? true : false)
-    // return balanced
+//The function below runs a BFS, finds and returns the shallowest and deepest branch heights
+  function minMaxDifference(root) {
+    let queue = [root]
+    let level = 0
+    let min
+    let max
+    while (queue.length) {
+      let length = queue.length
+      level += 1
+      for (let i=0; i<length; i++) {
+        let node = queue.pop()
+        if (node.left===null || node.right===null) {
+          if (!min) min = level
+          else if (level>max) {
+            max = level
+            if (max-min>1) return false
+          }
+        }
+        if (node.left!=null) queue.push(node.left)
+        if (node.right!=null) queue.push(node.right)
+      }
+    } // end of bst walk
+    return true
+  } //end of minMaxDifference
+
+  minMaxDifference(root)
+
   }
-};
+}
 
 //console.log("Tree: ", BTBuilder([1,2,2,3,3,null,null,4,4]))
 //const bt = BTBuilder([1,2,2,3,3,null,null,4,4])
