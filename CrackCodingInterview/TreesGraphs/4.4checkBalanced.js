@@ -43,10 +43,11 @@
 
  //[5,2,2,3,3,3,3,4,4,4,4,4,4,null,null,5,5]
 function BTBuilder(array) {
-  let root = new Node(array[0])
-  let queue = [root]
-  for (let i=1; i<array.length; i++) {
-    let currentNode = queue.unshift() //was pop()
+  //let root = new Node(array[0])
+  array[0] = new Node(array[0])
+  //let queue = [root]
+  for (let i=0; i<array.length; i++) {
+    let currentNode = queue.shift() //was pop()
     if (array[2*i+1] != null) {
       currentNode.left = new Node(array[2*i+1])
       queue.push(currentNode.left)
