@@ -47,22 +47,26 @@ function BTBuilder(array) {
   array[0] = new Node(array[0])
   //let queue = [root]
   for (let i=0; i<array.length; i++) {
-    let currentNode = queue.shift() //was pop()
-    if (array[2*i+1] != null) {
-      currentNode.left = new Node(array[2*i+1])
-      queue.push(currentNode.left)
-    }
-    else currentNode.left = null
+    if (array[i]!=null) {
+      let currentNode = array[i]
+      if (array[2*i+1] && array[2*i+1] != null) {
+        array[2*i+1] = new Node(array[2*i+1])
+        currentNode.left = array[2*i+1]
+        //queue.push(currentNode.left)
+      }
+      else currentNode.left = null
 
-    //was: if (array[i] != null) {
-    if (array[2*i+2] != null) {
-      currentNode.right = new Node(array[i])
-      queue.push(currentNode.right)
+      //was: if (array[i] != null) {
+      if (array[2*i+2] && array[2*i+2] != null) {
+        array[2*i+2] = new Node(array[2*i+2])
+        currentNode.right = array[2*i+2]
+        //queue.push(currentNode.right)
+      }
+      else currentNode.right = null
     }
-    else currentNode.right = null
-    i+=1
+
   }
-  return root
+  return array[0]
 }
 
 var isBalanced = function(root) {
