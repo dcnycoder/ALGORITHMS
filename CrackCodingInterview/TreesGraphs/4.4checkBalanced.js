@@ -66,50 +66,37 @@ function BTBuilder(array) {
     }
 
   }
+  console.log("Array of nodes: ", array)
   return array[0]
 }
 
 var isBalanced = function(root) {
+  function compareBranches(node) {
+    let leftLength
+    let rightLength
+
+    if (node.left === null) leftLength = 1
+    else leftLength = 1 + branchLength(node.left)
+    if (node.right === null) rightLength = 1
+    else rightLength = 1 + branchLength(node.right)
+
+    if (Math.abs(leftLength-rightLength) > 1) result = false
+    return Math.max(leftLength, rightLength) + 1
+  }
+
   let result = true
   if (!root) return result
   else {
-//The function below runs a BFS, finds and returns the shallowest and deepest branch heights
-  function minMaxDifference(root) {
-    let queue = [root]
-    let level = 0
-    let min = undefined
-    let max = 0
-    while (queue.length) {
-      let length = queue.length
-      level += 1
-      for (let i=0; i<length; i++) {
-        let node = queue.pop()
-        if (node.left===null || node.right===null) {
-          if (min===undefined) min = level
-          else if (level>max) {
-            max = level
-            if ((max-min)>1) result = false
-          }
-        }
-        if (node.left!=null) queue.push(node.left)
-        if (node.right!=null) queue.push(node.right)
-      }
-    } // end of bst walk
-    console.log("min: ", min)
-    console.log('max: ', max)
+    compareBranches(root)
     return result
-  } //end of minMaxDifference
-
-  return minMaxDifference(root)
-
   }
-}
+} //end of isBalanced
 
 //console.log("Tree: ", BTBuilder([1,2,2,3,3,null,null,4,4]))
 //const bt = BTBuilder([1,2,2,3,3,null,null,4,4])
 //const bt = BTBuilder([3,9,20,null,null,15,7])
 //const bt = BTBuilder([1,2,2,3,3,null,null,4,4])
-const bt = BTBuilder([5,2,2,3,3,3,3,4,4,4,4,4,4,null,null,5,5])
+const bt = BTBuilder([1,2,2,3,3,3,3,4,4,4,4,4,4,null,null,5,5])
 
 console.log('bt: ', bt)
 console.log(isBalanced(bt))
