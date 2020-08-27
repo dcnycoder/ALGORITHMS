@@ -41,62 +41,57 @@
  * @return {boolean}
  */
 
- //[5,2,2,3,3,3,3,4,4,4,4,4,4,null,null,5,5]
 function BTBuilder(array) {
-  //let root = new Node(array[0])
   array[0] = new Node(array[0])
-  //let queue = [root]
   for (let i=0; i<array.length; i++) {
     if (array[i]!=null) {
       let currentNode = array[i]
       if (array[2*i+1] && array[2*i+1] != null) {
         array[2*i+1] = new Node(array[2*i+1])
         currentNode.left = array[2*i+1]
-        //queue.push(currentNode.left)
       }
       else currentNode.left = null
 
-      //was: if (array[i] != null) {
       if (array[2*i+2] && array[2*i+2] != null) {
         array[2*i+2] = new Node(array[2*i+2])
         currentNode.right = array[2*i+2]
-        //queue.push(currentNode.right)
       }
       else currentNode.right = null
     }
 
   }
-  console.log("Array of nodes: ", array)
   return array[0]
 }
 
+//isBalanced has a global variable
+//branchLength is the function that compares the lengths of left and right branches, and can change the outside variable. This func returns a maximum of the two branches.
 var isBalanced = function(root) {
-  function compareBranches(node) {
+  function branchLength(node) {
     let leftLength
     let rightLength
 
-    if (node.left === null) leftLength = 1
+    if (node.left === null) leftLength = 0
     else leftLength = 1 + branchLength(node.left)
-    if (node.right === null) rightLength = 1
+    if (node.right === null) rightLength = 0
     else rightLength = 1 + branchLength(node.right)
 
     if (Math.abs(leftLength-rightLength) > 1) result = false
-    return Math.max(leftLength, rightLength) + 1
+    return Math.max(leftLength, rightLength)
   }
 
   let result = true
   if (!root) return result
   else {
-    compareBranches(root)
+    branchLength(root)
     return result
   }
 } //end of isBalanced
 
-//console.log("Tree: ", BTBuilder([1,2,2,3,3,null,null,4,4]))
-//const bt = BTBuilder([1,2,2,3,3,null,null,4,4])
+
 //const bt = BTBuilder([3,9,20,null,null,15,7])
 //const bt = BTBuilder([1,2,2,3,3,null,null,4,4])
 const bt = BTBuilder([1,2,2,3,3,3,3,4,4,4,4,4,4,null,null,5,5])
+
 
 console.log('bt: ', bt)
 console.log(isBalanced(bt))
