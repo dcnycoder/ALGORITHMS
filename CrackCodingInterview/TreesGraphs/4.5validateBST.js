@@ -37,14 +37,13 @@
 //Make sure that elements in the left and right trees fit in the  certain range. For example, the element in the right branch of the element in the left branch of the root not only has to be larger than the parent node, but also SMALLER than the root node
 //Has to be done recursively top to bottom
 
-/**
- * Definition for a binary tree node.
- * function TreeNode(val, left, right) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.left = (left===undefined ? null : left)
- *     this.right = (right===undefined ? null : right)
- * }
- */
+//Definition for a binary tree node.
+function Node(val, left, right) {
+      this.val = (val===undefined ? 0 : val)
+      this.left = (left===undefined ? null : left)
+      this.right = (right===undefined ? null : right)
+ }
+
 /**
  * @param {TreeNode} root
  * @return {boolean}
@@ -72,19 +71,30 @@ function BTBuilder(array) {
   return array[0]
 }
 
-var isValidBST = function(root, isValid = true) {
-  function checkNodes(node, leftBound=[-Infinity, node.val], rightBound=[node.val, Infinity]) {
+var isValidBST = function(root, leftBound=[-Infinity, node.val], rightBound=[node.val, Infinity], isValid = true) {
+  if (!root) return isValid
+  if (isValid === false) return isValid//base case - short-circuit
+  else {
     if (node.left!=null) {
-
-      checkNodes(node.left, )
+      if (node.left.val > leftBound[0] && node.left.val < leftBound[1]) {
+        isValidBST(node.left, [-Infinity, node.left.val], [node.left.val, node.val], isValid)
+      }
+      else {
+        isValid = false
+        return isValid
+      }
     }
     if (node.right!=null) {
-
+      if (node.right.val > rightBound[0] && node.right.val < rightBound[1]) {
+        isValidBST(node.right, [node.val, node.right], [node.right, Infinity], isValid)
+      }
     }
+    return isValid
   }
-  isValid = true
-  if (!root) return isValid
+} //end of isValidBST
 
-  checkNodes(root)
-  return isValid
-};
+const bt = BTBuilder([1,2,2,3,3,3,3,4,4,4,4,4,4,null,null,5,5])
+
+
+//console.log('bt: ', bt)
+console.log(isValidBST(bt))
