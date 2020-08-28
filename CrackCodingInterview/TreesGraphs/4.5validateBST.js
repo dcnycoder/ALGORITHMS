@@ -32,3 +32,9 @@
 // Input: [5,1,4,null,null,3,6]
 // Output: false
 // Explanation: The root node's value is 5 but its right child's value is 4.
+
+//SOLUTION APPROACH:
+//Make sure that elements in the left and right trees fit in the  certain range. For example, the element in the right branch of the element in the left branch of the root not only has to be larger than the parent node, but also SMALLER than the root node
+//Has to be done recursively top to bottom
+
+
