@@ -37,4 +37,54 @@
 //Make sure that elements in the left and right trees fit in the  certain range. For example, the element in the right branch of the element in the left branch of the root not only has to be larger than the parent node, but also SMALLER than the root node
 //Has to be done recursively top to bottom
 
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
 
+function BTBuilder(array) {
+  array[0] = new Node(array[0])
+  for (let i=0; i<array.length; i++) {
+    if (array[i]!=null) {
+      let currentNode = array[i]
+      if (array[2*i+1] && array[2*i+1] != null) {
+        array[2*i+1] = new Node(array[2*i+1])
+        currentNode.left = array[2*i+1]
+      }
+      else currentNode.left = null
+
+      if (array[2*i+2] && array[2*i+2] != null) {
+        array[2*i+2] = new Node(array[2*i+2])
+        currentNode.right = array[2*i+2]
+      }
+      else currentNode.right = null
+    }
+
+  }
+  return array[0]
+}
+
+var isValidBST = function(root, isValid = true) {
+  function checkNodes(node, leftBound=[-Infinity, node.val], rightBound=[node.val, Infinity]) {
+    if (node.left!=null) {
+
+      checkNodes(node.left, )
+    }
+    if (node.right!=null) {
+
+    }
+  }
+  isValid = true
+  if (!root) return isValid
+
+  checkNodes(root)
+  return isValid
+};
