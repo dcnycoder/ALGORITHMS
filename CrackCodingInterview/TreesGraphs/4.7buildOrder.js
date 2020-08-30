@@ -49,15 +49,23 @@ var findOrder = function(numCourses, prerequisites) {
   function buildGraph(prerequisites) {
     let graph = {}
     prerequisites.forEach(pair => {
-      if (!graph[pair[0]]) graph[pair[0]] = [pair[1]]
-      else graph[pair[0]].push(pair[1])
-      if (!graph[pair[1]]) graph[pair[1]] = []
+      if (!graph[pair[1]]) graph[pair[1]] = [pair[0]]
+      else graph[pair[1]].push(pair[0])
+      if (!graph[pair[0]]) graph[pair[0]] = []
     })
     return graph
   }
 
   let graph = buildGraph(prerequisites)
   let zeroInDegreeStack = []
+  for (let node in graph) {
+    if (graph[node].length === 0)
+    zeroInDegreeStack.push(node)
+  }
+
+
+
+  console.log('zeroIndegree: ', zeroInDegreeStack)
 
 };
 
