@@ -53,19 +53,42 @@ var findOrder = function(numCourses, prerequisites) {
       else graph[pair[1]].push(pair[0])
       if (!graph[pair[0]]) graph[pair[0]] = []
     })
+    console.log("Graph: ", graph)
     return graph
+  }
+  function buildInDegree(graph) {
+    let inDegree = {}
+    for (let node in graph) {
+        if (!inDegree[node]) inDegree[node] = 0
+        graph[node].forEach(node => {
+          if (!(node in inDegree)) inDegree[node] = 1
+          else inDegree[node]+=1
+        })
+    }
+    console.log("inDegree: ", inDegree)
+    return inDegree
+  }
+  function buildZeroIndegreeStack(inDegree) {
+    let stack = []
+    for (let node in inDegree) {
+      if (inDegree[node] === 0) {
+        stack.push(node)
+      }
+    }
   }
 
   let graph = buildGraph(prerequisites)
-  let zeroInDegreeStack = []
-  for (let node in graph) {
-    if (graph[node].length === 0)
-    zeroInDegreeStack.push(node)
+  let inDegree = buildInDegree(graph)
+  let stack = buildZeroIndegreeStack(inDegree)
+  let order = []
+
+  while (stack.length) {
+    const elem = stack.pop()
+    inDegree[elem] -= 1
+    if (inDegree[elem] === 0) {
+      stack.push(elem)
+    }
   }
-
-
-
-  console.log('zeroIndegree: ', zeroInDegreeStack)
 
 };
 
