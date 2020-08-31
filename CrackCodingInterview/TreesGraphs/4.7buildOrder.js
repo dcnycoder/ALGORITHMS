@@ -46,8 +46,9 @@
  //7) Repeat until the stack is empty
 
 var findOrder = function(numCourses, prerequisites) {
-  function buildGraph(prerequisites) {
+  function buildGraph(numCourses, prerequisites) {
     let graph = {}
+    
     prerequisites.forEach(pair => {
       if (!graph[pair[1]]) graph[pair[1]] = [pair[0]]
       else graph[pair[1]].push(pair[0])
@@ -72,25 +73,37 @@ var findOrder = function(numCourses, prerequisites) {
     let stack = []
     for (let node in inDegree) {
       if (inDegree[node] === 0) {
-        stack.push(node)
+        stack.push(parseInt(node))
       }
     }
+    return stack
   }
+
 
   let graph = buildGraph(prerequisites)
   let inDegree = buildInDegree(graph)
   let stack = buildZeroIndegreeStack(inDegree)
   let order = []
 
-  while (stack.length) {
-    const elem = stack.pop()
-    inDegree[elem] -= 1
-    if (inDegree[elem] === 0) {
-      stack.push(elem)
+  if (!prerequisites.length) {
+    for (let i=0; i<numCourses; i++) {
+      order.push(i)
+    }
+  }
+  else {
+    while (stack.length) {
+      const elem = stack.pop()
+      order.push(elem)
+      graph[elem].forEach(node => {
+        inDegree[node] -= 1
+        if (inDegree[node] === 0) stack.push(node)
+      })
     }
   }
 
-};
+  if (order.length === numCourses) return order
+  else return []
+}
 
 const numCourses = 4
 const prerequisites = [[1,0],[2,0],[3,1],[3,2]]
