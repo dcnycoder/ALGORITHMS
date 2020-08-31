@@ -48,13 +48,14 @@
 var findOrder = function(numCourses, prerequisites) {
   function buildGraph(numCourses, prerequisites) {
     let graph = {}
-    
+    for (let i=0; i<numCourses; i++) {
+      graph[i] = []
+     }
+    console.log('Graph built: ', graph)
+
     prerequisites.forEach(pair => {
-      if (!graph[pair[1]]) graph[pair[1]] = [pair[0]]
-      else graph[pair[1]].push(pair[0])
-      if (!graph[pair[0]]) graph[pair[0]] = []
+      graph[pair[1]].push(pair[0])
     })
-    console.log("Graph: ", graph)
     return graph
   }
   function buildInDegree(graph) {
@@ -66,7 +67,6 @@ var findOrder = function(numCourses, prerequisites) {
           else inDegree[node]+=1
         })
     }
-    console.log("inDegree: ", inDegree)
     return inDegree
   }
   function buildZeroIndegreeStack(inDegree) {
@@ -80,7 +80,7 @@ var findOrder = function(numCourses, prerequisites) {
   }
 
 
-  let graph = buildGraph(prerequisites)
+  let graph = buildGraph(numCourses, prerequisites)
   let inDegree = buildInDegree(graph)
   let stack = buildZeroIndegreeStack(inDegree)
   let order = []
