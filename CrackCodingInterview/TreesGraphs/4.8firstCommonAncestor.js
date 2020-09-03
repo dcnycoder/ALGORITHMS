@@ -28,3 +28,35 @@
 //SOLUTION APPROACH:
 //1) Run an BFS on the tree UNTIL we get both elements we are searching for. We don't need the full tree. It'll give us an array with a 2n+1, 2n+2 relation between parent and children
 //2) Create an array of parents for each node given originally. Keep adding the parents to each array until there is a common parent.
+function Node(val) {
+  this.val = val;
+  this.left = this.right = null;
+}
+
+function BTBuilder(array) {
+  array[0] = new Node(array[0])
+  for (let i=0; i<array.length; i++) {
+    if (array[i]!=null) {
+      let currentNode = array[i]
+      if ((array[2*i+1] != undefined) && (array[2*i+1] != null)) {
+        array[2*i+1] = new Node(array[2*i+1])
+        currentNode.left = array[2*i+1]
+      }
+      else currentNode.left = null
+
+      if ((array[2*i+2] != undefined) && (array[2*i+2] != null)) {
+        array[2*i+2] = new Node(array[2*i+2])
+        currentNode.right = array[2*i+2]
+      }
+      else currentNode.right = null
+    }
+  }
+  return array[0]
+} // end of BTBuilder
+
+var lowestCommonAncestor = function(root, p, q) {
+
+};
+
+let bt = BTBuilder([3,5,1,6,2,0,8,null,null,7,4])
+console.log("BT: ", bt)
