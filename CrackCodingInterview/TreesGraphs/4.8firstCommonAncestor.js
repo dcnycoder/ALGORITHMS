@@ -24,3 +24,7 @@
 
 // All of the nodes' values will be unique.
 // p and q are different and both values will exist in the binary tree.
+
+//SOLUTION APPROACH:
+//1) Run an BFS on the tree UNTIL we get both elements we are searching for. We don't need the full tree. It'll give us an array with a 2n+1, 2n+2 relation between parent and children
+//2) Create an array of parents for each node given originally. Keep adding the parents to each array until there is a common parent.
