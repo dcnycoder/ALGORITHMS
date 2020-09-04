@@ -76,24 +76,25 @@ var lowestCommonAncestor = function(root, p, q) {
     return result
   } //end of BFS
   let bfs = BFS(root, p, q)
+  console.log("BFS: ", bfs)
 
   let parents = {}
-  let pParentIndex = bfs[indexOf(p)]
-  let qParentIndex = bfs[indexOf(q)]
-  while (pParentIndex >= 0 && qParentIndex >= 0) {
+  let pParentIndex = bfs.indexOf(p)
+  let qParentIndex = bfs.indexOf(q)
+  while (pParentIndex >= 0 || qParentIndex >= 0) {
     if (pParentIndex>=0) {
       if (!parents[bfs[pParentIndex]]) {
         parents[bfs[pParentIndex]] = true
         pParentIndex = Math.floor((pParentIndex-1)/2)
       }
-      else return pParentIndex
+      else return bfs[pParentIndex]
     }
     if (qParentIndex>=0) {
       if (!parents[bfs[qParentIndex]]) {
         parents[bfs[qParentIndex]] = true
         qParentIndex = Math.floor((qParentIndex-1)/2)
       }
-      else return qParentIndex
+      else return bfs[qParentIndex]
     }
   } // end of while loop
 } //end of lowestCommonAncestor
@@ -101,4 +102,4 @@ var lowestCommonAncestor = function(root, p, q) {
 
 let bt = BTBuilder([3,5,1,6,2,0,8,null,null,7,4])
 console.log("BT: ", bt)
-console.log("BFS: ", lowestCommonAncestor(bt,1,7))
+console.log("LCA: ", lowestCommonAncestor(bt,5,1))
