@@ -55,20 +55,30 @@ function BTBuilder(array) {
 } // end of BTBuilder
 
 var lowestCommonAncestor = function(root, p, q) {
-  function BFS(root) {
+  function BFS(root, p, q) {
+    let pFound = qFound = false
+    console.log("pFound, qFound: ", pFound, qFound)
     let result = []
     let queue = [root]
-    while (queue.length) {
+
+    while (queue.length && !(pFound && qFound)) {
       const node = queue.shift()
-      console.log('queue: ', queue)
-      result.push(node.val)
-      if (node.left) queue.push(node.left)
-      if (node.right) queue.push(node.right)
+      if (!node) result.push(null)
+      else {
+        if (node.val === p) pFound = true
+        if (node.val === q) qFound = true
+        result.push(node.val)
+        if (node.left) queue.push(node.left)
+          else queue.push(null)
+        if (node.right) queue.push(node.right)
+          else queue.push(null)
+      }
     }
     return result
   } //end of BFS
+  return BFS(root, p, q)
 };
 
 let bt = BTBuilder([3,5,1,6,2,0,8,null,null,7,4])
 console.log("BT: ", bt)
-console.log("BFS: ", lowestCommonAncestor(bt))
+console.log("BFS: ", lowestCommonAncestor(bt,1,8))
