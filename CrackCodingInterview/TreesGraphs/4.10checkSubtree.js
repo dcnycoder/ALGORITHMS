@@ -34,15 +34,13 @@
 //  1   2
 // Return false.
 
+//Definition for a binary tree node.
+function Node(val, left, right) {
+     this.val = (val===undefined ? 0 : val)
+     this.left = (left===undefined ? null : left)
+     this.right = (right===undefined ? null : right)
+ }
 
-/**
- * Definition for a binary tree node.
- * function TreeNode(val, left, right) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.left = (left===undefined ? null : left)
- *     this.right = (right===undefined ? null : right)
- * }
- */
 /**
  * @param {TreeNode} s
  * @param {TreeNode} t
@@ -69,31 +67,53 @@ function BTBuilder(array) {
   return array[0]
 } // end of BTBuilder
 
-var isSubtree = function(s,t) {
+var isSubtree = function(s,t) { //done with recursion
   function dfsCompare(sNode, tNode, identical=true) {
-    if (sNode.value != tNode.value) {
+    if (sNode.val != tNode.val || identical === false) {
       identical = false
       return identical
     }
     else {
-      if (!(s.left===null || identical===false)) {
-        identical = dfsCompare(s.left)
+      if (!(sNode.left===null || identical===false)) {
+        identical = dfsCompare(sNode.left, tNode.left, identical)
       }
-      if (!(s.right===null || identical===false)) {
-        identical = dfsCompare(s.right)
+      if (!(sNode.right===null || identical===false)) {
+        identical = dfsCompare(sNode.right, tNode.right, identical)
       }
       return identical
     }
   }
   let result = false
-  let queue = t
+  let queue = [t]
+  console.log("Queue: ", queue)
   while (queue.length) {
     let node = queue.pop()
-    if (node.value === s.value) {
-      result = dfsCompare(s,t)
+    if (node.val === s.val) {
+      result = dfsCompare(s,node)
       return result
+    }
+    else {
+      if (node.left!=null) queue.unshift(node.left)
+      if (node.right!=null) queue.unshift(node.right)
     }
   }
   return result
 }
 
+var isSubtree1 = function(s,t) { //2 arrays
+  function compare(arr) {
+
+  }
+
+}
+
+// const t = BTBuilder([10,5,15,3,7])
+// const s = BTBuilder([5,3,7])
+
+let t = [3,4,5,1,2]
+let s = [4,1,2]
+//let t = s = []
+t = BTBuilder(t)
+s = BTBuilder(s)
+
+console.log(isSubtree(s,t))
