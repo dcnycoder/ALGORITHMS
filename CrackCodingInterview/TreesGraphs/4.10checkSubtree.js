@@ -104,7 +104,20 @@ var isSubtree1 = function(s,t) { //2 arrays
   function compare(arr) {
 
   }
-
+  let queue = []
+  if (t.indexOf(s[0]!=-1)) {
+    queue.push([0,t.indexOf(s[0])])
+    while (queue.length) {
+      let [sIndex, tIndex] = queue.pop()
+      if (s[sIndex]!=t[tIndex]) return false
+      else {
+        if (sIndex*2+1<=sIndex.length) queue.push([sIndex*2+1, tIndex*2+1])
+        if (sIndex*2+2<=sIndex.length) queue.push([sIndex*2+2, tIndex*2+2])
+      }
+    } //end of while loop
+    return true
+  }
+  else return false
 }
 
 // const t = BTBuilder([10,5,15,3,7])
@@ -113,7 +126,7 @@ var isSubtree1 = function(s,t) { //2 arrays
 let t = [3,4,5,1,2]
 let s = [4,1,2]
 //let t = s = []
-t = BTBuilder(t)
-s = BTBuilder(s)
+// t = BTBuilder(t)
+// s = BTBuilder(s)
 
-console.log(isSubtree(s,t))
+console.log(isSubtree1(s,t))
