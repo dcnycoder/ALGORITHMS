@@ -101,9 +101,6 @@ var isSubtree = function(s,t) { //done with recursion
 }
 
 var isSubtree1 = function(s,t) { //2 arrays
-  function compare(arr) {
-
-  }
   let queue = []
   if (t.indexOf(s[0]!=-1)) {
     queue.push([0,t.indexOf(s[0])])
