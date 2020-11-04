@@ -1,15 +1,3 @@
-// const graph = {
-//   "A": ["B", "C", "D"],
-//   "B": ["D", "E"],
-//   "C": [],
-//   "D": [],
-//   "E": []
-
-//   // "D": ["F"],
-//   // "E": [],
-//   // "F": []
-// }
-
 //SOLUTION APPROACH: 
 //1) Push 1st node into stack
 //2) Pop the node from stack, adding its neighbors to stack
