@@ -13,28 +13,24 @@ type NodeType = {
 }
 
 class LinkedList {
-
   head: NodeType = {value: 0, next: null}
   tail: NodeType | null = null
-  constructor(array: number[]) {
-    if (array.length) {
-      this.head.value = array[0]
+  constructor(public array: number[]) {
       array.forEach(elem => {
-        if(!this.head) {
+        if(!this.head.value) {
           this.head.value = elem
           this.tail = null
         }
       })
-      for (let i =0; i<array.length; i++) {
-        
-      }
-    }
+
   }
 }
 
-function removeDuplicates(linkedList) {
-
+function removeDuplicates(linkedList: number[]) {
+  if (linkedList.length) {
+    const LL = new LinkedList([1,2,3,4,5,6])
+  }
 }
 
-const LL = new LinkedList([1,2,3,4,5,6])
+
 
