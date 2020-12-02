@@ -21,23 +21,26 @@ class LinkedList {
       array.forEach(elem => {
         if(!this.head.value) {
           this.head.value = elem
-          this.tail = null
+          this.tail = this.head
+          this.head.next = this.tail
         }
         else {
-          this.tail = new LLNode(elem)
+          this.tail.next = new LLNode(elem)
+          this.tail = this.tail.next
         }
+        
       })
 
   }
 }
 
-function removeDuplicates(linkedList: number[]) {
-  if (linkedList.length) {
-    const LL = new LinkedList([1,2,3,4,5,6])
+function removeDuplicates(array: number[]) {
+  if (array.length) {
+    const LL = new LinkedList(array)
     return LL
   }
-
 }
 
+console.log(removeDuplicates([1,2,3,4]))
 
 

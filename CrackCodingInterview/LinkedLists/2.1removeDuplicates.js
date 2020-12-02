@@ -1,22 +1,37 @@
+var LLNode = /** @class */ (function () {
+    function LLNode(value, next) {
+        if (next === void 0) { next = null; }
+        this.value = value;
+        this.next = next;
+        this.value = value;
+        this.next = next;
+    }
+    return LLNode;
+}());
 var LinkedList = /** @class */ (function () {
     function LinkedList(array) {
         var _this = this;
+        this.array = array;
         this.head = { value: 0, next: null };
         this.tail = null;
-        if (array.length) {
-            this.head.value = array[0];
-            array.forEach(function (elem) {
-                if (!_this.head) {
-                    _this.head.value = elem;
-                    _this.tail = null;
-                }
-            });
-            for (var i = 0; i < array.length; i++) {
+        array.forEach(function (elem) {
+            if (!_this.head.value) {
+                _this.head.value = elem;
+                _this.tail = _this.head;
+                _this.head.next = _this.tail;
             }
-        }
+            else {
+                _this.tail.next = new LLNode(elem);
+                _this.tail = _this.tail.next;
+            }
+        });
     }
     return LinkedList;
 }());
-function removeDuplicates(linkedList) {
+function removeDuplicates(array) {
+    if (array.length) {
+        var LL = new LinkedList(array);
+        return LL;
+    }
 }
-var LL = new LinkedList([1, 2, 3, 4, 5, 6]);
+console.log(removeDuplicates([1, 2, 3, 4]));
