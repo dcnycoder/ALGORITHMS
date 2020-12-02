@@ -1,6 +1,6 @@
 type LinkedListType = {
   head: NodeType,
-  tail: NodeType,
+  tail: NodeType | null,
 }
 
 type NodeType = {
@@ -22,7 +22,7 @@ class LLNode implements NodeType {
 class LinkedList {
   head: NodeType = {value: 0, next: null}
   tail: NodeType | null = null
-  constructor(public array: number[]) {
+  constructor(array: number[]) {
       array.forEach(elem => {
         if(!this.head.value) {
           this.head.value = elem
@@ -38,22 +38,39 @@ class LinkedList {
   }
 }
 
-function removeDuplicates(array: number[]) {
+function removeDuplicates(array: number[]): LinkedListType | undefined {
   if (array.length) {
     const LL = new LinkedList(array)
+    //console.log("LL: ", LL)
     let nexts: INexts = {}
-    let node = LL.head
+    let node: NodeType | null = LL.head
     while (node) {
       if (!(node.value in nexts)) {
         nexts[node.value] = node
       }
-
+      else {
+        nexts[node.value].next = nexts[node.value].next.next
+      }
+      node = node.next
     }
-
-
+    //console.log("nexts: ", nexts)
+    return LL
   }
 }
 
-console.log(removeDuplicates([1,2,3,4]))
+function linkedListToArray(linkedList: LinkedListType) {
+  let node: NodeType | null = linkedList.head
+  let result: number[] = []
+  while (node) {
+    result.push(node.value)
+    node = node.next
+  }
+  return result
+}
+
+const array = [1,1,2,2,2,2,3,4, 4, 5, 6,7,1]
+let noDuplicatesLL = removeDuplicates(array)
+console.log("Result: ", noDuplicatesLL)
+console.log("LL without duplicates: ", linkedListToArray(noDuplicatesLL))
 
 
