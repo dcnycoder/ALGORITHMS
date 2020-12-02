@@ -31,7 +31,13 @@ var LinkedList = /** @class */ (function () {
 function removeDuplicates(array) {
     if (array.length) {
         var LL = new LinkedList(array);
-        return LL;
+        var nexts = {};
+        var node = LL.head;
+        while (node) {
+            if (!(node.value in nexts)) {
+                nexts[node.value] = node;
+            }
+        }
     }
 }
 console.log(removeDuplicates([1, 2, 3, 4]));

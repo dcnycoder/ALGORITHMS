@@ -7,6 +7,11 @@ type NodeType = {
   value: number,
   next: NodeType | null
 }
+//note synthax for an unknown number of properties
+interface INexts {
+  [key: number]: NodeType
+}
+
 class LLNode implements NodeType {
   constructor(public value: number, public next = null) {
     this.value = value 
@@ -28,7 +33,6 @@ class LinkedList {
           this.tail.next = new LLNode(elem)
           this.tail = this.tail.next
         }
-        
       })
 
   }
@@ -37,7 +41,16 @@ class LinkedList {
 function removeDuplicates(array: number[]) {
   if (array.length) {
     const LL = new LinkedList(array)
-    return LL
+    let nexts: INexts = {}
+    let node = LL.head
+    while (node) {
+      if (!(node.value in nexts)) {
+        nexts[node.value] = node
+      }
+
+    }
+
+
   }
 }
 
