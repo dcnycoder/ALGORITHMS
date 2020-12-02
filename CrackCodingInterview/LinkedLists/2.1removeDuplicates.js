@@ -12,7 +12,7 @@ var LinkedList = /** @class */ (function () {
     function LinkedList(array) {
         var _this = this;
         this.head = { value: 0, next: null };
-        this.tail = null;
+        this.tail = this.head;
         array.forEach(function (elem) {
             if (!_this.head.value) {
                 _this.head.value = elem;
@@ -38,7 +38,8 @@ function removeDuplicates(array) {
                 nexts[node.value] = node;
             }
             else {
-                nexts[node.value].next = nexts[node.value].next.next;
+                nexts[node.value] = nexts[node.value].next;
+                nexts[node.value] = node;
             }
             node = node.next;
         }
@@ -55,7 +56,7 @@ function linkedListToArray(linkedList) {
     }
     return result;
 }
-var array = [1, 1, 2, 2, 2, 2, 3, 4, 4, 5, 6, 7, 1];
+var array = [1, 2, 3, 1, 1];
 var noDuplicatesLL = removeDuplicates(array);
 console.log("Result: ", noDuplicatesLL);
 console.log("LL without duplicates: ", linkedListToArray(noDuplicatesLL));
