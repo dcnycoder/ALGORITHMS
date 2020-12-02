@@ -1,7 +1,3 @@
-// type LinkedListType = {
-//   head: {} | null,
-//   tail: {} | null
-// }
 type LinkedListType = {
   head: NodeType,
   tail: NodeType,
@@ -10,6 +6,12 @@ type LinkedListType = {
 type NodeType = {
   value: number,
   next: NodeType | null
+}
+class LLNode implements NodeType {
+  constructor(public value: number, public next = null) {
+    this.value = value 
+    this.next = next
+  }
 }
 
 class LinkedList {
@@ -21,6 +23,9 @@ class LinkedList {
           this.head.value = elem
           this.tail = null
         }
+        else {
+          this.tail = new LLNode(elem)
+        }
       })
 
   }
@@ -29,7 +34,9 @@ class LinkedList {
 function removeDuplicates(linkedList: number[]) {
   if (linkedList.length) {
     const LL = new LinkedList([1,2,3,4,5,6])
+    return LL
   }
+
 }
 
 
