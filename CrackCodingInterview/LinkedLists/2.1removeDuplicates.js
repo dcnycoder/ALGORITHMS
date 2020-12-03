@@ -11,7 +11,7 @@ var LLNode = /** @class */ (function () {
 var LinkedList = /** @class */ (function () {
     function LinkedList(array) {
         var _this = this;
-        this.head = { value: 0, next: null };
+        this.head = new LLNode(0, null);
         this.tail = this.head;
         array.forEach(function (elem) {
             if (!_this.head.value) {
@@ -32,6 +32,7 @@ function removeDuplicates(array) {
         var LL = new LinkedList(array);
         //console.log("LL: ", LL)
         var nexts = {};
+        console.log('nexts[1]: ', nexts[1])
         var node = LL.head;
         while (node) {
             if (!(node.value in nexts)) {
@@ -41,6 +42,7 @@ function removeDuplicates(array) {
                 nexts[node.value] = nexts[node.value].next;
                 nexts[node.value] = node;
             }
+            console.log('nexts[1]: ', nexts[1])
             node = node.next;
         }
         //console.log("nexts: ", nexts)
@@ -60,3 +62,16 @@ var array = [1, 2, 3, 1, 1];
 var noDuplicatesLL = removeDuplicates(array);
 console.log("Result: ", noDuplicatesLL);
 console.log("LL without duplicates: ", linkedListToArray(noDuplicatesLL));
+
+let obj = {
+    a: 1
+}
+
+let nexts = {
+    next: obj.a
+}
+
+nexts.next = 2
+
+console.log(obj['a'])
+console.log(nexts.next)
