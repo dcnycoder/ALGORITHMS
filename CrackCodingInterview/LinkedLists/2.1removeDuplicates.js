@@ -38,6 +38,8 @@ function removeDuplicates(array) {
                 if (comparedNode.value === node.value) {
                     pointerToPrevNode.next = comparedNode.next;
                 }
+                else
+                    pointerToPrevNode = pointerToPrevNode.next;
                 comparedNode = comparedNode.next;
             }
             node = node.next;
@@ -54,7 +56,7 @@ function linkedListToArray(linkedList) {
     }
     return result;
 }
-var array = [1, 1, 2, 3, 1];
+var array = [1, 5, 1, 2, 5, 4, 1, 2, 3, 1];
 var noDuplicatesLL = removeDuplicates(array);
 console.log("Result: ", noDuplicatesLL);
 console.log("LL without duplicates: ", linkedListToArray(noDuplicatesLL));

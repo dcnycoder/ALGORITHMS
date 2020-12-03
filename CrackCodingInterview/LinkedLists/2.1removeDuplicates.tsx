@@ -49,6 +49,7 @@ function removeDuplicates(array: number[]): LinkedListType | undefined {
           {
             pointerToPrevNode.next = comparedNode.next
           }
+        else pointerToPrevNode = pointerToPrevNode.next
         comparedNode = comparedNode.next
       }
       node = node.next
@@ -67,7 +68,7 @@ function linkedListToArray(linkedList: LinkedListType | undefined) {
   return result
 }
 
-const array = [1,1,2,3,1]
+const array = [1,5,1,2,5,4,1,2,3,1]
 let noDuplicatesLL = removeDuplicates(array)
 console.log("Result: ", noDuplicatesLL)
 console.log("LL without duplicates: ", linkedListToArray(noDuplicatesLL))
