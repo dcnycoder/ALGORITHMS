@@ -40,20 +40,19 @@ class LinkedList {
 function removeDuplicates(array: number[]): LinkedListType | undefined {
   if (array.length) {
     const LL = new LinkedList(array)
-    //console.log("LL: ", LL)
-    let nexts: INexts = {}
     let node: NodeType | null = LL.head
     while (node) {
-      if (!(node.value in nexts)) {
-        nexts[node.value] = node
-      }
-      else {
-        nexts[node.value] = nexts[node.value].next
-        nexts[node.value] = node
+      let pointerToPrevNode = node
+      let comparedNode = node.next
+      while (comparedNode) {
+        if (comparedNode.value === node.value)
+          {
+            pointerToPrevNode.next = comparedNode.next
+          }
+        comparedNode = comparedNode.next
       }
       node = node.next
     }
-    //console.log("nexts: ", nexts)
     return LL
   }
 }
@@ -68,7 +67,7 @@ function linkedListToArray(linkedList: LinkedListType | undefined) {
   return result
 }
 
-const array = [1,2,3,1,1]
+const array = [1,1,2,3,1]
 let noDuplicatesLL = removeDuplicates(array)
 console.log("Result: ", noDuplicatesLL)
 console.log("LL without duplicates: ", linkedListToArray(noDuplicatesLL))
