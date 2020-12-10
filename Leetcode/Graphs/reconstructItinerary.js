@@ -17,11 +17,18 @@
 // Explanation: Another possible reconstruction is ["JFK","SFO","ATL","JFK","ATL","SFO"].
 //              But it is larger in lexical order.
 
-function findItinerary(array, start) {
+function findItinerary(tickets) {
   let graph = {}
   let itinerary = []
-  array.forEach(elem => {
-    if (!(elem[0] in graph)) graph[elem[0]] = [elem[1]]
+
+  if (!tickets.length) return itinerary
+
+  tickets.forEach(elem => {
+    if (!(elem[0] in graph)) {
+      graph[elem[0]] = [elem[1]]
+      //graph[elem[1]] = []
+    }
+
     else {
       graph[elem[0]].push(elem[1])
       if (!(graph[elem[1]])) graph[elem[1]] = []
@@ -29,18 +36,25 @@ function findItinerary(array, start) {
   })
   //sort the codes in graph:
   for (let code in graph) {
-    graph[code] = graph[code].sort()
+    graph[code] = graph[code].sort().reverse()
   }
+  console.log("sorted graph: ", graph)
 
   function buildItinerary(code) {
-    if (!graph[code]) return itinerary //base case
+    console.log('code: ', code)
+    itinerary.push(code)
+    if ((!graph[code]) || (!graph[code].length)) return itinerary //base case
     else {
-      itinerary.push()
+      buildItinerary(graph[code].pop())
     }
+  } // end of buildItinerary
 
-  }
+  buildItinerary("JFK")
+
+  return itinerary
 }
 
-const array = [["JFK","SFO"],["JFK","ATL"],["SFO","ATL"],["ATL","JFK"],["ATL","SFO"]]
+const tickets = [["JFK","SFO"],["JFK","ATL"],["SFO","ATL"],["ATL","JFK"],["ATL","SFO"]]
+const tickets1 = [["MUC","LHR"],["JFK","MUC"],["SFO","SJC"],["LHR","SFO"]]
 
-console.log(findItinerary(array))
+console.log(findItinerary(tickets1))

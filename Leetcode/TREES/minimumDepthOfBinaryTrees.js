@@ -48,37 +48,37 @@ function BTBuilder(array) {
 }
 
 var minDepth = function(root) {
-  if (typeof(root) != 'object') return 0
+  if (root === null) return 0
   let depth
   let queue = [[root]]
   for (let i=0; i<queue.length; i++) {
+    depth = i+1
+    while (queue[i].length) {
 
-
-    
-    if (!queue[i].length) i = i+1
-    let node = queue[i].pop()
-    if (node.left === null && node.right === null) {
-      depth = i+1
-      break
-    }
-    else {
-      if (!queue[i+1]) queue[i+1] = []
-      if (node.left!=null) {
-        queue[i+1].push(node.left)
+      //if (!queue[i].length) i = i+1
+      let node = queue[i].pop()
+      if (node.left === null && node.right === null) {
+        return depth
       }
-      if (node.right!=null) {
-        queue[i+1].push(node.right)
+      else {
+        if (!queue[i+1]) queue[i+1] = []
+        if (node.left!=null) {
+          queue[i+1].push(node.left)
+        }
+        if (node.right!=null) {
+          queue[i+1].push(node.right)
+        }
       }
-    }
+    } // end of while loop
   } // end of tier walk
-  return depth
+  //return depth
 }
 
 
-const array = [3,9,20,null,null,15,7]
-//const array = [0]
+//const array = [3,9,20,null,null,15,7]
+const array = []
 const bt = BTBuilder(array)
 
-
+console.log("BT: ", bt)
 console.log(minDepth(bt))
 

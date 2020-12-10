@@ -16,3 +16,22 @@
 
 // Input: digits = "2"
 // Output: ["a","b","c"]
+
+const arr = [['a','b','c'], ['d', 'e', 'f'], ['g','h','i']]
+
+function letterCombinations(arr) {
+  let result = arr[0]
+  for (let i=1; i<arr.length-1; i++) { // loops through int arrays
+    //console.log(`arr[i]: ${arr[i]}`)
+    //let currentNumLetters = arr[i]
+    let nextNumLetters = arr[i+1]
+    tempResult = []
+    for (let i=0; i<result.length; i++) { //internal arrays
+
+      tempResult = tempResult.concat(nextNumLetters.map(elem => result[i]+elem))
+    } //end of inner loop
+    result = tempResult
+  } // end of outer loop
+  return result
+}
+console.log(letterCombinations(arr))

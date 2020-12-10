@@ -101,9 +101,9 @@ function add2NumbersLL(list1, list2) {
 }
 
 let list1 = new linkedList
-console.log(list1.add(0).add(0).add(1))
+//console.log(list1.add(0).add(0).add(1))
 let list2 = new linkedList
-console.log(list2.add(9).add(9).add(9))
+//console.log(list2.add(9).add(9).add(9))
 console.log("add2Numbers: ", add2NumbersLL(list1, list2))
 
 
