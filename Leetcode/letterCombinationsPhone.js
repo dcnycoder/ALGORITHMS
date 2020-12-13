@@ -17,32 +17,35 @@
 // Input: digits = "2"
 // Output: ["a","b","c"]
 
-const arr = [['a','b','c'], ['d', 'e', 'f'], ['g','h','i']]
+const arr = '23'
 
-function letterCombinations(arr, result=[]) {
-  if (!arr.length) return result
+function letterCombinations(number, result=[]) {
+  let digitLetters = {
+    1: [],
+    2: ['a', 'b', 'c'],
+    3: ['d', 'e', 'f'],
+    4: ['g', 'h', 'i'],
+    5: ['j', 'k', 'l'],
+    6: ['m', 'n', 'o'],
+    7: ['p', 'q', 'r', 's'],
+    8: ['t', 'u', 'v'],
+    9: ['w', 'x', 'y', 'z']
+  }
+
+  if (!number.length) return result
   if (!result.length) {
-    result = arr.shift()
-    letterCombination(arr, result)
+    result = digitLetters[number[0]]
+    return letterCombinations(number.slice(1), result)
   }
   else {
-    for (let i=0; i<arr[0].length; i++) {
-      result 
+    let temp_result = []
+    let arr = digitLetters[number[0]]
+    for (let i=0; i<arr.length; i++) {
+      temp_result = temp_result.concat(result.map(elem => elem+arr[i]))
     }
+    result = temp_result
   }
-    for (let letter in arr[0]) {
-      result = result.concat(letterCombinations())
-    }
-    return result
-
+  return letterCombinations(number.slice(1), result)
 }
 
-//console.log(letterCombinations(arr))
-
-// let arr = ['a', 'b', 'c']
-// let result = []
-// for (let i=0; i<arr.length; i++) {
-//   result = result.map(elem => elem + arr[i])
-//   console.log('result: ', result)
-// }
-// console.log(result)
+console.log(letterCombinations(arr))
