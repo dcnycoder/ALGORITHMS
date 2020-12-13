@@ -19,19 +19,30 @@
 
 const arr = [['a','b','c'], ['d', 'e', 'f'], ['g','h','i']]
 
-function letterCombinations(arr) {
-  let result = arr[0]
-  for (let i=1; i<arr.length-1; i++) { // loops through int arrays
-    //console.log(`arr[i]: ${arr[i]}`)
-    //let currentNumLetters = arr[i]
-    let nextNumLetters = arr[i+1]
-    tempResult = []
-    for (let i=0; i<result.length; i++) { //internal arrays
+function letterCombinations(arr, result=[]) {
+  if (!arr.length) return result
+  if (!result.length) {
+    result = arr.shift()
+    letterCombination(arr, result)
+  }
+  else {
+    for (let i=0; i<arr[0].length; i++) {
+      result 
+    }
+  }
+    for (let letter in arr[0]) {
+      result = result.concat(letterCombinations())
+    }
+    return result
 
-      tempResult = tempResult.concat(nextNumLetters.map(elem => result[i]+elem))
-    } //end of inner loop
-    result = tempResult
-  } // end of outer loop
-  return result
 }
-console.log(letterCombinations(arr))
+
+//console.log(letterCombinations(arr))
+
+// let arr = ['a', 'b', 'c']
+// let result = []
+// for (let i=0; i<arr.length; i++) {
+//   result = result.map(elem => elem + arr[i])
+//   console.log('result: ', result)
+// }
+// console.log(result)
