@@ -42,7 +42,7 @@ function removeDuplicates(array: number[]): LinkedListType | undefined {
     const LL = new LinkedList(array)
     let node: NodeType | null = LL.head
     while (node) {
-      let pointerToPrevNode = node
+      let pointerToPrevNode: Node | null = node
       let comparedNode = node.next
       while (comparedNode) {
         if (comparedNode.value === node.value)

@@ -17,7 +17,7 @@
 // Input: digits = "2"
 // Output: ["a","b","c"]
 
-const arr = '23'
+const arr = '12323223'
 
 function letterCombinations(number, result=[]) {
   let digitLetters = {
