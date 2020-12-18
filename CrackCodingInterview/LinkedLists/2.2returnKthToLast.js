@@ -24,9 +24,27 @@ class LinkedList {
   }
 }
 
+//SOLUTION APPROACH: 
+//1) Starting with the head, start the count, create the first pointer and
+// move it to the next node
+//2) When count reaches n, start trailing pointer from the head
 var removeNthFromEnd = function(head, n) {
-    
-};
+    let counter = 0
+    let fastPointer = head
+    let slowPointer
+    while (fastPointer != head.tail) {
+      if (counter === n) {
+        slowPointer = head
+      }
+      fastPointer = fastPointer.next
+      if (slowPointer != undefined) slowPointer = slowPointer.next
+      counter += 1
+    }
+    return slowPointer
+}
+
 
 let arr = [1,2,3,4,5]
-console.log(new LinkedList(arr))
+let LL = new LinkedList(arr)
+console.log("LL: ", LL)
+console.log("result: ", removeNthFromEnd(LL.head, 3))
