@@ -28,23 +28,41 @@ class LinkedList {
 //1) Starting with the head, start the count, create the first pointer and
 // move it to the next node
 //2) When count reaches n, start trailing pointer from the head
-var returnNthFromEnd = function(head, n) {
+var removeNthFromEnd = function(LL, n) {
     let counter = 0
-    let fastPointer = head
-    let slowPointer
-    while (fastPointer != head.tail) {
-      if (counter === n) {
-        slowPointer = head
-      }
-      fastPointer = fastPointer.next
-      if (slowPointer != undefined) slowPointer = slowPointer.next
+    let fastPointer = LL.head
+    let prevToKth
+    while (fastPointer != null) {
       counter += 1
+      if (counter === n) {
+        prevToKth = LL.head
+      }
+        fastPointer = fastPointer.next
+        //if ((prevToKth != undefined) && (fastPointer!=null)) prevToKth = prevToKth.next
+
     }
-    return slowPointer
+
+    if (prevToKth != undefined) prevToKth.value = 3
+    //if (prevToKth != undefined) prevToKth = temp
+
+
+    return LL
 }
 
-
+function changeTail(LL) {
+  let pointer = LL.tail
+  pointer.value = 200
+  console.log("changed LL in the func: ", LL)
+  return LL
+}
 let arr = [1,2,3,4,5]
-let LL = new LinkedList(arr)
+let arr1 = [1]
+let LL = new LinkedList(arr1)
+
+// console.log("LL before: ", LL)
+
+// changeTail(LL)
+// console.log("LL after: ", LL)
+
 console.log("LL: ", LL)
-console.log("result: ", returnNthFromEnd(LL.head, 4))
+console.log("result: ", removeNthFromEnd(LL, 1))
