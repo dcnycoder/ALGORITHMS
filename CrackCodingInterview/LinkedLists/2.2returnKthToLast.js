@@ -29,16 +29,18 @@ class LinkedList {
 // move it to the next node
 //2) When count reaches n, start trailing pointer from the head
 var returnNthFromEnd = function(head, n) {
-    let counter = 0
+
+    let counter = 1
     let fastPointer = head
     let slowPointer
-    while (fastPointer != head.tail) {
+    while (fastPointer != null) {
+
       if (counter === n) {
         slowPointer = head
       }
       fastPointer = fastPointer.next
-      if (slowPointer != undefined) slowPointer = slowPointer.next
       counter += 1
+      if ((slowPointer != undefined) && (fastPointer != null)) slowPointer = slowPointer.next
     }
     return slowPointer
 }
@@ -47,4 +49,4 @@ var returnNthFromEnd = function(head, n) {
 let arr = [1,2,3,4,5]
 let LL = new LinkedList(arr)
 console.log("LL: ", LL)
-console.log("result: ", returnNthFromEnd(LL.head, 4))
+console.log("result: ", returnNthFromEnd(LL.head, 5))
