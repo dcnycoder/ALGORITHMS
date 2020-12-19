@@ -30,27 +30,33 @@ class LinkedList {
 //   the new elements and its next
 //2) Greater elements will just stay in place
 function partitionLinkedList(LL, num) {
-  let smallerPointer
-  let fastPointer = LL.head
-  while (fastPointer.next != null) {
-    if (fastPointer.value < num) {
-      if (smallerPointer === undefined) { 
-        //1) cut out this node (we need to have the prevNode, so maybe operate with fastPointer.next?)
+  let prevPointer = LL.head
+  let smallerBorder = prevPointer.value < num? LL.head : undefined
+  while (prevPointer.next != null) {
+    if (prevPointer.next.value < num) {
+      if (smallerBorder === undefined) { 
+        //1) cut out this next node (we need to have the prevNode)
         //2) make it a head
         //3) set the smaller pointer to the head
-
+        //let tempNode = prevPointer.next
+        let tempNode = LL.head
+        LL.head = prevPointer.next
+        LL.head.next = tempNode
+        prevPointer.next = prevPointer.next.next
+        smallerBorder = LL.head
       }
       else {
-
+        tempNode = smallerBorder.next
+        smallerBorder.next = prevPointer.next
+        smallerBorder.next.next = tempNode
       }
     }
-    else 
+    //else 
     //1) keep the larger node in place
     //2) move the fastPointer
-    {
-      
-    }
+    prevPointer = prevPointer.next
   }
+  return LL
 }
 
 console.log(new LinkedList([1,2,3,4,5]))
