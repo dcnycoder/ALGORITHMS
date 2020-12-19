@@ -46,7 +46,7 @@ var returnNthFromEnd = function(head, n) {
 }
 
 
-let arr = [1,2,3,4,5]
+let arr = []
 let LL = new LinkedList(arr)
 console.log("LL: ", LL)
 console.log("result: ", returnNthFromEnd(LL.head, 5))

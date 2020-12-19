@@ -1,1 +1,0 @@
-//https://www.lintcode.com/problem/partition-list/description
