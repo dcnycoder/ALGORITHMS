@@ -22,8 +22,8 @@
 // 3
 
 class LLNode {
-  constructor(value, next) {
-    this.value = value? value : 0
+  constructor(val, next) {
+    this.val = val? val : 0
     this.next = next? next : null
   }
 }
@@ -47,7 +47,7 @@ function LLToArray(linkedList) {
   var node = linkedList.head;
   var result = [];
   while (node) {
-      result.push(node.value);
+      result.push(node.val);
       node = node.next;
   }
   return result;
@@ -64,7 +64,11 @@ var getIntersectionNode = function(headA, headB) {
           visitedNodes[elem.val] = [elem]
         }
         else {
-          if (visitedNodes[elem.val].includes(elem)) return elem
+          if (visitedNodes[elem.val].includes(elem)) {
+            console.log("this is the elem: ", elem.val)
+            return elem
+          }
+
           else visitedNodes[elem.val].push(elem)
         }
       })
@@ -74,6 +78,18 @@ var getIntersectionNode = function(headA, headB) {
       }
       , [])
     }
+    console.log("visitedNodes: ", visitedNodes)
   }
+
   return null
 };
+
+const ll1 = new LinkedList([4,1,4,6])
+const ll2 = new LinkedList([5,6,1,8,4,5])
+
+ll1.head.next.next = ll2.head.next.next.next
+console.log("ll1: ", LLToArray(ll1))
+console.log("ll1: ", LLToArray(ll2))
+console.log("getIntersectionNode: ", getIntersectionNode(ll1.head, ll2.head))
+// 
+// [5,6,1,8,4,5]
