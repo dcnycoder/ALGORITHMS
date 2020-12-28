@@ -61,13 +61,11 @@ var getIntersectionNode = function(headA, headB) {
     while (nodesAB.length) {
       for (let index in nodesAB) {
         elem = nodesAB[index]
-        console.log("elem: ", elem)
         if (!(elem.val in visitedNodes)) {
           visitedNodes[elem.val] = [elem]
         }
         else {
           if (visitedNodes[elem.val].includes(elem)) {
-            console.log("this is the elem: ", elem.val)
             return elem
           }
           else visitedNodes[elem.val].push(elem)
@@ -79,10 +77,9 @@ var getIntersectionNode = function(headA, headB) {
       }
       , [])
     }
-    console.log("visitedNodes: ", visitedNodes)
   }
   return null
-};
+}
 
 const ll1 = new LinkedList([4,1,4,6])
 const ll2 = new LinkedList([5,6,1,8,4,5])
