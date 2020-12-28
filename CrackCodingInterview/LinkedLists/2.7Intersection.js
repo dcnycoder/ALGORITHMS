@@ -59,7 +59,9 @@ var getIntersectionNode = function(headA, headB) {
     let visitedNodes = {}
     let nodesAB = [headA, headB]
     while (nodesAB.length) {
-      nodesAB.forEach(elem => {
+      for (let index in nodesAB) {
+        elem = nodesAB[index]
+        console.log("elem: ", elem)
         if (!(elem.val in visitedNodes)) {
           visitedNodes[elem.val] = [elem]
         }
@@ -68,10 +70,9 @@ var getIntersectionNode = function(headA, headB) {
             console.log("this is the elem: ", elem.val)
             return elem
           }
-
           else visitedNodes[elem.val].push(elem)
         }
-      })
+      }
       nodesAB = nodesAB.reduce((acc, elem) => {
         if (elem.next!=null) acc.push(elem.next)
           return acc
@@ -80,7 +81,6 @@ var getIntersectionNode = function(headA, headB) {
     }
     console.log("visitedNodes: ", visitedNodes)
   }
-
   return null
 };
 
