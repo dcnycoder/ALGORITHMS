@@ -24,9 +24,31 @@
 // 3. 2 steps + 1 step
 
 const variations = [1,2,3]
-const steps = 3
+const steps = 5
 
 function tripleStep(steps, result = []) {
+  if (!steps || steps === 0) return result
+  if (result.length === 0) {
+    for (let i=0; i<variations.length; i++) {
+      if (variations[i] <= steps) {
+        //result.push(tripleStep(steps-variations[i], [variations[i]]))
+        result = result.concat(tripleStep(steps-variations[i], [variations[i]]))
+        return result
+      }
+    }
+  }
+  else {
+    let tempResult = []
+    for (let i=0; i<variations.length; i++) {
+      let variation = variations[i]
+      if (variation<=steps) {
+        tempResult = tempResult.concat(tripleStep(steps-variation, result+variation))
+      }
+    }
+    result = tempResult
+    return result
+} 
+  return result
+} //end of tripleStep
 
-}
-
+console.log("result: ", tripleStep(steps))
