@@ -64,8 +64,8 @@ var lowestCommonAncestor = function(root, p, q) {
       const node = queue.shift()
       if (!node) result.push(null)
       else {
-        if (node.val === p) pFound = true
-        if (node.val === q) qFound = true
+        if (node.val === p.val) pFound = true
+        if (node.val === q.val) qFound = true
         result.push(node.val)
         if (node.left) queue.push(node.left)
           else queue.push(null)
@@ -75,12 +75,13 @@ var lowestCommonAncestor = function(root, p, q) {
     }
     return result
   } //end of BFS
+  console.log("p, q: ", p, q)
   let bfs = BFS(root, p, q)
   console.log("BFS: ", bfs)
 
   let parents = {}
-  let pParentIndex = bfs.indexOf(p)
-  let qParentIndex = bfs.indexOf(q)
+  let pParentIndex = bfs.indexOf(p.val)
+  let qParentIndex = bfs.indexOf(q.val)
   while (pParentIndex >= 0 || qParentIndex >= 0) {
     if (pParentIndex>=0) {
       if (!parents[bfs[pParentIndex]]) {
@@ -101,5 +102,10 @@ var lowestCommonAncestor = function(root, p, q) {
 
 
 let bt = BTBuilder([3,5,1,6,2,0,8,null,null,7,4])
-console.log("BT: ", bt)
-console.log("LCA: ", lowestCommonAncestor(bt,5,1))
+// console.log("BT: ", bt)
+// console.log("LCA: ", lowestCommonAncestor(bt, BTBuilder(5), BTBuilder(1)))
+
+let node5 = new Node(5)
+let node1 = new Node(1)
+
+console.log("LCA: ", lowestCommonAncestor(bt, node5, node1))

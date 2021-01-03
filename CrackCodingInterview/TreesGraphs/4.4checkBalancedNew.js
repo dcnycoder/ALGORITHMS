@@ -33,31 +33,17 @@ return array[0]
 
 const bt = BTBuilder([3,9,20,null,null,15,7])
 const bt1 = BTBuilder([1,2,2,3,3,null,null,4,4])
-console.log("BT: ", bt1)
+const bt2 = BTBuilder([1,null,2,null,3])
+console.log("BT: ", bt3)
 
-function checkBalanced(node, result = true) {
+function isBalanced(node) {
   function nodeDepth(node) {
-    if (!node.left && !node.right) return 1
+    if (!node) return 0
     else return Math.max(nodeDepth(node.left), nodeDepth(node.right)) + 1
   }
-
-  // if (result = false) return result
-  // else 
-  result = checkBalanced(node.left) && checkBalanced(node.right)
-  return result
-  //return (Math.abs(checkBalanced(node.left) - checkBalanced(node.right)) < 1)
+  if (!node) return true
+  else return (Math.abs(nodeDepth(node.left))-Math.abs(nodeDepth(node.right))<=1) && 
+          isBalanced(node.left) && checkBalanced(node.right)
 }
 
-
-//   if (!node) return 0
-//   //if (result === false) return result
-
-//   //return (!checkBalanced(node.left) || !checkBalanced(node.right))? false : {
-//   if ((checkBalanced(node.left)===false || checkBalanced(node.right)===false)
-//    || (Math.abs(checkBalanced(node.left)) - checkBalanced(node.right))>1) return false
-  
-//   //else return Math.abs(checkBalanced(node.left) - checkBalanced(node.right)) + 1
-//   else return Math.max(checkBalanced(node.left), checkBalanced(node.right)) + 1
-// }
-
-console.log('BT check: ', checkBalanced(bt))
+console.log('BT check: ', checkBalanced(bt1))

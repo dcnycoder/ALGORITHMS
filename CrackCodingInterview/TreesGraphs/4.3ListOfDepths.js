@@ -71,7 +71,7 @@ var levelOrder = function(root) {
   return result
 }
 
-const array = [3,9,20,null,null,15,7]
+const array = [10,5,15,null,null,6,20]
 const bt = BTBuilder(array)
 console.log("BT: ", bt)
 console.log(levelOrder(bt))

@@ -66,50 +66,29 @@ function BTBuilder(array) {
       }
       else currentNode.right = null
     }
-
   }
   return array[0]
+} // end of BTBuilder
+
+var isValidBST = function(bt) {
+  function inOrder(node) {
+    let result = []
+    if (!node) return result
+    else {
+      result = preOrder(node.left).concat(result)
+      result.push(node.val)
+      result = result.concat(preOrder(node.right))
+    }
+    return result
+  }
+  let result = inOrder(bt)
+  for (let i=0; i<result.length-1; i++) {
+    if (result[i]>result[i+1]) return false
+  }
+  return true
 }
 
-var isValidBST = function(node, leftBound=[leftMin = -Infinity, leftMax = (node? node.val : null)], rightBound=[rightMin = (node? node.val : null), rightMax = Infinity], isValid = true) {
-  //pass the right and left boundary.
-  if (!node) return isValid
-  if (isValid === false) return isValid//base case - short-circuit
-  else {
-    if (node.left!=null) {
-      if (node.left.val > leftMin && node.left.val < leftMax) {
-        leftMax = node.left.val
-        isValid = isValid && isValidBST(node.left, [leftMin, leftMax], [leftMax, node.val], isValid)
-      }
-      else {
-        isValid = false
-        return isValid
-      }
-    }
-    if (node.right!=null) {
-      rightMin = node.right.val
-      if (node.right.val > rightMin && node.right.val < rightMax) {
-        isValid = isValid && isValidBST(node.right, [node.val, rightMin], [rightMin, rightMax], isValid)
-      }
-      else {
-        isValid = false
-        return isValid
-      }
-    }
-    return isValid
-  }
-} //end of isValidBST
 
-function inOrder(node) {
-  let result = []
-  if (!node) return result
-  else {
-    result = preOrder(node.left).concat(result)
-    result.push(node.val)
-    result = result.concat(preOrder(node.right))
-  }
-  return result
-}
 
 //const bt = BTBuilder([1,2,2,3,3,3,3,4,4,4,4,4,4,null,null,5,5])
 const bt = BTBuilder([3,1,5,0,2,4,6,null,null,null,3])
@@ -119,3 +98,37 @@ const bt = BTBuilder([3,1,5,0,2,4,6,null,null,null,3])
 console.log('bt: ', bt)
 //console.log(isValidBST(bt))
 console.log(inOrder(bt))
+
+
+
+//SHRINKING RANGE APPROACH:
+// var isValidBST = function(node, leftBound=[leftMin = -Infinity, leftMax = (node? node.val : null)], rightBound=[rightMin = (node? node.val : null), rightMax = Infinity], isValid = true) {
+//   //pass the right and left boundary.
+//   if (!node) return isValid
+//   if (isValid === false) return isValid//base case - short-circuit
+//   else {
+//     if (node.left!=null) {
+//       if (node.left.val > leftMin && node.left.val < leftMax) {
+//         leftMax = node.left.val
+//         isValid = isValid && isValidBST(node.left, [leftMin, leftMax], [leftMax, node.val], isValid)
+//       }
+//       else {
+//         isValid = false
+//         return isValid
+//       }
+//     }
+//     if (node.right!=null) {
+//       rightMin = node.right.val
+//       if (node.right.val > rightMin && node.right.val < rightMax) {
+//         isValid = isValid && isValidBST(node.right, [node.val, rightMin], [rightMin, rightMax], isValid)
+//       }
+//       else {
+//         isValid = false
+//         return isValid
+//       }
+//     }
+//     return isValid
+//   }
+// } //end of isValidBST
+
+
