@@ -34,7 +34,7 @@ return array[0]
 const bt = BTBuilder([3,9,20,null,null,15,7])
 const bt1 = BTBuilder([1,2,2,3,3,null,null,4,4])
 const bt2 = BTBuilder([1,null,2,null,3])
-console.log("BT: ", bt3)
+console.log("BT: ", bt2)
 
 function isBalanced(node) {
   function nodeDepth(node) {
@@ -44,6 +44,6 @@ function isBalanced(node) {
   if (!node) return true
   else return (Math.abs(nodeDepth(node.left))-Math.abs(nodeDepth(node.right))<=1) && 
           isBalanced(node.left) && checkBalanced(node.right)
-}
+} // end of isBalanced
 
-console.log('BT check: ', checkBalanced(bt1))
+console.log('BT check: ', isBalanced(bt2))
