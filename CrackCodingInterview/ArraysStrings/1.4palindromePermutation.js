@@ -10,7 +10,6 @@
 const string = 'ab    tttbba'
 
 const canPermutePalindrome = function (s) {
-  let result
   let letterCount = {}
   let totalLetters = 0
   for (let i=0; i<s.length; i++) {

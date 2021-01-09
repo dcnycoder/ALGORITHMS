@@ -1,10 +1,17 @@
 function checkPalindrome(str) {
   let start = 0
-  let end = -1
+  let end = str.length-1
   result = true
   while (start <= end && result!=false) {
-    if (str[start] === str[end])
+    console.log("arr[start]/arr[end]: ", str[start], str[end])
+    if (str[start] === str[end]) {
+      start+=1
+      end-=1
+    }
+    else result = false
   }
+  return result
 }
 
-const str = aba
+const str = 'ba'
+console.log("Result: ", checkPalindrome(str))
