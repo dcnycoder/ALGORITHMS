@@ -50,22 +50,27 @@ for (let i=1; i<array.length; i++) {
 return root
 }
 
-function listOfDepths2(bt, queue=[[bt.val]], index = 0) {
-  if (!queue[index]) return queue
+function listOfDepths2(bt, queue=[bt], result=[]) {
+  if (!queue.length) return result
   else {
-    //let newLevel = []
-    const newLevel = queue[index].reduce((acc, elem) => {
-      if (elem.left) acc.push(elem.left.val)
-      if (elem.right) acc.push(elem.right.val)
+    newLevel = queue.map(elem => {
+      return elem.val
+    })
+    console.log('newLevel: ', newLevel)
+    result.push(newLevel)
+
+    const newQueue = queue.reduce((acc, elem) => {
+      if (elem.left) acc.push(elem.left)
+      if (elem.right) acc.push(elem.right)
       return acc
     }, [])
-    // queue[index].forEach(elem => {
-    //   if (elem != null) newLevel.push(elem)
-    // })
-    if (newLevel.length>0) queue.push(newLevel)
-    return listOfDepths2(bt, queue, index+1)
+
+    queue = newQueue
+    return listOfDepths2(bt, queue, result)
   }
 }
 
 let bt = BTBuilder([3,9,20,null,null,15,7])
-console.log(listOfDepths2(bt))
+let bt2 = BTBuilder([])
+console.log("BT: ", bt)
+console.log(listOfDepths2(bt2))
