@@ -66,7 +66,7 @@ function Node(val, left, right) {
 }
 
 const root = BTBuilder([4,2,6,1,3,null,null])
-const root1 = BTBuilder([1,2,3])
+const root1 = BTBuilder([1,null,2,null,3])
 
 var minDiffInBST = function(node) {
     function inOrderTraversal(node, result=[]) {
@@ -78,8 +78,15 @@ var minDiffInBST = function(node) {
         return result
       }
     }
-    const inOrderArray = inOrderTraversal(node)
-    console.log(inOrderArray)
+    const inOrderArraySorted = inOrderTraversal(node).sort()
+    let minDiff = Infinity
+
+    for (let i=0; i<inOrderArraySorted.length-1; i++) {
+      if (inOrderArraySorted[i+1]-inOrderArraySorted[i]<minDiff) {
+        minDiff = inOrderArraySorted[i+1]-inOrderArraySorted[i]
+      }
+    }
+    return minDiff
 }
 
-minDiffInBST(root)
+console.log(minDiffInBST(root))
