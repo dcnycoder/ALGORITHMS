@@ -8,3 +8,4 @@ function triangularNumbers(num) {
   else return num+triangularNumbers(num-1)
 }
 
+console.log(triangularNumbers(7))
