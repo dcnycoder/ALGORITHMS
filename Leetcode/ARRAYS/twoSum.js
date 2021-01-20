@@ -32,11 +32,15 @@ var twoSum = function(nums, target) {
   let result
   let lowerIndex = 0
   let upperIndex = nums.length-1
-  while (lowerIndex<=upperIndex && !result) {
-
+  while (lowerIndex<=upperIndex && result === undefined) {
+    if (nums[lowerIndex]+nums[upperIndex] > target) upperIndex -= 1
+    else if (nums[lowerIndex]+nums[upperIndex] < target) lowerIndex += 1
+    else result = [lowerIndex, upperIndex]
   }
   return result
 }
 
-//APPROACH: 
-let num = [1,2,3,4,5,6,7,8,9,10,11]
+let nums = [1,2,3,4,5,6,7,8,10,11]
+let target = 10
+
+console.log(twoSum(nums, target))
