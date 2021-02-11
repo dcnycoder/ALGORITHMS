@@ -1,13 +1,30 @@
 https://leetcode.com/problems/number-of-islands/
 
-function numberOfIslands(arr) {
+// Given an m x n 2d grid map of '1's (land) and '0's (water), return the number of islands.
+
+// An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
+// Input: grid = [
+//   ["1","1","1","1","0"],
+//   ["1","1","0","1","0"],
+//   ["1","1","0","0","0"],
+//   ["0","0","0","0","0"]
+// ]
+// Output: 1
+
+function numIslands(arr) {
   let islands = 0
-  function islandDFS(i, j, visited) {
-    if (arr[i][j] === undefined) return
+  function islandDFS(i, j) {
+    if (arr[i][j] === "0") return 
     else {
       visited[i][j] = true
-      const neighbors = [[i-1, j], [i+1, j], [j-1, i], [j+1, i]]
-      neighbors.forEach(neighbor => islandDFS())
+      let neighbors = []
+      if (i+1<arr.length) neighbors.push([i+1, j])
+      if (i-1>=0) neighbors.push([i-1, j])
+      if (j+1<arr[i].length) neighbors.push([i, j+1])
+      if (j-1>=0) neighbors.push([i, j-1])
+      neighbors.forEach(neighbor => {
+        if (visited[neighbor[0]][neighbor[1]] === false) islandDFS(neighbor[0], neighbor[1])
+      })
     }
   }
   function array2DFiller(rows, cols, filler) {
@@ -19,7 +36,6 @@ function numberOfIslands(arr) {
       }
       filledArray.push(row);
     }
-    console.log(filledArray);
     return filledArray;
   }
 
@@ -29,7 +45,7 @@ function numberOfIslands(arr) {
     for (let j=0; j<arr[i].length; j++) {
       if (visited[i][j] === false) {
         visited[i][j] === true
-        if (arr[i][j] === 1) {
+        if (arr[i][j] === "1") {
           islands += 1
           islandDFS(i, j)
         }
@@ -38,11 +54,3 @@ function numberOfIslands(arr) {
   }
   return islands
 }
-
-let arr = [
-  [1,0,1,0],
-  [1,0,1,0],
-  [1,0,1,0],
-  [1,0,1,0],
-]
-numberOfIslands(arr)
