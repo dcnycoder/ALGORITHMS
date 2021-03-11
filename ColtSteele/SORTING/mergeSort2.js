@@ -32,5 +32,5 @@ function mergeSort(arr, start=0, end=arr.length) {
 }
 
 
-let arr = [1,5,8,10,2]
+let arr = [1,5,8,10,2, 200, -1, -8]
 console.log(mergeSort(arr))
