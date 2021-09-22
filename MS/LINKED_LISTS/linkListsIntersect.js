@@ -10,6 +10,7 @@ const Node = function(val = 0, next = null) {
 class LinkedList {
   constructor() {
     this.head = this.tail = null
+    this.counter = 0
   }
   add(val) {
     const newNode = new Node(val)
@@ -17,8 +18,8 @@ class LinkedList {
     else {
       this.tail.next = newNode
       this.tail = this.tail.next
-
     }
+    this.counter+=1
     return this
   }
 }
@@ -58,7 +59,8 @@ function LLIntersect(LL1, LL2) {
 let LL1 = new LinkedList
 LL1.add(1).add(2).add(3)
 let LL2 = new LinkedList
-LL2.add(5).add(7).add(8)
+LL2.add(5).add(7).add(8).add(9)
+console.log("Counters: ", LL1.counter, LL2.counter)
 LL2.head.next = LL1.head.next
 console.log("LL1, LL2: ", LL1, LL2)
 console.log("LLIntersect: ", LLIntersect(LL1, LL2))
