@@ -1,5 +1,6 @@
-nums = [1,2,3,1,2,3]
-nums1 = [1,2,3,1]
+//https://leetcode.com/problems/contains-duplicate-ii/submissions/
+
+nums = [1,2,3,1]
 k = 3
 
 var containsNearbyDuplicate = function(nums, k) {
