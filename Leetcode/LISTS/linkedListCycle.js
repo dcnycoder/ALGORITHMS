@@ -1,3 +1,5 @@
+//https://leetcode.com/problems/linked-list-cycle/
+
 class Node {
   constructor(val, next) {
     this.val = val? val : 0
@@ -18,9 +20,7 @@ var hasCycle = function(head) {
   while (current != null) {
     if (!(current.val in nodeObject)) nodeObject[current.val] = [current]
     else {
-      //for (let i=0; i<nodeObject[current].length; i++) {
       for (let i=0; i<nodeObject[current.val].length-1; i++) {
-      //for (let node in nodeObject[current.val]) {
         const node = nodeObject[current.val][i]
         if (node === current) return true
       }
