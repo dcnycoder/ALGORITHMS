@@ -2,7 +2,7 @@ let str = "abcabcaa"
 
 function longestSubstring(str) {
   let max = 0
-  counter = 0
+  let counter = 0
   let start = 0
   let chars = {}
 
