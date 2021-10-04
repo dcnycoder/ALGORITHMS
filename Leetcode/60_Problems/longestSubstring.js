@@ -1,4 +1,5 @@
-let str = "abcabcaa"
+let str = 
+"aabaab!bb"
 
 function longestSubstring(str) {
   let max = 0
@@ -12,16 +13,18 @@ function longestSubstring(str) {
       counter+=1
     }
     else {
-      if (i>=start) {
-        if ((counter>max)) {
-          max = counter
-          
-        }
+      if (chars[str[i]]>=start) {
+        if ((counter>max)) max = counter
+        start = chars[str[i]]
         counter = i-start//chars[str[i]]
-        start = chars[str[i]]+1
         chars[str[i]] = i
       }
+      else {
+        chars[str[i]] = i
+        counter+=1
+      } 
     }
+    
   }
   if (counter>max) max = counter
   return max
