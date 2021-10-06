@@ -13,25 +13,37 @@ LL.next.next.next.next = new ListNode(5)
 
 var sortList = function(head) {
     let minNode = head
+    let slowPointer = head
+    let fastPointer
     let current = head
     let oldCurrent
     let oldMinNode
-    while (current) {
-        while (current.next) {
-            if (current.next.val < minIndex.val) {
+    let result = new ListNode()
+    let resPointer = result
+    while (slowPointer) {
+        while (slowPointer.next) {
+            fastPointer = slowPointer.next
+            if (current.next.val < minNode.val) {
                 minNode = current.next
             }
-            current.next = current.next.next
+            slowPointer.next = current.next.next //sets the current.next to next
         }
+
         oldCurrent = current
         oldMinNode = minNode
         current = minNode
         current.next = oldCurrent.next
         minNode = oldCurrent
         minNode.next = oldMinNode.next
+        // console.log("head: ", head)
+        // console.log("current: ", current)
+
+        resPointer.next = current
+        resPointer = resPointer.next
+
         current = current.next
     }
-    return head
+    return result.next
 }
 
-console.log()
+console.log(sortList(LL))
