@@ -6,42 +6,40 @@ function ListNode(val, next) {
 }
 
 let LL = new ListNode(10)
-LL.next = new ListNode(9)
-LL.next.next = new ListNode(8)
-LL.next.next.next = new ListNode(1)
-LL.next.next.next.next = new ListNode(5)
+LL.next = new ListNode(1)
+LL.next.next = new ListNode(5)
+// LL.next.next.next = new ListNode(1)
+// LL.next.next.next.next = new ListNode(5)
 
 var sortList = function(head) {
     let minNode = head
     let slowPointer = head
     let fastPointer
-    let current = head
-    let oldCurrent
     let oldMinNode
     let result = new ListNode()
     let resPointer = result
     while (slowPointer) {
-        while (slowPointer.next) {
-            fastPointer = slowPointer.next
-            if (current.next.val < minNode.val) {
-                minNode = current.next
+        fastPointer = slowPointer.next
+        while (fastPointer) {
+            if (fastPointer.val < minNode.val) {
+                minNode = fastPointer
             }
-            slowPointer.next = current.next.next //sets the current.next to next
+            fastPointer = fastPointer.next //sets the current.next to next
         }
 
-        oldCurrent = current
+        let oldSlowPointer = slowPointer
         oldMinNode = minNode
-        current = minNode
-        current.next = oldCurrent.next
-        minNode = oldCurrent
-        minNode.next = oldMinNode.next
+        slowPointer = minNode
+        slowPointer.next = oldSlowPointer.next
+        minNode = oldSlowPointer
+        minNode.next = oldMinNode.next //sets to swapped value's next
         // console.log("head: ", head)
         // console.log("current: ", current)
 
-        resPointer.next = current
+        resPointer.next = slowPointer
         resPointer = resPointer.next
 
-        current = current.next
+        slowPointer = slowPointer.next
     }
     return result.next
 }
