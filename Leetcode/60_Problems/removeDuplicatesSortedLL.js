@@ -19,10 +19,8 @@ const removeDuplicatesFromSortedLL = (head) => {
     let slowPointer = head
     let fastPointer
     while (slowPointer) {
-        //while (slowPointer.next) {
             fastPointer = slowPointer.next
-            while (fastPointer && (fastPointer.val === slowPointer.val)) fastPointer = fastPointer.next//slowPointer.next = fastPointer 
-        //}
+            while (fastPointer && (fastPointer.val === slowPointer.val)) fastPointer = fastPointer.next
         slowPointer.next = fastPointer
         slowPointer = slowPointer.next
     }
