@@ -5,19 +5,23 @@
  * @return {number}
  */
 
+const s = "aabdccdb"
 const firstUniqChar = function(s) {
     let uniqueIndex = {}
-    let charOrder = []
 
-    for (let i; i<s.length; i++) {
-      if (!charCount.includes(s[i])) {
+    for (let i=0; i<s.length; i++) {
+      if (!(s[i] in uniqueIndex)) {
         uniqueIndex[s[i]] = i
-        //charOrder.push(char)
       }
-      uniqueIndex[s[i]] = -1
+      else uniqueIndex[s[i]] = -1
     }
-    for (let char in charCount) {
-      console.log("Char: ", char)
+
+    for (let char in uniqueIndex) {
+      if (uniqueIndex[char] != -1) {
+        return uniqueIndex[char]
+      }
     }
     return -1
 };
+
+console.log(firstUniqChar(s))
