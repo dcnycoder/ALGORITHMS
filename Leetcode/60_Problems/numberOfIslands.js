@@ -40,9 +40,40 @@ function make2dFilledArray(array, filler) {
 }
 
 var numIslands = function(grid) {
-    let visitedArray = JSON.parse(JSON.stringify(grid)) //deep copy of grid
-    console.log("visited array: ", visitedArray)
-    console.log("filled Array: ", make2dFilledArray(grid, false))
+  let visited = make2dFilledArray(grid, false)
+  let counter = 0
+
+  function exploreIsland(row, col) {
+    //traverse the island in cross pattern:
+    visited[row][col] = true
+    if (row-1 >= 0 && !visited[row-1][col]) { //up
+      if (grid[row-1][col] === "1") exploreIsland(grid[row-1][col])
+      visited[row-1][col] = true
+    }
+    if (row+1 <= grid.length && !visited[row+1][col]) { //down
+      if (grid[row+1][col] === "1") exploreIsland(grid[row+1][col])
+      visited[row+1][col] = true
+    }
+    if (col-1 >= 0 && !visited[row][col-1]) { //left
+      if (grid[row][col-1] === "1") exploreIsland(grid[row][col-1])
+      visited[row][col-1] = true
+    }
+    if (col+1 <= grid[0].length && !visited[row][col+1]) { //right
+      if (grid[row][col+1] === "1") exploreIsland(grid[row][col+1])
+      visited[row][col+1] = true
+    }
+  } // end of exploreIsland
+
+    for (let row = 0; row<grid.length; row++) {
+      for (let col = 0; col<grid[row].length; col++) {
+        visited[row][col] = true
+        if ((grid[row][col]) === '1' && !visited[row][col]) {
+          exploreIsland(row, col)
+          counter += 1
+        }
+      }
+    }
+    return counter
 }
 
-numIslands(grid)
+console.log(numIslands(grid))
