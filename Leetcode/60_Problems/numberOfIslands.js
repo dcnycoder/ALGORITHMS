@@ -26,22 +26,19 @@
 
 
 const grid = [
-  ["1","1","1","1","0"],
-  ["1","1","0","1","0"],
-  ["1","1","0","0","0"],
-  ["0","0","0","0","0"]
+  ["1","1","0","0","0"],["1","1","0","0","0"],["0","0","1","0","0"],["0","0","0","1","1"]
 ]
-
-function make2dFilledArray(array, filler) {
-  const filledArray = array.map(innerArray => 
-    innerArray.slice().map(elem => filler)
-  )
-  return filledArray
-}
 
 var numIslands = function(grid) {
   let visited = make2dFilledArray(grid, false)
   let counter = 0
+
+  function make2dFilledArray(array, filler) {
+    const filledArray = array.map(innerArray => 
+      innerArray.slice().map(elem => filler)
+    )
+    return filledArray
+  }
 
   function exploreIsland(row, col) {
     //traverse the island in cross pattern:
@@ -50,7 +47,7 @@ var numIslands = function(grid) {
       if (grid[row-1][col] === "1") exploreIsland(row-1, col)
       visited[row-1][col] = true
     }
-    if (row+1 <= grid.length && !visited[row+1][col]) { //down
+    if (row+1 < grid.length && !visited[row+1][col]) { //down
       if (grid[row+1][col] === "1") exploreIsland(row+1, col)
       visited[row+1][col] = true
     }
@@ -58,7 +55,7 @@ var numIslands = function(grid) {
       if (grid[row][col-1] === "1") exploreIsland(row, col-1)
       visited[row][col-1] = true
     }
-    if (col+1 <= grid[0].length && !visited[row][col+1]) { //right
+    if (col+1 < grid[0].length && !visited[row][col+1]) { //right
       if (grid[row][col+1] === "1") exploreIsland(row, col+1)
       visited[row][col+1] = true
     }
