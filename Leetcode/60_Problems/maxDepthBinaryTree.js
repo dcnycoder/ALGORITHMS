@@ -25,16 +25,23 @@ const maxDepth = function(root) {
     
 }
 
-const BTBuilder(arr) {
-  let result
-  for (let n=0; n<arr.length; n++) {
-    let curr = new TreeNode(arr[n])
-    if (result === undefined) result = curr
-    let left = arr[2n+1]
-    let right = arr=[2n+2]
-    if (left !== undefined) {
-      curr.left = new TreeNode
+function BTBuilder(array) {
+  let root = new Node(array[0])
+  let queue = [root]
+  for (let i=1; i<array.length; i++) {
+    let currentNode = queue.pop()
+    if (array[i+1] != null) {
+      currentNode.right = new Node(array[i+1])
+      queue.push(currentNode.right)
     }
+    else currentNode.right = null
+
+    if (array[i] != null) {
+      currentNode.left = new Node(array[i])
+      queue.push(currentNode.left)
+    }
+    else currentNode.left = null
+    i+=1
   }
-  return result
+  return root
 }
