@@ -13,9 +13,8 @@ function reverseLL(head) {
     let oldNext = currentNode.next
     currentNode.next = oldPrev
     oldPrev = currentNode
-    //if (oldNext === null) return currentNode
-    //else 
-    currentNode = oldNext
+    if (oldNext === null) return currentNode
+    else currentNode = oldNext
   }
   return currentNode
 }
